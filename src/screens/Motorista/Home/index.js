@@ -10,6 +10,7 @@ import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 
 
 export default function MHomeRota ({route, navigation}) {
+    const a = [];
     const [currentDate, setCurrentDate] = useState('');
     const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
     "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
