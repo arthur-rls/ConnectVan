@@ -21,7 +21,7 @@ export default function PreReg ({navigation}) {
             <View style={{position:'absolute', alignItems: 'center'}}>
               <Image source={require('../../../../assets/users.png')} style={styles.icon}/>
               <Text style={{fontFamily:'AileronR', fontSize:14}}>Responsável</Text>
-            </View>
+            </View> 
           </TouchableOpacity>
           <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('cadastroMotorista')}>
             <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
