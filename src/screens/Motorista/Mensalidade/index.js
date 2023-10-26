@@ -7,7 +7,6 @@ import {View, Text,Image,  TouchableOpacity, TextInput, Modal, ScrollView, Keybo
 import { doc, getDoc, onSnapshot, getDocs, collection, collectionGroup, query, where, updateDoc} from 'firebase/firestore';
 
 export default function Mensalidade({navigation}){
-    const [pagantes, setPagantes] = useState(0)
     const [dia, setDia] = useState('')
     const [mes, setMes] = useState('')
     const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
@@ -35,7 +34,6 @@ export default function Mensalidade({navigation}){
         consultas()
         consultas2()
         consultas3()
-        console.log(pagantes)
     },[])
 
     const consultas = async ()=> {
@@ -122,41 +120,15 @@ export default function Mensalidade({navigation}){
             </View>
         </View>
         <View style={styles.fundoTab1}>
-        {pagantes == 0(
-            // <View style={{flexDirection:'row', justifyContent:'space-between'}}> 
-            //     <TouchableOpacity style={{marginTop:'5%',marginLeft:'5%'}}>
-            //     <Entypo name="chevron-left" size={26} color="black" />
-            //     </TouchableOpacity>
-            //     <Text style={styles.mes}>Atrasados</Text>
-            //     <TouchableOpacity style={{marginTop:'5%',marginRight:'5%'}}>
-            //     <Entypo name="chevron-right" size={26} color="black" />
-            //     </TouchableOpacity>
-            // </View>
-            <Text>aaa</Text>
-        )}
-        {/* {pagantes = '1' (
-            <View style={{flexDirection:'row', justifyContent:'space-between'}}> 
-                <TouchableOpacity style={{marginTop:'5%',marginLeft:'5%'}}>
-                <Entypo name="chevron-left" size={26} color="black" />
-                </TouchableOpacity>
-                <Text style={styles.mes}>Pagos</Text>
-                <TouchableOpacity style={{marginTop:'5%',marginRight:'5%'}}>
-                <Entypo name="chevron-right" size={26} color="black" />
-                </TouchableOpacity>
-            </View>
-        )}
-        {pagantes = '2' (
-            <View style={{flexDirection:'row', justifyContent:'space-between'}}> 
-                <TouchableOpacity style={{marginTop:'5%',marginLeft:'5%'}}>
-                <Entypo name="chevron-left" size={26} color="black" />
-                </TouchableOpacity>
-                <Text style={styles.mes}>A pagar</Text>
-                <TouchableOpacity style={{marginTop:'5%',marginRight:'5%'}}>
-                <Entypo name="chevron-right" size={26} color="black" />
-                </TouchableOpacity>
-            </View>
-        )} */}
-        
+             <View style={{flexDirection:'row', justifyContent:'space-between'}}> 
+                 <TouchableOpacity style={{marginTop:'5%',marginLeft:'5%'}}>
+                 <Entypo name="chevron-left" size={26} color="black" />
+                 </TouchableOpacity>
+                 <Text style={styles.mes}>Atrasados</Text>
+                 <TouchableOpacity style={{marginTop:'5%',marginRight:'5%'}}>
+                 <Entypo name="chevron-right" size={26} color="black" />
+                 </TouchableOpacity>
+             </View>   
         <View style={styles.linha}/>
         <ScrollView>
           <View style={styles.viewAtr1}> 
