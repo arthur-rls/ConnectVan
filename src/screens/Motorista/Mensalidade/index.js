@@ -35,6 +35,7 @@ export default function Mensalidade({navigation}){
         consultas2()
         consultas3()
     },[])
+
     
 
     const consultas = async ()=> {
