@@ -60,6 +60,7 @@ export default function MHomeRota ({navigation}) {
         })
     }
     if(!longi || !lati){
+      local()
       return null
     }
     const iniciar = async() =>{
@@ -78,7 +79,7 @@ export default function MHomeRota ({navigation}) {
 
     const enviar=()=>{
       onAuthStateChanged(auth, async(user)=>{
-        updateDoc(doc(db, 'motorista', user.uid), {rota: rota})
+        updateDoc(doc(db, 'motorista', user.uid), {rota: rota, viajando: true})
       })
     }
     async function local(){
@@ -89,15 +90,17 @@ export default function MHomeRota ({navigation}) {
             setLati(position.coords.latitude)
             setLongi(position.coords.longitude)
         }
+
     }
       
       const Item = ({item}) => (
-        <View style={{flexDirection:'row', marginTop:'2%', marginRight:'47%'}}>
-            <View style={[styles.viewMae, {height:13}]}/>
-            <FontAwesome name="user-circle-o" size={24} color="black" />
-            <View style={{flexDirection:'column', marginLeft:'4%'}}>
-                <Text style={styles.viewFilha}>{item.nome}</Text>
-                <Text style={styles.infos}>{item.endereco}</Text>
+        <View style={{flexDirection:'row', marginVertical: '10%'}}>
+            <View style={styles.viewMae}/>
+            <View style={{alignItems:'center'}}>
+              <View style={{flexDirection:'column', marginLeft:'10%'}}>
+                  <Text style={styles.viewFilha}>{item.nome}</Text>
+                  <Text style={styles.infos}>{item.endereco}</Text>
+              </View>
             </View>
         </View>
       );
@@ -113,37 +116,44 @@ export default function MHomeRota ({navigation}) {
         }
     return (
         <View style={styles.container}>
-                <Modal
-                  animationType="slide"
-                  transparent={true}
-                  visible={modalVisible}
-                  onRequestClose={() => {
-                  setModalVisible(!modalVisible);
-                  }}>
-                      <View style={styles.centeredView}>
-                          <View style={styles.modalView}>
-                              <View style={{position:'absolute', padding:10}}>
-                                  <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                                      <Feather name="x" size={24} color="black" />
-                                  </TouchableOpacity>
-                              </View>
-                              <Text>Após iniciar a rota, copie e cole o compartilhamento de trajeto a baixo e envie.</Text>
-                              <TextInput value={rota} onChangeText={(value)=>setRota(value)}/>
-                              <TouchableOpacity onPress={()=>iniciar()}>
-                                <Text>Abrir maps</Text>
-                              </TouchableOpacity>
-                              <TouchableOpacity onPress={()=>enviar()}>
-                                <Text>Enviar rota</Text>
-                              </TouchableOpacity>
-                          </View>
-                      </View>
-                  </Modal>
-          <View style={{flexDirection:'row', paddingHorizontal:10}}>
-            <TouchableOpacity onPress={()=>navigation.navigate('HomeMotorista')}>
-              <Entypo name="chevron-left" size={24} color="black" style={[styles.iconBack, {marginTop:16}]}/>
-            </TouchableOpacity>
-            <Text style={{marginTop:'5%', fontSize:18, fontWeight:'bold', marginLeft:'23%'}}>Iniciar Rota</Text>
-          </View>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+            setModalVisible(!modalVisible);
+            }}>
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <View style={{position:'absolute', padding:10}}>
+                            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                                <Feather name="x" size={24} color="black" />
+                            </TouchableOpacity>
+                        </View>
+                        <Text style={{fontFamily:'AileronR', fontSize: 16, marginVertical:'5%'}}>Após iniciar a rota, copie e cole o compartilhamento de trajeto a baixo e envie.</Text>
+                        <TextInput value={rota} onChangeText={(value)=>setRota(value)} style={styles.input}/>
+                        <View style={styles.viewBotao2}>
+                          <TouchableOpacity style={[styles.botaoAdd, {backgroundColor:'gray'}]} onPress={()=>iniciar()}>
+                            <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient} />
+                            <Text style={{fontSize:16, position:'absolute', fontFamily:'AileronH'}}>Abrir maps</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity style={styles.botaoAdd} onPress={()=>enviar()}>
+                            <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
+                            <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Enviar rota</Text>
+                          </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+            <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
+            <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
+                <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={{flex:1,position:'absolute', marginLeft:'3%'}}>
+                  <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
+                </TouchableOpacity>
+                <View style={{ justifyContent:'center', alignItems:'center'}}>
+                <Text style={{fontSize:18, fontFamily:'AileronH'}}>Iniciar Rota</Text>
+              </View>
+            </View>
     
           <View style={styles.fundoTab}>
     
@@ -163,27 +173,31 @@ export default function MHomeRota ({navigation}) {
                 dropDownContainerStyle={styles.box}
                 />
             </View>
+            <ScrollView contentContainerStyle={{justifyContent:'center'}}>
             <FlatList
                 data={array}
                 renderItem={renderItem}
             />
 
-
-            {escola.map((item)=>{
-              <View style={{flexDirection:'row', marginTop:'2%', marginRight:'47%'}}>
-              <View style={[styles.viewMae, {height:13}]}/>
-              <FontAwesome name="user-circle-o" size={24} color="black" />
-              <View style={{flexDirection:'column', marginLeft:'4%'}}>
-                  <Text style={styles.viewFilha}>{item.escola}</Text>
+            
+              {/* {escola.map((item)=>{
+                <View style={{flexDirection:'row'}}>
+                  <View style={styles.viewMae}/>
+                  <FontAwesome name="user-circle-o" size={24} color="black" />
+                  <View style={{flexDirection:'column'}}>
+                      <Text style={styles.viewFilha}>{item.escola}</Text>
+                  </View>
+                </View>
+              })} */}
+            </ScrollView>
+            <View style={{justifyContent:'flex-end', alignItems:'center',}}>
+              <View style={styles.viewBotao}>
+                <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.botaoMaps}>
+                      <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
+                      <Ionicons name="ios-location-sharp" size={24} color="black" />
+                      <Text style={{fontSize:16, fontWeight:'bold', marginLeft:'5%'}}>Abrir no Maps</Text>
+                  </TouchableOpacity>
               </View>
-          </View>
-            })}
-            <View style={styles.viewBotao}>
-              <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.botaoMaps}>
-                    <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
-                    <Ionicons name="ios-location-sharp" size={24} color="black" />
-                    <Text style={{fontSize:16, fontWeight:'bold', marginLeft:'5%'}}>Abrir no Maps</Text>
-                </TouchableOpacity>
             </View>
     
           </View>

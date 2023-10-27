@@ -22,10 +22,11 @@ export default function Mensalidade({navigation}) {
         const docRef = doc(db, 'responsavel', user.uid)
         const snapshot = await getDoc(docRef)
         setDado(snapshot.data())
-        if(dado.motorista != '' && dado.motorista != undefined){
+        if(dado.motorista != '' && dado.motorista != undefined && dado.motorista != null){
             setContrato(true)
         }
         console.log(contrato)
+        console.log(dado.motorista)
         
     })
   },[])
@@ -33,12 +34,22 @@ export default function Mensalidade({navigation}) {
   const pago=async()=>{
         const docRef = doc(db, 'motorista', dado.motorista, 'responsavel', dado.nome)
         updateDoc(docRef, {pago:true})
+        const docRef2 = doc(db,'responsavel', user.uid)
+        updateDoc(docRef2, {pago:true})
   }
 
+  const reset=()=>{
+    if(dado.motorista != '' && dado.motorista != undefined && dado.motorista != null){
+      setContrato(true)
+    }
+    console.log(contrato)
+        console.log(dado.motorista)
+  }
+  
   if(contrato==false){
+    reset()
     return(
         <View style={styles.container}>
-      
           <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
             <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
                 <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
@@ -62,7 +73,7 @@ export default function Mensalidade({navigation}) {
           <Text style={{fontSize:18, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>contratado.</Text>
         </View>
         <View style={styles.viewBotao}>
-          <TouchableOpacity style={styles.botao} onPress={()=>navigation.navigate('Pesquisa')}>
+          <TouchableOpacity style={styles.botao} onPress={()=>navigation.navigate('Pesquisar')}>
             <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
             <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Contratar</Text>
           </TouchableOpacity>

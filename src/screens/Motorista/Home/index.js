@@ -22,14 +22,13 @@ export default function MHomeRota ({route, navigation}) {
     const [aviso, setAviso] = useState(false)
     const [gatilho, setGatilho] = useState(true)
     const [avisoD, setAvisoD] = useState('')
-    const q = query(collectionGroup(db, 'responsavel'), where('pago','==', true))
     const [ver, setVer] = useState(false)
     const s = []
 
     const verSaldo=()=>{
       setVer(current=>!current)
 
-    }
+    } 
     useEffect(()=>{
         var date = new Date().getDate(); //Current Date
         var month = new Date().getMonth(); //Current Month
@@ -41,26 +40,23 @@ export default function MHomeRota ({route, navigation}) {
         )
         onAuthStateChanged(auth, async (user) => {
             if (user) {
+                const q = query(collection(db, 'motorista', user.uid, 'responsavel'), where('pago','==', true))
                 const docRef = doc(db, 'motorista', user.uid)
                 const snapshot = await getDoc(docRef)
                 setRec(snapshot.data());
+                setAviso(rec.avisando)
                 setAvisoA(rec.aviso)
                 setAvisoD(rec.data)
-                if(avisoA!=''|| avisoA != undefined){
-                    setAviso(true)
-                }
-                else{
-                  console.log(avisoA)
-                }
                 
-
                 const snapshot2 = await getDocs(q)
                 snapshot2.forEach((item)=>{
                     const dado = item.data()
                     const men = dado.mensalidade
                     s.push(men)
-                    
                 })
+                
+
+                
                 for(var i = 0; i < s.length; i++) {
                   saldoS += s[i];
                 }

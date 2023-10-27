@@ -122,6 +122,7 @@ export default StyleSheet.create({
     height:45,
     justifyContent:'center',
     borderRadius:50,
+    marginBottom:'5%'
   },
 })
 

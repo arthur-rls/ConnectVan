@@ -110,7 +110,7 @@ export default function Login ({navigation}) {
                                 <Text style={{ fontSize:25, textAlign:'justify', paddingBottom:5}}>Preencha com o e-mail que você usou para se cadastrar. Você receberá um e-mail com instruções sobre como redefinir sua senha.</Text>
                                 <TextInput style={styles.input} placeholder="Email"onChangeText={(text) => setEmail(text)} value={email}/>
                                 <View style={{paddingVertical:10}}>
-                                    <TouchableOpacity style={[styles.botao,{alignSelf: 'center'}]} onPress={() => forgotPassword()}>
+                                    <TouchableOpacity style={[styles.botao, {justifyContent:'center', alignItems:'center'}]} onPress={() => forgotPassword()}>
                                         <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
                                         <Text style={{fontSize:25, position:'absolute', fontFamily:'AileronR'}}>Enviar email</Text>
                                     </TouchableOpacity>

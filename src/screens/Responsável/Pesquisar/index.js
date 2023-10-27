@@ -28,7 +28,6 @@ export default function Pesquisa ({navigation}){
         });
 
         setMoto(arr)
-        console.log(moto)
     }
     return (
         <View style={styles.container}>
@@ -52,7 +51,6 @@ export default function Pesquisa ({navigation}){
                         <View style={styles.fundoEscola}>
                             <View style={{padding:18, flex: 1}}>
                                 <Text style={styles.nomeMotorista}>{item.nome}</Text>
-                                <Text style={{fontSize:14, fontFamily:'AileronR'}}>cidade</Text>
                             </View>
                             <View style={{flex: 1, justifyContent:'flex-end', flexDirection:'row'}}>
                                 <View style={{justifyContent:'center', marginRight:'10%'}}>

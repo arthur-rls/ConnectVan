@@ -17,48 +17,48 @@ export default function Passageiro({route, navigation}) {
     const [endereco, setEndereco] = useState('')
     useEffect(()=>{
         onAuthStateChanged(auth, async (user) => {
-                const docRef = doc(db, 'responsavel', user.uid)
-                const snapshot = await getDoc(docRef)
-                setRec(snapshot.data())
-                setNome(rec.nomeAluno[key])
-                setEscola(rec.escola[key])
-                setSala(rec.sala[key])
-                setSerie(rec.serie[key])
-                setPeriodo(rec.periodo[key])
-                setEndereco(rec.endereco[key])
+          const docRef = doc(db, 'responsavel', user.uid)
+          const snapshot = await getDoc(docRef)
+          setRec(snapshot.data())
         });
     }, [])
+    if(!rec){
+      return null
+    }
     return (
 
         <View style={styles.container}>
-          <View style={{flexDirection:'row', paddingHorizontal:10}}>
-            <TouchableOpacity>
-              <Entypo name="chevron-left" size={24} color="black" style={[styles.iconBack, {marginTop:16}]}/>
-            </TouchableOpacity>
-            <Text style={{marginTop:'5%', fontSize:18, fontWeight:'bold', marginLeft:'22%'}}>{nome}</Text>
+          <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
+          <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
+              <TouchableOpacity onPress={()=>navigation.navigate('Passageiros')} style={{flex:1,position:'absolute'}}>
+                <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
+              </TouchableOpacity>
+              <View style={{ justifyContent:'center', alignItems:'center'}}>
+              <Text style={{fontSize:18, fontFamily:'AileronH'}}>{rec.nomeAluno[key]}</Text>
+            </View>
           </View>
     
           <View style={styles.fundoTab}>
-             
-            <View style={{flexDirection:'row', marginTop:'12%', marginRight:'55%'}}>
-              <View style={{height:135, width:2, backgroundColor:'black', borderRadius:50}}/>
-              <View style={{flexDirection:'column', marginLeft:'40%'}}>
-                <Text style={{fontSize:18, fontWeight:'bold', marginTop:'5%'}}>Escola</Text>
-                <Text style={styles.infos}>{escola}</Text>
-                <Text style={styles.infos}>{sala}</Text>
-                <Text style={styles.infos}>{serie}</Text>
-                <Text style={styles.infos}>{periodo}</Text>
+            <View style={styles.fundo}>
+            <View style={{flexDirection:'row'}}>
+            <View style={[styles.viewMae, {height:135}]}/> 
+              <View style={{flexDirection:'column', marginLeft:'11%'}}>
+                <Text style={styles.viewFilha}>Escola</Text>
+                <Text style={styles.infos}>{rec.escola[key]}</Text>
+                <Text style={styles.infos}>{rec.sala[key]}</Text>
+                <Text style={styles.infos}>{rec.serie[key]}</Text>
+                <Text style={styles.infos}>{rec.periodo[key]}</Text>
               </View>
+          </View>
+
+          <View style={{flexDirection:'row'}}>
+            <View style={[styles.viewMae, {height:106}]}/>
+            <View style={{flexDirection:'column', marginLeft:'11%'}}>
+              <Text style={styles.viewFilha}>Endereço</Text>
+              <Text style={styles.infos}>{rec.endereco[key]}</Text>
             </View>
-    
-            <View style={{flexDirection:'row', marginTop:'10%', marginRight:'49%'}}>
-              <View style={{height:115, width:2, backgroundColor:'black', borderRadius:50}}/>
-              <View style={{flexDirection:'column', marginLeft:'30%'}}>
-                <Text style={{fontSize:18, fontWeight:'bold', marginTop:'5%'}}>Endereço</Text>
-                <Text style={styles.infos}>{endereco}</Text>
-              </View>
+          </View>
             </View>
-    
           </View>
         </View>
       );

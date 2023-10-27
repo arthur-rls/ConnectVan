@@ -29,38 +29,43 @@ export default function AddMensalidade({route, navigation}) {
         }
     }
 
-
   return (
 
-    <SafeAreaView style={styles.container}>
-      <View style={{flexDirection:'row', paddingHorizontal:10}}>
-        <Text style={{marginTop:'10%', fontSize:34, fontWeight:'bold', marginLeft:'8%'}}>Insira a mensalidade combinada</Text>
-      </View>
+    <View style={styles.container}>
+      <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
+        <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
+            <View style={{ justifyContent:'center', alignItems:'center'}}>
+              <Text style={{fontSize:22, fontFamily:'AileronH'}}>Insira a mensalidade combinada</Text>
+            </View>
+        </View>
 
       <View style={styles.fundoTab}>
+        <View style={{width:'100%', alignItems:'center'}}>
+          <View style={{flexDirection:'column', alignContent:'center', marginTop:'5%', width:'60%'}}>
+            <Text style={{fontSize:18, fontFamily:'AileronH', marginTop:'3%'}}>Valor</Text>
+            <TextInputMask
+              type={'money'}
+              placeholder="R$180,00"
+              style={styles.input}
+              onChangeText={(value)=>setMensalidadeM(value)}
+              value={mensalidadeM}
+              />
+          </View>
 
-        <View style={{flexDirection:'column', alignContent:'center', marginTop:17}}>
-          <Text style={{fontSize:15, fontWeight:'bold', marginTop:'3%'}}>Valor</Text>
-          <TextInputMask
-            type={'money'}
-            placeholder="R$180,00"
-            style={styles.input}
-            onChangeText={(value)=>setMensalidadeM(value)}
-            value={mensalidadeM}
-            />
+          <View style={{flexDirection:'column', alignContent:'center', marginTop:'5%'}}>
+            <Text style={{fontSize:18, fontFamily:'AileronH'}}>Data do pagamento</Text>
+            <Text style={{fontFamily:'AileronR', fontSize:14}} onPress={()=>setModalVisible(true)}>{data}</Text>
+          </View>
         </View>
 
-        <View style={{flexDirection:'column', alignContent:'center', marginTop:17}}>
-          <Text style={{fontSize:15, fontWeight:'bold'}}>Data do pagamento</Text>
-          <Text onPress={()=>setModalVisible(true)}>{data}</Text>
-        </View>
-        
         <View style={styles.viewBotao}>
           <TouchableOpacity style={[styles.botaoAdd, {backgroundColor:'gray'}]} onPress={()=>navigation.navigate('AddAluno', {idR})}>
-            <Text style={{fontSize:16, fontWeight:'bold'}}>Cancelar</Text>
+            <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient} />
+            <Text style={{fontSize:16, position:'absolute', fontFamily:'AileronH'}}>Cancelar</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.botaoAdd} onPress={()=>mensa()}>
-            <Text style={{fontSize:16, fontWeight:'bold'}}>Finalizar</Text>
+            <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
+            <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Finalizar</Text>
           </TouchableOpacity>
         </View>
         <Modal visible={modalVisible}>
@@ -76,6 +81,6 @@ export default function AddMensalidade({route, navigation}) {
                 <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Por favor selecione uma data e um valor.</Text>
             </View>
         ):null}
-    </SafeAreaView>
+    </View>
   );
 }

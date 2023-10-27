@@ -31,44 +31,41 @@ export default function Passageiros({navigation}) {
     }
   return (
     <View style={styles.container}>
-      <View style={{flexDirection:'row', paddingHorizontal:10}}>
-        <TouchableOpacity>
-          <Entypo name="menu" size={29} color="black" style={[styles.iconMenu, {marginTop:13}]}/>
-        </TouchableOpacity>
-        <Text style={{marginTop:'5%', fontSize:18, fontWeight:'bold', marginLeft:'22%'}}>Passageiros</Text>
-      </View>
+      <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
+            <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
+                <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
+                  <Entypo name="menu" size={29} color="black" style={styles.iconMenu}/>
+                </TouchableOpacity>
+                <View style={{ justifyContent:'center', alignItems:'center'}}>
+                <Text style={{fontSize:18, fontFamily:'AileronH'}}>Passageiros</Text>
+              </View>
+            </View>
 
       <View style={styles.fundoTab}>
-        <Text style={{fontSize:18, fontWeight:'bold', marginTop:'5%'}}>
+        <Text style={{fontSize:18,fontFamily:'AileronH', marginTop:'5%'}}>
           TODOS ({rec.nomeAluno.length})
         </Text>
 
         {aluno.map((item, index)=>{
           const key = index
             return(
-            <TouchableOpacity style={styles.botaoEscola} onPress={()=>navigation.navigate('TelaAluno', {key})}>
-            <View style={styles.fundoEscola}>
-              <View style={{padding:18, flexDirection:'row'}}>
-                <Image
-                  source={{uri:'https://cdn-icons-png.flaticon.com/512/5987/5987462.png'}}      
-                  style={{height:45,width:45}}
-                />
-                <Text style={styles.nome}>{item}</Text>
-                <View style={{position:'absolute', marginLeft:'82%', marginTop:'3%'}}>
-                  <TouchableOpacity>
-                    <Entypo name="chevron-right" size={23} color="black" />
-                  </TouchableOpacity>
+              <TouchableOpacity style={styles.botaoEscola} onPress={()=>navigation.navigate('TelaAluno', {key})}>
+              <View style={styles.fundoEscola}>
+                <View style={{padding:18, flexDirection:'row', alignItems:'center'}}>
+                  <Image
+                    source={{uri:'https://cdn-icons-png.flaticon.com/512/5987/5987462.png'}}      
+                    style={{height:45,width:45}}
+                  />
+                  <Text style={styles.nome}>{item}</Text>
                 </View>
               </View>
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
           )
         })}
         <View style={styles.viewBotao}>
-          <TouchableOpacity style={styles.botaoAdd} onPress={()=>navigation.navigate('AddPassageiro')}>
-            <View styles={{marginTop:70,}}>
-              <Text style={{fontSize:16, fontWeight:'bold'}}>Adicionar passageiro</Text>
-            </View>
+          <TouchableOpacity onPress={() => navigation.navigate('AddPassageiro')} style={styles.botaoMaps}>
+              <Image source={require('../../../../assets/gradient.png')} style={[styles.gradient, {position:'absolute'}]}/>
+              <Text style={{fontSize:16, fontWeight:'bold',}}>Adicionar aluno</Text>
           </TouchableOpacity>
         </View>
       </View>

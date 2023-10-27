@@ -7,17 +7,19 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         backgroundColor: '#FFBF00',
-        padding: 8,
       },
       fundoTab:{
         flex:1,
-        backgroundColor: '#fff',
+        backgroundColor: 'white',
         width:'100%',
         marginTop:13,
         borderRadius: 40,
         borderBottomEndRadius:0,
         borderBottomStartRadius:0,
         alignItems:'center',
+      },
+      iconMenu:{
+        marginLeft:10,
       },
       titulo:{
         fontSize:18, 
@@ -48,11 +50,18 @@ export default StyleSheet.create({
       viewMae:{
         width:2, 
         backgroundColor:'black', 
-        borderRadius:50
+        borderRadius:50,
+        marginBottom:'10%'
       },
       viewFilha:{
         fontSize:18, 
         fontWeight:'bold',
         marginTop:'3%'
+      },
+      fundo:{
+        marginTop:'10%'
+      },
+      gradient:{
+        width:'100%', height:'100%', alignSelf: 'center', borderRadius:50
       },
     });

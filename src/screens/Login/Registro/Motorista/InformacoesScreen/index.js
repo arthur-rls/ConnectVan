@@ -18,12 +18,12 @@ export default function InformacoesMotorista ({navigation}) {
     const [showElementPlaca, setShowElementPlaca] = useState(false)
 
     async function salvar(){
-        if(placaU.length==7 && cpfU.length==14 && !nomeU==''){
+        if(placaU.length==7 && cpfU.length==11 && !nomeU==''){
             onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const docRef = doc(db, 'motorista', user.uid)
 
-                updateDoc(docRef,{nome: nomeU, placa: placaU, cpf:cpfU})
+                updateDoc(docRef,{nome: nomeU, placa: placaU, cnh:cpfU})
                 navigation.navigate('drawerM');
                 
             }
@@ -33,7 +33,7 @@ export default function InformacoesMotorista ({navigation}) {
             if(nomeU==''){
                 setShowElementNome(true)
             }
-            if(cpfU.length!=14){
+            if(cpfU.length!=11){
                 setShowElementCPF(true)
             }
             if(placaU.length!=7){
@@ -51,7 +51,7 @@ export default function InformacoesMotorista ({navigation}) {
                 
                 <View style={{width:'100%',paddingTop:10}}>
                     <TextInput style={showElementNome?styles.inputErro:styles.input} placeholder="Nome e Sobrenome" value={nomeU} onChangeText={value => setNomeU(value)} autoCapitalize='words'/>
-                    <TextInputMask style={showElementCPF?styles.inputErro:styles.input} placeholder="CPF" value={cpfU} onChangeText={value => setCpfU(value)} type={'cpf'}/>
+                    <TextInput style={showElementCPF?styles.inputErro:styles.input} placeholder="CNH" value={cpfU} onChangeText={value => setCpfU(value)} maxLength={11} keyboardType='numeric'/>
                     <MaskInput style={showElementPlaca?styles.inputErro:styles.input} placeholder="Placa do carro" value={placaU} onChangeText={value => setPlacaU(value)} autoCapitalize='characters' maxLength={7}/>
                 </View>
 
@@ -75,7 +75,7 @@ export default function InformacoesMotorista ({navigation}) {
                             <TouchableOpacity onPress={()=>setShowElementCPF(false)}>
                                 <Feather name="x" size={20} color="white" />
                             </TouchableOpacity>
-                            <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Insira um CPF válido.</Text>
+                            <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Insira uma CNH válida.</Text>
                         </View>
                     ):null}
                     {showElementPlaca==true ? (

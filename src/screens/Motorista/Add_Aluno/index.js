@@ -41,10 +41,10 @@ export default function AddAluno ({route, navigation}) {
                 updateDoc(docRef, {solicitacao: arrayRemove(idR), contratos: arrayUnion(idR)})
                 setDoc(doc(db, 'motorista', user.uid, 'passageiros', rec.nomeAluno[0]), {nome: rec.nomeAluno[0], endereco: rec.endereco[0], escola: rec.escola[0], responsavel:rec.nome, sala: rec.sala[0], serie: rec.serie[0], periodo: rec.periodo[0], telefone_responsavel: rec.telefone})
                 setDoc(doc(db, 'motorista', user.uid, 'responsavel', rec.nome), {nome: rec.nome, mensalidade: mensalidade, data: vencimento, pago: true, filho: arrayUnion(rec.nomeAluno[0])})
-                updateDoc(doc(db, 'responsavel', idR), {motorista: user.uid, mensalidade: mensalidade, data: vencimento})
+                updateDoc(doc(db, 'responsavel', idR), {motorista: user.uid, mensalidade: mensalidade, data: vencimento, pago:true})
             }
         });
-        navigation.navigate('HomeMotorista')
+        navigation.navigate('Home')
     }
 
     if(!rec){
@@ -52,32 +52,37 @@ export default function AddAluno ({route, navigation}) {
     }
   return (
 
-    <SafeAreaView style={styles.container}>
-      <View style={{flexDirection:'row', paddingHorizontal:10}}>
-        <TouchableOpacity onPress={()=>navigation.navigate('HomeMotorista')}>
-          <Entypo name="chevron-left" size={24} color="black" style={[styles.iconBack, {marginTop:16}]}/>
-        </TouchableOpacity>
-        <Text style={{marginTop:'5%', fontSize:18, fontWeight:'bold', marginLeft:'8%'}}>{rec.nome}</Text>
+    <View style={styles.container}>
+      <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
+      <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
+          <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={{flex:1,position:'absolute'}}>
+            <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
+          </TouchableOpacity>
+          <View style={{ justifyContent:'center', alignItems:'center'}}>
+          <Text style={{fontSize:18, fontFamily:'AileronH'}}>{rec.nome}</Text>
+        </View>
       </View>
 
       <View style={styles.fundoTab}>
-
-        <View style={{flexDirection:'row', marginTop:'10%', marginRight:'3%'}}>
-          <View style={[styles.viewMae, {height:60}]}/>
-          <View style={{flexDirection:'column', marginLeft:'11%'}}>
-            <Text style={styles.titulo}>{rec.nome}</Text>
-            <Text style={styles.infos}>Responsável</Text>
-            <Text style={styles.titulo}>{rec.nomeAluno[0]}</Text>
-            <Text style={styles.infos}>Aluno</Text>
-          </View>
-          <TouchableOpacity style={{padding:17, paddingLeft:18}} onPress={()=>Linking.openURL('whatsapp://send?text='+ mensagem +'&phone=' + rec.telefone)}>
+        <View style={styles.fundo}>
+          <View style={{flexDirection:'row'}}>
+            <View style={[styles.viewMae, {height:60}]}/>
+            <View style={{flexDirection:'column', marginLeft:'11%'}}>
+              <Text style={styles.titulo}>{rec.nome}</Text>
+              <Text style={styles.infos}>Responsável</Text>
+              <Text style={styles.titulo}>{rec.nomeAluno[key]}</Text>
+              <Text style={styles.infos}>Aluno</Text>
+            </View>
+            <TouchableOpacity style={{padding:17, paddingLeft:18}} onPress={()=>Linking.openURL('whatsapp://send?text='+ mensagem +'&phone=' + rec.telefone)}>
             <FontAwesome name="whatsapp" size={28} color="black" />
           </TouchableOpacity>
-        </View>
+          </View>
+          
+        
 
-        <View style={{flexDirection:'row', marginTop:'6%', marginRight:'37%'}}>
-          <View style={[styles.viewMae, {height:135}]}/> 
-          <View style={{flexDirection:'column', marginLeft:'20%'}}>
+        <View style={{flexDirection:'row'}}>
+            <View style={[styles.viewMae, {height:135}]}/> 
+              <View style={{flexDirection:'column', marginLeft:'11%'}}>
             <Text style={styles.viewFilha}>Escola</Text>
             <Text style={styles.infos}>{rec.escola[0]}</Text>
             <Text style={styles.infos}>{rec.sala[0]}</Text>
@@ -86,17 +91,17 @@ export default function AddAluno ({route, navigation}) {
           </View>
         </View>
 
-        <View style={{flexDirection:'row', marginTop:'8%', marginRight:'49%'}}>
-          <View style={[styles.viewMae, {height:106}]}/>
-          <View style={{flexDirection:'column', marginLeft:'30%'}}>
+        <View style={{flexDirection:'row'}}>
+            <View style={[styles.viewMae, {height:106}]}/>
+            <View style={{flexDirection:'column', marginLeft:'11%'}}>
             <Text style={styles.viewFilha}>Endereço</Text>
             <Text style={styles.infos}>{rec.endereco[0]}</Text>
           </View>
         </View>
 
-        <View style={{flexDirection:'row', marginTop:'8%', marginRight:'3%'}}>
-          <View style={[styles.viewMae, {height:60}]}/>
-          <View style={{flexDirection:'column', marginLeft:'11%'}}>
+        <View style={{flexDirection:'row'}}>
+            <View style={[styles.viewMae, {height:60}]}/>
+            <View style={{flexDirection:'column', marginLeft:'11%'}}>
             <Text style={styles.titulo}>Mensalidade</Text>
             <Text style={{marginTop:'2%', fontStyle:'italic', color:'#757575'}}>{mensalidade? mensalidade:'Nenhum valor foi inserido.'}</Text>
           </View>
@@ -104,18 +109,20 @@ export default function AddAluno ({route, navigation}) {
             <Ionicons name="add-sharp" size={34} color="black" />
           </TouchableOpacity>
         </View>
-        
+        </View>
         
         <View style={styles.viewBotao}>
           <TouchableOpacity style={[styles.botaoAdd, {backgroundColor:'gray'}]} onPress={()=>rejeitar()}>
-            <Text style={{fontSize:16, fontWeight:'bold'}}>Rejeitar</Text>
+            <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient} />
+            <Text style={{fontSize:16, position:'absolute', fontFamily:'AileronH'}}>Cancelar</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.botaoAdd} onPress={()=>adicionar()}>
-            <Text style={{fontSize:16, fontWeight:'bold'}}>Adicionar</Text>
+            <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
+            <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Finalizar</Text>
           </TouchableOpacity>
         </View>
 
       </View>
-    </SafeAreaView>
+    </View>
   );
 }

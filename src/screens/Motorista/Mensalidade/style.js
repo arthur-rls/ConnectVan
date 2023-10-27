@@ -5,50 +5,32 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: '#FFBF00',
-    padding: 8,
-    overflow: 'hidden',
-    backgroundImage: 'linear-gradient(to right, #FFE085, #FFBF00)',
   },
-  titulo:{
-    marginTop:'5%', 
-    fontSize:18, 
-    fontWeight:'bold', 
-    marginLeft:'23%'
-  },
-  fundoTab1:{
-    height:'42%', 
-    marginHorizontal:8,
+  fundoTab1:{ 
     backgroundColor:'white', 
     borderRadius:30,
-    marginTop:'5%',
-  },
-  fundoTab2:{
+    width:'90%',
     flex:1,
-    backgroundColor: '#fff',
-    width:'100%',
-    marginTop:'8%',
-    borderRadius: 40,
-    borderBottomEndRadius:0,
-    borderBottomStartRadius:0,
+    marginVertical:'5%'
   },
   valor:{
     marginTop:'7%',
-    fontWeight:'bold', 
     fontSize:26,
-    alignSelf:'center'
+    alignSelf:'center',
+    fontFamily:'AileronH',
   },
   valorAcum:{
     color:'gray',
     fontSize:17,
-    alignSelf:'center'
+    alignSelf:'center',
+    fontFamily:'AileronR',
   },
   viewBarra:{
-    width:'90%', 
-    height:'3%', 
-    paddingHorizontal:'10%', 
+    width:'100%', 
+    height:'10%', 
     flexDirection:'row', 
     alignSelf:'center',
-    marginTop:20
+    marginTop:20,
   },
   barraVerm:{
     backgroundColor:'#FF0000', 
@@ -69,25 +51,32 @@ const styles = StyleSheet.create({
   viewQuadrados:{
     flexDirection:'row', 
     marginTop:'8%', 
-    justifyContent:'space-between'
+    justifyContent:'space-between',
+    paddingHorizontal:'5%'
   },
   quadrVerm:{
     backgroundColor:'#FF0000', 
     width:20, 
     height:20, 
-    borderRadius:5
+    borderRadius:5,
+    justifyContent:'center',
+    alignItems:'center'
   },
   quadrAmarelo:{
     backgroundColor:'#FFBF00', 
     width:20, 
     height:20, 
-    borderRadius:5
+    borderRadius:5,
+    justifyContent:'center',
+    alignItems:'center'
   },
   quadrCinza:{
     backgroundColor:'#cccccc', 
     width:20, 
     height:20, 
-    borderRadius:5
+    borderRadius:5,
+    justifyContent:'center',
+    alignItems:'center'
   },
   viewAtr1:{
     flexDirection:'row', 
@@ -96,34 +85,48 @@ const styles = StyleSheet.create({
     marginBottom:'10%'
   },
   nome:{ 
-    marginRight:'5%',
-    fontWeight:'bold', 
+    marginRight:'5%', 
     fontSize:17,
+    fontFamily:'AileronH',
   },
   dataVenc:{
     color:'gray',
     fontSize:15,
-    marginTop:'3%'
+    marginTop:'3%',
+    fontFamily:'AileronR',
   },
   mes:{
-    marginTop:'5%', 
-    fontWeight:'bold', 
+    marginVertical:'5%', 
+    fontFamily:'AileronH',
     fontSize:18
   },
   linha:{
     height:'1%', 
     width:'100%', 
     backgroundColor:'#f4f4f4', 
-    marginTop:'4%',
-  },
-  atrasados:{
-    marginTop:'5%', 
-    fontWeight:'bold', 
-    fontSize:17
   },
   iconMenu:{
     marginLeft:10,
   },
+  numero:{
+    color:'white',
+    fontFamily:'AileronH',
+    fontSize:20
+  },
+  viewAPA:{
+    flexDirection:'row',
+    justifyContent:'center',
+    paddingVertical:'1%'
+  },
+  apa:{
+    marginVertical:'10%', 
+    fontFamily:'AileronR',
+    fontSize:18,
+    marginHorizontal:40
+  },
+  apaSelect:{
+    fontFamily:'AileronH',
+  }
 });
 
 export default styles;

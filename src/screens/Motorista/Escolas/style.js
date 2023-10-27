@@ -7,7 +7,6 @@ container: {
     flex: 1,
     justifyContent: 'center',
     backgroundColor: '#FFBF00',
-    paddingTop: 8,
   },
   fundoTab:{
     flex:1,
@@ -19,13 +18,13 @@ container: {
     borderBottomStartRadius:0,
     alignItems:'center',
     
-    
   },
   viewBotao:{
-    alignItems:'center',
-    justifyContent:'center',
-    marginTop:'62%',
-    marginLeft:'76%',
+    position:'absolute',
+    width:'100%',
+    height:'100%',
+    justifyContent:'flex-end',
+    
     
   },
   botaoAdd:{
@@ -40,10 +39,8 @@ container: {
   botaoEscola:{
     width:'90%',
     height: 80,
-    backgroundColor: 'white',
-    marginTop:'5%',
-    borderWidth:0.5,
-    borderRadius:25
+    marginTop:'6%',
+    marginBottom:'1%'
   },
   iconMenu:{
     marginLeft:10,
@@ -52,7 +49,25 @@ container: {
     position:'absolute',
     marginLeft:10,
   },
-  iconFilter:{
+  botaoEscola:{
+    width:'90%',
+    height: 80,
+    marginBottom:'2%',
+  },
+  fundoEscola:{
+    borderRadius: 20,
+    borderWidth:0.5,
+    flexDirection:'row',
+    width:'100%',
+    
+  },
+  nome:{
+    fontFamily:'AileronH',
+    fontSize:18
+  },
 
+  passageiros:{
+    fontFamily:'AileronR',
+    fontSize:14
   },
 });

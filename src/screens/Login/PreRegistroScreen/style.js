@@ -8,7 +8,8 @@ export default StyleSheet.create({
     height: 150, 
     margin: 2,
     resizeMode: 'stretch',
-    borderRadius:100
+    borderRadius:100,
+    marginTop:'50%'
   },
   tela:{
     width:'100%',

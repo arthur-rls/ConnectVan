@@ -7,7 +7,6 @@ export default StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       backgroundColor: '#FFBF00',
-      padding: 8,
     },
     fundoTab:{
       flex:1,
@@ -21,7 +20,8 @@ export default StyleSheet.create({
     },
     fundoEscola:{
       borderRadius: 20,
-      borderWidth:0.5
+      borderWidth:0.5,
+      flexDirection:'row',
     },
     viewBotao:{
       alignItems:'center',
@@ -40,8 +40,7 @@ export default StyleSheet.create({
     botaoEscola:{
       width:'90%',
       height: 80,
-      backgroundColor: 'white',
-      marginTop:'5%',
+      marginTop:'2%',
     },
     iconMenu:{
       marginLeft:10,

@@ -28,30 +28,34 @@ export default function AddAluno ({route, navigation}) {
     }
   return (
 
-    <SafeAreaView style={styles.container}>
-      <View style={{flexDirection:'row', paddingHorizontal:10}}>
-        <TouchableOpacity onPress={()=>navigation.navigate('AddAlunos', {idR})}>
-          <Entypo name="chevron-left" size={24} color="black" style={[styles.iconBack, {marginTop:16}]}/>
+    <View style={styles.container}>
+      <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
+      <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
+        <TouchableOpacity onPress={()=>navigation.navigate('AddAlunos', {idR})} style={{flex:1,position:'absolute'}}>
+          <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
         </TouchableOpacity>
-        <Text style={{marginTop:'5%', fontSize:18, fontWeight:'bold', marginLeft:'8%'}}>{rec.nome}</Text>
+        <View style={{ justifyContent:'center', alignItems:'center'}}>
+          <Text style={{fontSize:18, fontFamily:'AileronH'}}>{rec.nome}</Text>
+        </View>
       </View>
 
       <View style={styles.fundoTab}>
-
-        <View style={{flexDirection:'row', marginTop:'10%', marginRight:'3%'}}>
-          <View style={[styles.viewMae, {height:60}]}/>
-          <View style={{flexDirection:'column', marginLeft:'11%'}}>
-            <Text style={styles.titulo}>{rec.nome}</Text>
-            <Text style={styles.infos}>Responsável</Text>
-            <Text style={styles.titulo}>{rec.nomeAluno[key]}</Text>
-            <Text style={styles.infos}>Aluno</Text>
+        <View style={styles.fundo}>
+          <View style={{flexDirection:'row'}}>
+            <View style={[styles.viewMae, {height:60}]}/>
+            <View style={{flexDirection:'column', marginLeft:'11%'}}>
+              <Text style={styles.titulo}>{rec.nome}</Text>
+              <Text style={styles.infos}>Responsável</Text>
+              <Text style={styles.titulo}>{rec.nomeAluno[key]}</Text>
+              <Text style={styles.infos}>Aluno</Text>
+            </View>
           </View>
-        </View>
+        
 
-        <View style={{flexDirection:'row', marginTop:'6%', marginRight:'37%'}}>
-          <View style={[styles.viewMae, {height:135}]}/> 
-          <View style={{flexDirection:'column', marginLeft:'20%'}}>
-            <Text style={styles.viewFilha}>Escola</Text>
+        <View style={{flexDirection:'row'}}>
+            <View style={[styles.viewMae, {height:135}]}/> 
+              <View style={{flexDirection:'column', marginLeft:'11%'}}>
+                <Text style={styles.viewFilha}>Escola</Text>
             <Text style={styles.infos}>{rec.escola[key]}</Text>
             <Text style={styles.infos}>{rec.sala[key]}</Text>
             <Text style={styles.infos}>{rec.serie[key]}</Text>
@@ -59,17 +63,15 @@ export default function AddAluno ({route, navigation}) {
           </View>
         </View>
 
-        <View style={{flexDirection:'row', marginTop:'8%', marginRight:'49%'}}>
-          <View style={[styles.viewMae, {height:106}]}/>
-          <View style={{flexDirection:'column', marginLeft:'30%'}}>
+        <View style={{flexDirection:'row'}}>
+            <View style={[styles.viewMae, {height:106}]}/>
+            <View style={{flexDirection:'column', marginLeft:'11%'}}>
             <Text style={styles.viewFilha}>Endereço</Text>
             <Text style={styles.infos}>{rec.endereco[key]}</Text>
           </View>
         </View>
-
-        
-
       </View>
-    </SafeAreaView>
+      </View>
+    </View>
   );
 }

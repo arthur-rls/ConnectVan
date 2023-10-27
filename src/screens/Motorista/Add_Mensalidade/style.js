@@ -7,23 +7,26 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         backgroundColor: '#FFBF00',
-        padding: 8,
       },
       fundoTab:{
         flex:1,
         backgroundColor: '#fff',
         width:'100%',
-        marginTop:30,
+        marginTop:'5%',
         borderRadius: 40,
         borderBottomEndRadius:0,
         borderBottomStartRadius:0,
-        alignItems:'center',
+        
       },
       viewBotao:{
         justifyContent:'center',
-        marginTop:'60%',
+        marginTop:'15%',
         flexDirection:'row', 
+        marginBottom:'8%',
         gap:12
+      },
+      gradient:{
+        width:'100%', height:'100%', alignSelf: 'center', borderRadius:50
       },
       botaoAdd:{
         backgroundColor:'#FFBF00',
@@ -34,13 +37,12 @@ export default StyleSheet.create({
         justifyContent:'center'
       },
       input:{
-        height: 45,
-        width:260,
-        marginTop:'3%',
-        borderWidth: 1,
-        borderColor:'#black',
-        padding: 10,
-        borderRadius:5,
-        color:'gray'
-      }
+        width:'100%', 
+        height:42, 
+        backgroundColor:'white', 
+        borderRadius:15,
+        borderWidth:0.5,
+        paddingHorizontal:20,
+        fontFamily:'AileronR'
+      },
     });

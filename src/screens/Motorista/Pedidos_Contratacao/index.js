@@ -1,4 +1,5 @@
-import { Text, SafeAreaView, View, TouchableOpacity, Linking } from 'react-native';
+import { Text, SafeAreaView, View, TouchableOpacity, Linking,Image } from 'react-native';
+
 import { Entypo, FontAwesome} from '@expo/vector-icons';
 import styles from './style'
 import { useEffect, useState } from 'react'
@@ -45,20 +46,36 @@ export default function Pedidos ({navigation}) {
 
 
     if(!soli){
-        return null
+        return(
+          <View style={styles.container}>
+          <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
+          <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
+            <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={{flex:1,position:'absolute'}}>
+              <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
+            </TouchableOpacity>
+            <View style={{ justifyContent:'center', alignItems:'center'}}>
+              <Text style={{fontSize:18, fontFamily:'AileronH'}}>Pedidos de Contratação</Text>
+            </View>
+          </View>
+          <View style={styles.fundoTab}>
+            <Text style={{fontFamily:'AileronH', fontSize:30, marginTop:'10%'}}>Nenhum pedido no momento</Text>
+          </View>      
+        </View> 
+        )
     }
   return (
-    <SafeAreaView style={styles.container}>
-      
-      <View style={{flexDirection:'row', paddingHorizontal:10}}>
-          <TouchableOpacity onPress={()=>navigation.navigate('HomeMotorista')}>
-            <Entypo name="chevron-left" size={29} color="black" style={styles.iconBack}/>
-          </TouchableOpacity>
-        <Text style={{marginTop:'5%', fontSize:18, fontWeight:'bold', marginLeft:'7%'}}>Pedidos de Contratação</Text>
+    <View style={styles.container}>
+      <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
+      <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
+        <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={{flex:1,position:'absolute'}}>
+          <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
+        </TouchableOpacity>
+        <View style={{ justifyContent:'center', alignItems:'center'}}>
+          <Text style={{fontSize:18, fontFamily:'AileronH'}}>Pedidos de Contratação</Text>
+        </View>
       </View>
-
       <View style={styles.fundoTab}>
-        <Text style={{fontSize:18, fontWeight:'bold', marginTop:'5%'}}>
+        <Text style={{fontSize:18, fontFamily:'AileronH', marginTop:'5%'}}>
           TODOS ({arr.length})
         </Text>
         {arr.map((item) => {
@@ -68,42 +85,46 @@ export default function Pedidos ({navigation}) {
                 if(filhos == 1){
                   return(
                     <TouchableOpacity style={styles.botaoEscola} onPress={()=> navigation.navigate('AddAluno', {idR, key})}>
-                    <View style={styles.fundoEscola}>
-                      <View style={{padding:18}}>
-                        <Text style={{fontSize:17, marginBottom:2, fontFamily:'AileronH'}}>{item.nome}</Text>
-                        <Text style={{fontSize:14, fontFamily:'AileronR'}}>{filhos} filho</Text>
-                        <View style={{position:'absolute', marginLeft:'82%', marginTop:'3%'}}>
-                          <TouchableOpacity onPress={()=>Linking.openURL('whatsapp://send?text='+ mensagem +'&phone=' + item.telefone)}>
-                            <FontAwesome name="whatsapp" size={24} color="black" />
-                          </TouchableOpacity>
-                        </View>
+                      <View style={styles.fundoEscola}>
+                        <View style={{padding:18, flex: 1}}>
+                          <Text style={{fontSize:17, marginBottom:2, fontFamily:'AileronH'}}>{item.nome}</Text>
+                          <Text style={{fontSize:14, fontFamily:'AileronR'}}>{filhos} filho</Text>
+                        </View>  
+                          <View style={{flex: 1, justifyContent:'flex-end', flexDirection:'row'}}>
+                            <View style={{justifyContent:'center', marginRight:'10%'}}>
+                              <TouchableOpacity onPress={()=>Linking.openURL('whatsapp://send?text='+ mensagem +'&phone=' + item.telefone)}>
+                                <FontAwesome name="whatsapp" size={24} color="black" />
+                              </TouchableOpacity>
+                            </View>
+                          </View>
                       </View>
-                    </View>
-                  </TouchableOpacity>
+                    </TouchableOpacity>
                   )
                 }
                 else{
                 return (
                     <TouchableOpacity style={styles.botaoEscola} onPress={()=> navigation.navigate('AddAlunos', {idR, filhos})}>
-                    <View style={styles.fundoEscola}>
-                      <View style={{padding:18}}>
-                        <Text style={{fontSize:17, marginBottom:2, fontFamily:'AileronH'}}>{item.nome}</Text>
-                        <Text style={{fontSize:14, fontFamily:'AileronR'}}>{filhos} filhos</Text>
-                        <View style={{position:'absolute', marginLeft:'82%', marginTop:'3%'}}>
-                          <TouchableOpacity onPress={()=>Linking.openURL('whatsapp://send?text='+ mensagem +'&phone=' + item.telefone)}>
-                            <FontAwesome name="whatsapp" size={24} color="black" />
-                          </TouchableOpacity>
-                        </View>
+                      <View style={styles.fundoEscola}>
+                        <View style={{padding:18, flex: 1}}>
+                          <Text style={{fontSize:17, marginBottom:2, fontFamily:'AileronH'}}>{item.nome}</Text>
+                          <Text style={{fontSize:14, fontFamily:'AileronR'}}>{filhos} filhos</Text>
+                        </View>  
+                          <View style={{flex: 1, justifyContent:'flex-end', flexDirection:'row'}}>
+                            <View style={{justifyContent:'center', marginRight:'10%'}}>
+                              <TouchableOpacity onPress={()=>Linking.openURL('whatsapp://send?text='+ mensagem +'&phone=' + item.telefone)}>
+                                <FontAwesome name="whatsapp" size={24} color="black" />
+                              </TouchableOpacity>
+                            </View>
+                          </View>
                       </View>
-                    </View>
-                  </TouchableOpacity>
+                    </TouchableOpacity>
                 );
                 }
             })}
         
 
       </View>      
-    </SafeAreaView>
+    </View>
   );
 }
 

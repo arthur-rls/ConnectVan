@@ -45,7 +45,7 @@ export default function AddAluno ({route, navigation}) {
     <View style={styles.container}>
       <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
       <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
-          <TouchableOpacity onPress={()=>navigation.navigate('Passageiros')} style={{flex:1,position:'absolute'}}>
+          <TouchableOpacity onPress={()=>navigation.navigate('Escolas')} style={{flex:1,position:'absolute'}}>
             <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
           </TouchableOpacity>
           <View style={{ justifyContent:'center', alignItems:'center'}}>

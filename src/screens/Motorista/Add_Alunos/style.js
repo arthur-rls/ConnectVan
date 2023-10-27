@@ -7,7 +7,6 @@ export default StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       backgroundColor: '#FFBF00',
-      padding: 8,
     },
     fundoTab:{
       flex:1,
@@ -21,19 +20,24 @@ export default StyleSheet.create({
     },
     fundoEscola:{
       borderRadius: 20,
-      borderWidth:0.5
+      borderWidth:0.5,
     },
     viewBotao:{
-      alignItems:'center',
       justifyContent:'center',
-      marginLeft:'76%',
+      marginTop:'15%',
+      flexDirection:'row', 
+      marginBottom:'8%',
+      gap:12
+    },
+    gradient:{
+      width:'100%', height:'100%', alignSelf: 'center', borderRadius:50
     },
     botaoAdd:{
-      backgroundColor:'black', 
-      borderRadius:25, 
-      width:37,
-      height:37, 
-      alignItems:'center', 
+      backgroundColor:'#FFBF00',
+      borderRadius:25,
+      width:105,
+      height:45,
+      alignItems:'center',
       justifyContent:'center'
     },
     botaoEscola:{
@@ -44,5 +48,12 @@ export default StyleSheet.create({
     },
     iconMenu:{
       marginLeft:10,
+    },
+    viewMae:{
+      width:2, 
+      backgroundColor:'black', 
+      borderRadius:50,
+      marginBottom:'10%',
+      height:'100%'
     },
   });

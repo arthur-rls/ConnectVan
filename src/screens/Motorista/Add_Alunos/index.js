@@ -1,4 +1,4 @@
-import { Text, SafeAreaView, View, TouchableOpacity, Linking } from 'react-native';
+import { Text, SafeAreaView, View, TouchableOpacity, Linking, Image } from 'react-native';
 import { Entypo, FontAwesome, Ionicons} from '@expo/vector-icons';
 import styles from './style'
 import { useEffect, useState } from 'react'
@@ -49,7 +49,7 @@ export default function AddAlunos ({route, navigation}) {
                 setDoc(doc(db, 'motorista', user.uid, 'passageiros', rec.nomeAluno[key]), {nome: rec.nomeAluno[key], endereco: rec.endereco[key], escola: rec.escola[key], responsavel:rec.nome, sala: rec.sala[key], serie: rec.serie[key], periodo: rec.periodo[key], telefone_responsavel: rec.telefone})
               });
               
-              updateDoc(doc(db, 'responsavel', idR), {motorista: user.uid, mensalidade: mensalidade, data: vencimento})
+              updateDoc(doc(db, 'responsavel', idR), {motorista: user.uid, mensalidade: mensalidade, data: vencimento,  pago:true})
           }
       });
       navigation.navigate('HomeMotorista')
@@ -60,30 +60,33 @@ export default function AddAlunos ({route, navigation}) {
         return null
     }
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       
-      <View style={{flexDirection:'row', paddingHorizontal:10}}>
-        <TouchableOpacity onPress={()=>navigation.openDrawer()}>
-          <Entypo name="menu" size={29} color="black" style={[styles.iconMenu, {marginTop:13}]}/>
-        </TouchableOpacity>
-        <Text style={{marginTop:'5%', fontSize:18, fontWeight:'bold', marginLeft:'7%'}}>{arr}</Text>
-      </View>
+      <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
+        <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
+            <TouchableOpacity onPress={()=>navigation.navigate('Pedidos')} style={{flex:1,position:'absolute', marginLeft:'3%'}}>
+              <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
+            </TouchableOpacity>
+            <View style={{ justifyContent:'center', alignItems:'center', flexDirection:'row'}}>
+              <Text style={{fontSize:18, fontFamily:'AileronH'}}>{arr}</Text>
+              <TouchableOpacity style={{marginLeft:'5%'}} onPress={()=>Linking.openURL('whatsapp://send?text='+ mensagem +'&phone=' + fone)}>
+                <FontAwesome name="whatsapp" size={28} color="black" />
+              </TouchableOpacity> 
+            </View>
+        </View>
 
       <View style={styles.fundoTab}>
-        <Text style={{fontSize:18, fontWeight:'bold', marginTop:'5%'}}>
+        <Text style={{fontSize:18, fontFamily:'AileronH', marginTop:'5%'}}>
           TODOS ({arr.length})
         </Text>
-        <TouchableOpacity style={{padding:17, paddingLeft:18}} onPress={()=>Linking.openURL('whatsapp://send?text='+ mensagem +'&phone=' + fone)}>
-            <FontAwesome name="whatsapp" size={28} color="black" />
-          </TouchableOpacity> 
         {soli.map((item, index) => {
           const key = index;
             return(
               <TouchableOpacity style={styles.botaoEscola} onPress={()=> navigation.navigate('AddAluno2', {idR, key})}>
               <View style={styles.fundoEscola}>
-                <View style={{padding:18, flexDirection:'row'}}>
+                <View style={{padding:18, flexDirection:'row', alignItems:'center'}}>
                   <FontAwesome name="user-circle-o" size={24} color="black" />
-                  <Text style={{fontSize:17, marginBottom:2, fontFamily:'AileronH'}}>{item}</Text>
+                  <Text style={{fontSize:17, fontFamily:'AileronH', marginLeft:'5%'}}>{item}</Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -91,7 +94,7 @@ export default function AddAlunos ({route, navigation}) {
                 
             })}
             <View style={{flexDirection:'row', marginTop:'8%', marginRight:'3%'}}>
-          <View style={[styles.viewMae, {height:60}]}/>
+          <View style={styles.viewMae}/>
           <View style={{flexDirection:'column', marginLeft:'11%'}}>
             <Text style={styles.titulo}>Mensalidade</Text>
             <Text style={{marginTop:'2%', fontStyle:'italic', color:'#757575'}}>{mensalidade? mensalidade:'Nenhum valor foi inserido.'}</Text>
@@ -104,16 +107,18 @@ export default function AddAlunos ({route, navigation}) {
         
         <View style={styles.viewBotao}>
           <TouchableOpacity style={[styles.botaoAdd, {backgroundColor:'gray'}]} onPress={()=>rejeitar()}>
-            <Text style={{fontSize:16, fontWeight:'bold'}}>Rejeitar</Text>
+            <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient} />
+            <Text style={{fontSize:16, position:'absolute', fontFamily:'AileronH'}}>Cancelar</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.botaoAdd} onPress={()=>adicionar()}>
-            <Text style={{fontSize:16, fontWeight:'bold'}}>Adicionar</Text>
+            <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
+            <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Finalizar</Text>
           </TouchableOpacity>
         </View>
         
 
       </View>      
-    </SafeAreaView>
+    </View>
   );
 }
 

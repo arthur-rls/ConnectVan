@@ -1,7 +1,7 @@
 import { Entypo, FontAwesome, AntDesign, FontAwesome5, Ionicons, EvilIcons } from '@expo/vector-icons';
 import { useEffect, useState, useRef } from 'react'
 import styles from './style'
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import {db, auth} from '../../../firebase/config';
 import {View, Text,Image,  TouchableOpacity, TextInput, Modal, ScrollView, Keyboard} from 'react-native'
 import { doc, getDoc, onSnapshot, getDocs, collection, collectionGroup, query, where, updateDoc} from 'firebase/firestore';
@@ -18,6 +18,7 @@ export default function EditarPerfilR({navigation}) {
     const [telefoneM, setTelefoneM] = useState('')
 
     useEffect(()=>{
+        navigation.addListener('focus', () => {
         onAuthStateChanged(auth, async (user)=>{
             const docRef = doc(db, 'responsavel', user.uid)
             const snapshot = await getDoc(docRef)
@@ -25,7 +26,15 @@ export default function EditarPerfilR({navigation}) {
             setEmail(snapshot.data().email)
             setTelfone(snapshot.data().telefone)
         })
+      })
     },[])
+
+    const logout=()=>{
+      signOut(auth).then(()=>{
+        navigation.navigate('login')
+      })
+
+    }
 
     const salvar=()=>{
         onAuthStateChanged(auth, async (user)=>{
@@ -45,27 +54,15 @@ export default function EditarPerfilR({navigation}) {
       return (
     
         <View style={styles.container}>
-        <Image source={require('../../../../assets/gradient.png')} style={{position:'absolute', width:'100%', height:'100%'}}/>
-            <View style={{width:'100%', alignItems:'center', paddingTop:'10%', flexDirection:'row'}}>
-                        <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{paddingHorizontal:'2%'}}>
-                            <Entypo
-                                name="menu"
-                                size={34}
-                                color="black"
-                            />
-                        </TouchableOpacity>
-                        <View style={{ alignSelf:'center', paddingLeft:'20%'}}>
-                            <Text
-                            style={{
-                                fontSize: 24,
-                                fontFamily:'AileronH',
-                                alignSelf:'center'
-                            }}>
-                            Editar Perfil
-                            </Text>
-                        </View>
-                        
-            </View>
+        <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
+        <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
+            <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute', marginLeft:'3%'}}>
+              <Entypo name="menu" size={29} color="black" style={styles.iconMenu}/>
+            </TouchableOpacity>
+            <View style={{ justifyContent:'center', alignItems:'center'}}>
+            <Text style={{fontSize:18, fontFamily:'AileronH'}}>Editar Perfil</Text>
+          </View>
+        </View>
 
     
           <View style={styles.fundoTab}>
@@ -113,6 +110,10 @@ export default function EditarPerfilR({navigation}) {
                 <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Salvar</Text>
               </TouchableOpacity>
             </View>
+            <TouchableOpacity style={styles.botaoAdd} onPress={()=>logout()}>
+              <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
+              <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Sair</Text>
+            </TouchableOpacity>
     
           </View>
         </View>

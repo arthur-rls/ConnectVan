@@ -1,14 +1,31 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import styles from './style'
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import {db, auth} from '../../firebase/config';
+import { doc, getDoc, onSnapshot, getDocs, collection, collectionGroup, query, where, updateDoc} from 'firebase/firestore';
 
 export default function CustomDrawer(props){
+    const [rec, setRec] = useState('')
+    useEffect(()=>{
+        onAuthStateChanged(auth, async(user)=>{
+            if(user){
+                    const docRef = doc(db, 'motorista', user.uid)
+                    const snapshot = await getDoc(docRef)
+                    setRec(snapshot.data());
+            }
+        })
+    },[])
+    if(!rec){
+        return null
+    }
     return (
         <View style={{flex:1}}>
             <DrawerContentScrollView {...props}
                 contentContainerStyle={{}}>
+
                 <View style={styles.container}>
                         <View style={styles.viewMae}>
                             <TouchableOpacity>

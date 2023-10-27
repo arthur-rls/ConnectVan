@@ -7,7 +7,6 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         backgroundColor: '#FFBF00',
-        padding: 8,
       },
       fundoTab:{
         flex:1,
@@ -25,20 +24,15 @@ export default StyleSheet.create({
         height: 80,
         backgroundColor: 'white',
         marginTop:'5%',
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 3,
-        },
-        shadowOpacity: 0.29,
-        shadowRadius: 4.65,
-        elevation: 7,
+        borderWidth:0.5,
+        flexDirection:'row',
       },
       viewBotao:{
-        alignItems:'center',
-        justifyContent:'center',
-        marginTop:'35%',
-        marginLeft:'76%',
+        position:'absolute',
+        width:'100%',
+        height:'100%',
+        justifyContent:'flex-end',
+        
       },
       botaoAdd:{
         backgroundColor:'black', 
@@ -46,7 +40,8 @@ export default StyleSheet.create({
         width:37,
         height:37, 
         alignItems:'center', 
-        justifyContent:'center'
+        justifyContent:'center',
+        
       },
       iconMenu:{
         marginLeft:10,
@@ -54,8 +49,8 @@ export default StyleSheet.create({
       input:{
         padding:20,
         height: 60,
-        width:295,
-        marginTop:'3%',
+        width:'100%',
+        marginTop:'1%',
         borderColor:'black',
         fontStyle:'italic',
         color:'gray',

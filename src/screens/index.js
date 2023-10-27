@@ -18,6 +18,7 @@ import EditarEscolas from './Motorista/Editar_escolas/index'
 import EditarCidades from './Motorista/Editar_cidades/index'
 import PassageirosEscola from './Motorista/Passageiros_Escola/index'
 import InfoAluno from './Motorista/Info_Aluno/index'
+import InfoAluno2 from './Motorista/Info_Aluno/index2'
 import Passageiros from './Motorista/Passageiros/index'
 import SplashScreen from './SplashScreen/index'
 import EditarPerfilM from './Motorista/Editar_perfil/index'
@@ -41,6 +42,7 @@ import CustomDrawer from './CustomDrawer/index';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
+
 
 function DrawerM() {
     return (
@@ -107,6 +109,59 @@ function DrawerM() {
       <Drawer.Screen name='Passageiros' component={PassageiroR}/>
       <Drawer.Screen name='Perfil' component={EditarPerfilR}/>
     </Drawer.Navigator>
+
+  //   <Drawer.Navigator 
+  //   drawerContent={props => <CustomDrawer {...props} />} 
+  //   screenOptions={{
+  //     drawerActiveBackgroundColor:'#bdbdbd',
+  //     drawerActiveTintColor:'white',
+  //     drawerInactiveTintColor:'#808080',
+  //     drawerLabelStyle: {marginLeft:-15},
+  //     headerShown:false,
+  //   }}>
+  //     <Drawer.Screen 
+  //       name="Home" 
+  //       component={HomeResponsavel} 
+  //       options={{
+  //         drawerIcon: ({ color, size }) => <AntDesign name='home' color={color} size={24} marginLeft={7} />,
+  //       }}
+  //     />
+  //     <Drawer.Screen 
+  //       name="Mensalidades" 
+  //       component={MensalidadeR}
+  //       options={{
+  //         drawerIcon: ({ color, size }) => <FontAwesome5 name='money-bill-wave' color={color} size={18} marginLeft={7} />,
+  //       }}
+  //     />
+  //     <Drawer.Screen 
+  //       name="Passageiros" 
+  //       component={PassageiroR} 
+  //       options={{
+  //         drawerIcon: ({ color, size }) => <MaterialCommunityIcons name="bag-personal" color={color} size={24} marginLeft={7} />,
+  //       }}
+  //     />
+  //     <Drawer.Screen 
+  //       name="Motorista" 
+  //       component={Motorista} 
+  //       options={{
+  //         drawerIcon: ({ color, size }) => <FontAwesome name='drivers-license' color={color} size={20} marginLeft={7} />,
+  //       }}
+  //     />
+  //     <Drawer.Screen 
+  //       name="Perfil" 
+  //       component={EditarPerfilR} 
+  //       options={{
+  //         drawerIcon: ({ color, size }) => <FontAwesome5 name='user-alt' color={color} size={20} marginLeft={10} />,
+  //       }}
+  //     />
+  //     <Drawer.Screen 
+  //       name="Configurações" 
+  //       component={Configurações} 
+  //       options={{
+  //         drawerIcon: ({ color, size }) => <Ionicons name='ios-settings-sharp' color={color} size={24} marginLeft={7} />,
+  //       }}
+  //     />
+  // </Drawer.Navigator>
     )
   }
 
@@ -132,6 +187,7 @@ export default function Rotas({navigation}){
             <Stack.Screen name='EditarC' component={EditarCidades}/>
             <Stack.Screen name='PassageirosE' component={PassageirosEscola}/>
             <Stack.Screen name='InfoAluno' component={InfoAluno}/>
+            <Stack.Screen name='InfoAluno2' component={InfoAluno2}/>
             <Stack.Screen name='Pedidos' component={Pedidos}/>
             <Stack.Screen name='AddPassageiro' component={AddPassageiro}/>
             <Stack.Screen name='TelaAluno' component={TelaAluno}/>
