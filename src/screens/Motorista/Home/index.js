@@ -63,10 +63,6 @@ export default function MHomeRota ({route, navigation}) {
                 setSaldo(saldoS)
             }
         });
-
-
-
-        
         
     },[aviso, gatilho])
 
