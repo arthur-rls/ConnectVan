@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text,Image,  TouchableOpacity, TextInput, Modal, ScrollView} from 'react-native'
 import styles from './style'
-import { MaterialIcons, Entypo, Feather  } from '@expo/vector-icons';
+import { MaterialIcons, Entypo, Feather, FontAwesome5, Foundation } from '@expo/vector-icons';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { auth, db } from '../../../../../firebase/config';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -64,61 +64,62 @@ export default function CadastroMotorista ({navigation}) {
                 </View>
                 <View style={{ width:'100%', paddingVertical:5}}>
                     <View style={{flexDirection:'row', alignItems:'center', paddingVertical:5}}>
-                        <Entypo name="email" size={20} color="#4D4D4D" style={showElement ? [styles.iconErro, {marginLeft:10,}]: [styles.icon, {marginLeft:10,}]}/>
+                        <FontAwesome5 name="user-alt" size={16} color="#4D4D4D" style={showElement ? [styles.iconErro, {marginLeft:12,}] : [styles.icon, {marginLeft:12,}]}/>
                         <TextInput style={showElement ? styles.inputErro : styles.input} placeholder="Email" autoCapitalize='none' onChangeText={value => setEmailU(value)} value={emailU} autoComplete='email' keyboardType='email-address'/>
                     </View>
                     <View style={{flexDirection:'row', alignItems:'center', paddingVertical:5}}>
-                        <Entypo name="phone" size={20} color="#4D4D4D" style={showElementTelefone ? styles.iconErro : styles.icon}/>
+                        <Foundation name="telephone" size={22} color="#4D4D4D" style={showElementTelefone ? [styles.iconErro, {marginLeft:13}] : [styles.icon, {marginLeft:13}]}/>
                         <TextInputMask style={showElementTelefone ? styles.inputErro : styles.input} placeholder="Telefone" value={telefoneU} onChangeText={value => setTelefoneU(value)} maxLength={15} type={'cel-phone'}options={{maskType: 'BRL', withDDD: true, dddMask: '(99) '}}/>
                     </View>
                     <View style={{flexDirection:'row', alignItems:'center', paddingVertical:5}}>
-                        <MaterialIcons name="lock" size={20} color="#4D4D4D" style={showElementSenha ? styles.iconErro : styles.icon}/>
+                        <MaterialIcons name="lock" size={20} color="#4D4D4D" style={showElementSenha ? [styles.iconErro, {marginLeft:10}] : [styles.icon, {marginLeft:10}]}/>
                         <TextInput style={showElementSenha ? styles.inputErro : styles.input} placeholder="Senha" onChangeText={value => setPassword(value)} value={password} secureTextEntry autoCapitalize='none'/>
                     </View>
                 </View>
                 <View style={{ width: '100%', flexDirection:'row', paddingTop:5, paddingHorizontal:13}}>
                     <BouncyCheckbox
-                    size={28}
+                    size={26}
                     fillColor= {showElement2? '#f02929' : "#FFBF00"} 
                     unfillColor="#FFFFFF"
+                    options={{marginLeft:20}}
                     iconStyle={{ borderColor: "back"}}
                     innerIconStyle={{ borderWidth: 2 }}
                     onPress={()=>check()}
                     />
                         <View style={{flexDirection:'row'}}>
-                            <Text style={{fontFamily:'AileronR', fontSize:13, paddingTop:7}}>Aceito as </Text>
+                            <Text style={{fontFamily:'AileronR', fontSize:13, paddingTop:6}}>Aceito as </Text>
                             <Text style={{fontFamily:'AileronR', fontSize:13, textDecorationLine: "underline", color:'#1877F2', paddingTop:7}} onPress={()=>setModalVisible(true)}>Política de Privacidade</Text>
                         </View>
                 </View>
                 <View style={{ width:'100%', alignItems:'center', paddingVertical:10}}>
                     <TouchableOpacity style={styles.botao} onPress={() => createUser()}>
                         <Image source={require('../../../../../../assets/gradient.png')} style={styles.gradient}/>
-                        <Text style={{fontFamily:'AileronR', fontSize:20, position:'absolute'}}>Cadastrar</Text>
+                        <Text style={{fontFamily:'AileronR', fontSize:17, position:'absolute', fontWeight:'bold'}}>Cadastrar</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{position:'absolute', marginTop:40, width:'110%'}}>
                     {showElement==true ? (
-                        <View style={{ backgroundColor:'#f02929', marginTop: 10, padding:10, flexDirection:'row', width:'100%'}}>
+                        <View style={styles.errOuIncorr}>
                             <TouchableOpacity onPress={()=>setShowElement(false)}>
                                 <Feather name="x" size={20} color="white" />
                             </TouchableOpacity>
-                            <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Endereço de email inválido ou existente.</Text>
+                            <Text style={{fontFamily:'AileronR', fontSize:16, color:'white'}}>Endereço de email inválido ou existente.</Text>
                         </View>
                     ):null}
                     {showElementSenha==true ? (
-                        <View style={{ backgroundColor:'#f02929', marginTop: 10, padding:10, flexDirection:'row', width:'100%'}}>
+                        <View style={styles.errOuIncorr}>
                             <TouchableOpacity onPress={()=>setShowElementSenha(false)}>
                                 <Feather name="x" size={20} color="white" />
                             </TouchableOpacity>
-                            <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Insira uma senha de no mínimo 8 dígitos.</Text>
+                            <Text style={{fontFamily:'AileronR', fontSize:16, color:'white'}}>Insira uma senha de no mínimo 8 dígitos.</Text>
                         </View>
                     ):null}
                     {showElementTelefone==true ? (
-                        <View style={{ backgroundColor:'#f02929', marginTop: 10, padding:10, flexDirection:'row', width:'100%'}}>
+                        <View style={styles.errOuIncorr}>
                             <TouchableOpacity onPress={()=>setShowElementTelefone(false)}>
                                 <Feather name="x" size={20} color="white" />
                             </TouchableOpacity>
-                            <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Insira um número exitente.</Text>
+                            <Text style={{fontFamily:'AileronR', fontSize:16, color:'white'}}>Insira um número de telefone exitente.</Text>
                         </View>
                     ):null}
                     

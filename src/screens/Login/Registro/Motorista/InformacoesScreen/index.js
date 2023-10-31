@@ -49,7 +49,7 @@ export default function InformacoesMotorista ({navigation}) {
                     <Text style={styles.h1}>Insira algumas informações!</Text>
                 </View>
                 
-                <View style={{width:'100%',paddingTop:10}}>
+                <View style={{width:'100%', paddingTop:10}}>
                     <TextInput style={showElementNome?styles.inputErro:styles.input} placeholder="Nome e Sobrenome" value={nomeU} onChangeText={value => setNomeU(value)} autoCapitalize='words'/>
                     <TextInput style={showElementCPF?styles.inputErro:styles.input} placeholder="CNH" value={cpfU} onChangeText={value => setCpfU(value)} maxLength={11} keyboardType='numeric'/>
                     <MaskInput style={showElementPlaca?styles.inputErro:styles.input} placeholder="Placa do carro" value={placaU} onChangeText={value => setPlacaU(value)} autoCapitalize='characters' maxLength={7}/>
@@ -58,7 +58,7 @@ export default function InformacoesMotorista ({navigation}) {
                 <View style={{ width:'100%', alignItems:'center', paddingVertical:35, paddingHorizontal:90}}>
                     <TouchableOpacity style={styles.botao} onPress={() => salvar()}>
                     <Image source={require('../../../../../../assets/gradient.png')} style={styles.gradient} />
-                    <Text style={{fontFamily:'AileronR', fontSize:20, position:'absolute'}}>Salvar</Text>
+                    <Text style={{fontFamily:'AileronR', fontSize:17, position:'absolute', fontWeight:'bold'}}>Salvar</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{position:'absolute', marginTop:40, width:'110%'}}>
@@ -67,7 +67,7 @@ export default function InformacoesMotorista ({navigation}) {
                             <TouchableOpacity onPress={()=>setShowElementNome(false)}>
                                 <Feather name="x" size={20} color="white" />
                             </TouchableOpacity>
-                            <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Insira o nome completo.</Text>
+                            <Text style={{fontFamily:'AileronR', fontSize:16, color:'white'}}>Insira o nome completo.</Text>
                         </View>
                     ):null}
                     {showElementCPF==true ? (
@@ -75,15 +75,15 @@ export default function InformacoesMotorista ({navigation}) {
                             <TouchableOpacity onPress={()=>setShowElementCPF(false)}>
                                 <Feather name="x" size={20} color="white" />
                             </TouchableOpacity>
-                            <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Insira uma CNH válida.</Text>
+                            <Text style={{fontFamily:'AileronR', fontSize:16, color:'white'}}>Insira uma CNH válida.</Text>
                         </View>
                     ):null}
                     {showElementPlaca==true ? (
-                        <View style={{ backgroundColor:'#f02929', marginTop: 10, padding:10, flexDirection:'row', width:'100%'}}>
+                        <View style={styles.errOuIncorr}>
                             <TouchableOpacity onPress={()=>setShowElementPlaca(false)}>
                                 <Feather name="x" size={20} color="white" />
                             </TouchableOpacity>
-                            <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Insira uma placa existente.</Text>
+                            <Text style={{fontFamily:'AileronR', fontSize:16, color:'white'}}>Insira uma placa existente.</Text>
                         </View>
                     ):null}
                 </View>

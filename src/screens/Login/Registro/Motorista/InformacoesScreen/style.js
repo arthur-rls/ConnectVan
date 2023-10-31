@@ -4,24 +4,24 @@ import {StyleSheet} from 'react-native'
 
 export default StyleSheet.create({
   h1:{
-    fontSize: 60,
+    fontSize: 45,
     fontFamily:'AileronH',
     alignItems: 'center',
+    marginTop:'45%'
   },
   tela:{
     width:'100%',
-    paddingTop:180,
     paddingBottom:20
   },
   input:{
     width:'100%',
-    height: 50,
+    height: 53,
     borderRadius: 8,
     backgroundColor: '#ECECEC',
     color: '#6F6F6F',
-    padding: 20,
+    padding: 15,
     fontSize:13,
-    marginVertical:5,
+    marginVertical:7,
     fontFamily:'AileronR'
   },
   inputErro:{
@@ -48,10 +48,18 @@ export default StyleSheet.create({
     width:'100%',
     backgroundColor:'yellow',
     alignItems: 'center',
-    height:50,
     justifyContent:'center',
     borderRadius:50,
-    flex: 1
+    flex: 1,
+  },
+  errOuIncorr:{
+    position:'absolute', 
+    backgroundColor:'#f02929', 
+    marginTop: 15, 
+    padding:10, 
+    flexDirection:'row', 
+    borderRadius:13, 
+    alignSelf:'center',
   },
 })
 

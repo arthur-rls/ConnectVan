@@ -1,15 +1,15 @@
 import {StyleSheet} from 'react-native'
 
-
+//qualquer coisa
 
 export default StyleSheet.create({
   logo:{
-    width: 150, 
-    height: 150, 
+    width: 130, 
+    height: 130, 
     margin: 2,
     resizeMode: 'stretch',
     borderRadius:100,
-    marginTop:'50%'
+    marginTop:'45%'
   },
   tela:{
     width:'100%',
@@ -27,11 +27,10 @@ export default StyleSheet.create({
     fontFamily: 'AileronH'
   },
   icon:{
-    width:100,
-    height:100,
+    width:65,
+    height:65,
     zIndex:2,
   },
-
   gradient:{
     width:'100%', height:150, alignSelf: 'center', borderRadius:20
   },
