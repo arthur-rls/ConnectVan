@@ -35,8 +35,8 @@ export default function CustomDrawer(props){
                                 />
                             </TouchableOpacity>
                             <View>
-                                <Text style={styles.nome}>Grazielly Aquino</Text> 
-                                <Text style={styles.email}>email@gmail.com</Text> 
+                                <Text style={styles.nome}>{rec.nome}</Text> 
+                                <Text style={styles.email}>{rec.email}</Text> 
                             </View>
                         </View>
                 </View>

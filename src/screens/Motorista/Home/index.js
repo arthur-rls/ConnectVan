@@ -7,7 +7,7 @@ import {db, auth} from '../../../firebase/config';
 import {View, Text,Image,  TouchableOpacity, TextInput, Modal, ScrollView, Keyboard} from 'react-native'
 import { doc, getDoc, onSnapshot, getDocs, collection, collectionGroup, query, where, updateDoc} from 'firebase/firestore';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-
+import * as  Notification from 'expo-notifications'
 
 export default function MHomeRota ({route, navigation}) {
     const [currentDate, setCurrentDate] = useState('');
@@ -24,7 +24,16 @@ export default function MHomeRota ({route, navigation}) {
     const [avisoD, setAvisoD] = useState('')
     const [ver, setVer] = useState(false)
     const s = []
+    const[token, setToken] = useState(null)
 
+    Notification.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldPlaySound: true,
+        shouldSetBadge: true,
+        shouldShowAlert: true
+      })
+    })
+    
     const verSaldo=()=>{
       setVer(current=>!current)
 
