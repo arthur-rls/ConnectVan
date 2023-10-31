@@ -55,7 +55,7 @@ export default function Login ({navigation}) {
                         <Image source={require('../../../../assets/logo.png')} style={styles.logo}/>
 
                         <Text style={[styles.connect, {fontFamily: 'AileronH'}]}>Connect</Text>
-                        <Text style={styles.van}>Van</Text>
+                        <Text style={[styles.van, {fontFamily:'AileronH'}]}>Van</Text>
                     </View>
                    
                     <View style={styles.viewInput}>
@@ -82,15 +82,15 @@ export default function Login ({navigation}) {
                     <View style={styles.viewButton}>
                         <TouchableOpacity style={styles.botaoCadastrar} onPress={() => navigation.navigate('preRegistro')}>
                             <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
-                            <Text style={styles.textButton}>Cadastrar</Text>
+                            <Text style={styles.textButton}>Cadastre-se</Text>
                         </TouchableOpacity>
                     </View>
                     {showElement==true ? (
-                        <View style={{position:'absolute', backgroundColor:'#f02929', marginTop: 50, padding:10, flexDirection:'row'}}>
+                        <View style={styles.senhaErrOuIncorr}>
                             <TouchableOpacity onPress={()=>setShowElement(false)}>
                                 <Feather name="x" size={20} color="white" />
                             </TouchableOpacity>
-                            <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Endereço de email ou senha incorretos.</Text>
+                            <Text style={{fontFamily:'AileronR', fontSize:16, color:'white'}}>Endereço de email ou senha incorretos.</Text>
                         </View>
                     ):null}
                     <Modal
@@ -122,4 +122,3 @@ export default function Login ({navigation}) {
         </KeyboardAwareScrollView>
     )
 }
-

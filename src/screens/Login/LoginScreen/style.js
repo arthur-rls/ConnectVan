@@ -11,11 +11,11 @@ export default StyleSheet.create({
   tela:{
     width:'100%',
     alignItems: 'center',
-    paddingVertical:20
+    paddingVertical:20,
   },
   inner:{
     flex:1,
-    paddingHorizontal:20,
+    paddingHorizontal:25,
     alignItems:'center',
     backgroundColor:'white',
     height:'100%'
@@ -107,19 +107,28 @@ export default StyleSheet.create({
     position:'absolute',
     fontFamily: 'AileronR'
   },
+  senhaErrOuIncorr:{
+    position:'absolute', 
+    backgroundColor:'#f02929', 
+    marginTop: 50, 
+    padding:10, 
+    flexDirection:'row', 
+    borderRadius:13
+  },
   botaoEntrar:{
-    width:'90%',
+    width:'95%',
     backgroundColor:'yellow',
     alignItems: 'center',
-    height:45,
+    height:40,
     justifyContent:'center',
     borderRadius:50,
+    marginTop:13
   },
   botaoCadastrar:{
     width:155,
     backgroundColor:'yellow',
     alignItems: 'center',
-    height:45,
+    height:40,
     justifyContent:'center',
     borderRadius:50,
     marginBottom:'5%'

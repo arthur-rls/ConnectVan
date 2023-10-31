@@ -4,23 +4,24 @@ import {StyleSheet} from 'react-native'
 
 export default StyleSheet.create({
   h1:{
-    fontSize: 60,
+    fontSize: 45,
+    fontFamily:'AileronH',
     alignItems: 'center',
-    fontFamily:'AileronH'
+    marginTop:'30%'
   },
   tela:{
     width:'100%',
-    paddingVertical:80
+    paddingVertical:20
   },
   input:{
     width:'100%',
-    height: 50,
+    height: 53, 
     borderRadius: 8,
     backgroundColor: '#ECECEC',
     color: '#6F6F6F',
-    padding: 20,
+    padding: 15,
     fontSize:13,
-    marginVertical:5,
+    marginVertical:7,
     fontFamily:'AileronR'
   },
   inputErro:{
@@ -37,16 +38,17 @@ export default StyleSheet.create({
     fontFamily:'AileronR'
   },
   gradient:{
-  height:50, alignSelf: 'center', borderRadius:50, width:'100%'
-  },
-  botao:{
-    backgroundColor:'yellow',
-    alignItems: 'center',
-    height:50,
-    justifyContent:'center',
-    borderRadius:50,
-    flex: 1
-  },
+    height:50, alignSelf: 'center', borderRadius:50, width:'100%'
+    },
+    botao:{
+      width:'100%',
+      backgroundColor:'yellow',
+      alignItems: 'center',
+      justifyContent:'center',
+      borderRadius:50,
+      flex: 1,
+      marginTop:'8%'
+    },
   input2:{
     height: 50,
     borderRadius: 8,
@@ -56,7 +58,8 @@ export default StyleSheet.create({
     fontSize:13,
     width:'100%',
     fontFamily:'AileronR',
-    flex:1
+    flex:1,
+    marginTop:8
   },
   input2Erro:{
     height: 50,
@@ -138,6 +141,15 @@ export default StyleSheet.create({
   centeredView:{
     justifyContent:'center',
     marginTop:'50%'
+  },
+  errOuIncorr:{
+    position:'absolute', 
+    backgroundColor:'#f02929', 
+    marginTop: 15, 
+    padding:10, 
+    flexDirection:'row', 
+    borderRadius:13, 
+    alignSelf:'center',
   },
 })
 

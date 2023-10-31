@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text,Image,  TouchableOpacity, TextInput, Modal, ScrollView} from 'react-native'
 import styles from './style'
-import { FontAwesome, MaterialIcons, Entypo, Feather  } from '@expo/vector-icons';
+import { FontAwesome, MaterialIcons, Entypo, Feather, Foundation } from '@expo/vector-icons';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { auth, db } from '../../../../../firebase/config';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -78,11 +78,11 @@ export default function CadastroResponsavel ({navigation}) {
                         <TextInput style={showElementNome ? styles.inputErro : styles.input} placeholder="Nome de usuário" value={nomeU} onChangeText={value => setNomeU(value)} inputMode='text'/>
                     </View>
                     <View style={{flexDirection:'row', alignItems:'center', paddingVertical:5}}>
-                        <Entypo name="email" size={20} color="#4D4D4D" style={showElement ? [styles.iconErro, {marginLeft:10,}]: [styles.icon, {marginLeft:10,}]}/>
+                        <Entypo name="email" size={18} color="#4D4D4D" style={showElement ? [styles.iconErro, {marginLeft:11}]: [styles.icon, {marginLeft:10,}]}/>
                         <TextInput style={showElement ? styles.inputErro : styles.input} placeholder="Email" onChangeText={value => setEmailU(value)} value={emailU} autoCapitalize='none' autoComplete='email' keyboardType='email-address'/>
                     </View>
                     <View style={{flexDirection:'row', alignItems:'center', paddingVertical:5}}>
-                        <Entypo name="phone" size={20} color="#4D4D4D" style={showElementTelefone ? styles.iconErro : styles.icon}/>
+                        <Foundation name="telephone" size={20} color="#4D4D4D" style={showElementTelefone ? [styles.iconErro, {marginLeft:14}]: [styles.icon, {marginLeft:14}]}/>
                         <TextInputMask style={showElementTelefone ? styles.inputErro : styles.input} placeholder="Telefone" value={telefoneU} onChangeText={value => setTelefoneU(value)} maxLength={15} type={'cel-phone'}options={{maskType: 'BRL', withDDD: true, dddMask: '(99) '}}/>
                     </View>
                     <View style={{flexDirection:'row', alignItems:'center', paddingVertical:5}}>
@@ -107,40 +107,40 @@ export default function CadastroResponsavel ({navigation}) {
                 <View style={{ width:'100%', alignItems:'center', paddingVertical:10}}>
                     <TouchableOpacity style={styles.botao} onPress={() => createUser()}>
                         <Image source={require('../../../../../../assets/gradient.png')} style={styles.gradient}/>
-                        <Text style={{fontFamily:'AileronR', fontSize:20, position:'absolute'}}>Cadastrar</Text>
+                        <Text style={{fontFamily:'AileronR', fontSize:17, position:'absolute', fontWeight:'bold'}}>Cadastrar</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={{position:'absolute', marginTop:40, width:'110%'}}>
                     {showElement==true ? (
-                        <View style={{ backgroundColor:'#f02929', marginTop: 10, padding:10, flexDirection:'row', width:'100%'}}>
+                        <View style={styles.errOuIncorr}>
                             <TouchableOpacity onPress={()=>setShowElement(false)}>
                                 <Feather name="x" size={20} color="white" />
                             </TouchableOpacity>
-                            <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Endereço de email inválido ou existente.</Text>
+                            <Text style={{fontFamily:'AileronR', fontSize:16, color:'white'}}>Endereço de email inválido ou existente.</Text>
                         </View>
                     ):null}
                     {showElementSenha==true ? (
-                        <View style={{ backgroundColor:'#f02929', marginTop: 10, padding:10, flexDirection:'row', width:'100%'}}>
+                        <View style={styles.errOuIncorr}>
                             <TouchableOpacity onPress={()=>setShowElementSenha(false)}>
                                 <Feather name="x" size={20} color="white" />
                             </TouchableOpacity>
-                            <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Insira uma senha de no mínimo 8 dígitos.</Text>
+                            <Text style={{fontFamily:'AileronR', fontSize:16, color:'white'}}>Insira uma senha de no mínimo 8 dígitos.</Text>
                         </View>
                     ):null}
                     {showElementTelefone==true ? (
-                        <View style={{ backgroundColor:'#f02929', marginTop: 10, padding:10, flexDirection:'row', width:'100%'}}>
+                        <View style={styles.errOuIncorr}>
                             <TouchableOpacity onPress={()=>setShowElementTelefone(false)}>
                                 <Feather name="x" size={20} color="white" />
                             </TouchableOpacity>
-                            <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Insira um número exitente.</Text>
+                            <Text style={{fontFamily:'AileronR', fontSize:16, color:'white'}}>Insira um número exitente.</Text>
                         </View>
                     ):null}
                     {showElementNome==true ? (
-                        <View style={{ backgroundColor:'#f02929', marginTop: 10, padding:10, flexDirection:'row', width:'100%'}}>
+                        <View style={styles.errOuIncorr}>
                             <TouchableOpacity onPress={()=>setShowElementNome(false)}>
                                 <Feather name="x" size={20} color="white" />
                             </TouchableOpacity>
-                            <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Insira um nome.</Text>
+                            <Text style={{fontFamily:'AileronR', fontSize:16, color:'white'}}>Insira um nome.</Text>
                         </View>
                     ):null}
                 </View>

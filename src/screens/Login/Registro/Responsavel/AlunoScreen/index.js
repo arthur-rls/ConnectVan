@@ -20,7 +20,7 @@ export default function RegistroAluno ({route, navigation}) {
     const [periodoValue, setPeriodoValue] = useState('');
     const [periodoE, setPeriodoE] = useState([
       { label: "Manhã", value: "manhã" },
-      { label: "Tarde", value: "tarde" },
+      { label: "Tarde", value: "tarde" }, 
       { label: "Integral", value: "integral" },
     ]);
     const [showElementNome, setShowElementNome] = useState(false)
@@ -123,16 +123,16 @@ export default function RegistroAluno ({route, navigation}) {
                         </View>
                         <View style={{flexDirection:'row', gap:9, marginTop:8}}>
                           <TextInput style={bairro==''&&salve?styles.input2Erroflex:styles.input2} placeholder="Bairro" value={bairro} onChangeText={value=>setBairro(value)}/>
-                          <TextInput style={[styles.input2, {flex:2.5}]} placeholder="Complemento" value={complemento} onChangeText={value=>setComplemento(value)}/>                        
+                          <TextInput style={[styles.input2, {flex:0.5}]} placeholder="Complemento" value={complemento} onChangeText={value=>setComplemento(value)}/>                        
                         </View>
                         <View style={{flexDirection:'row', gap:9, marginTop:10}}>
                           <TouchableOpacity style={styles.botao} onPress={() => limpar()}>
                             <Image source={require('../../../../../../assets/gradient2.png')} style={styles.gradient}/>
-                            <Text style={{fontFamily:'AileronR', fontSize:20, position:'absolute'}}>Limpar</Text>
+                            <Text style={{fontFamily:'AileronR', fontSize:17, position:'absolute', fontWeight:'bold'}}>Limpar</Text>
                           </TouchableOpacity>
                           <TouchableOpacity style={styles.botao} onPress={() => salveEndereco()}>
                             <Image source={require('../../../../../../assets/gradient.png')} style={styles.gradient}/>
-                            <Text style={{fontFamily:'AileronR', fontSize:20, position:'absolute'}}>Salvar</Text>
+                            <Text style={{fontFamily:'AileronR', fontSize:17, position:'absolute', fontWeight:'bold'}}>Salvar</Text>
                           </TouchableOpacity>
                         </View>
                       </View>
@@ -178,61 +178,61 @@ export default function RegistroAluno ({route, navigation}) {
             <View style={{flexDirection:'row', paddingVertical:10, width:'100%', gap:10}}>
               <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('RHome')}>
                 <Image source={require('../../../../../../assets/gradient2.png')} style={styles.gradient}/>
-                <Text style={{fontFamily:'AileronR', fontSize:20, position:'absolute'}}>Mais tarde</Text>
+                <Text style={{fontFamily:'AileronR', fontSize:17, position:'absolute', fontWeight:'bold'}}>Mais tarde</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.botao} onPress={() => salvar()}>
                 <Image source={require('../../../../../../assets/gradient.png')} style={styles.gradient}/>
-                <Text style={{fontFamily:'AileronR', fontSize:20, position:'absolute'}}>Salvar</Text>
+                <Text style={{fontFamily:'AileronR', fontSize:17, position:'absolute', fontWeight:'bold'}}>Salvar</Text>
               </TouchableOpacity>
 
             </View>
             <View style={{position:'absolute', marginTop:40, width:'110%'}}>
                   {showElementNome==true ? (
-                      <View style={{ backgroundColor:'#f02929', marginTop: 10, padding:10, flexDirection:'row', width:'100%'}}>
+                      <View style={styles.errOuIncorr}>
                           <TouchableOpacity onPress={()=>setShowElementNome(false)}>
                               <Feather name="x" size={20} color="white" />
                           </TouchableOpacity>
-                          <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Insira o nome completo.</Text>
+                          <Text style={{fontFamily:'AileronR', fontSize:16, color:'white'}}>Insira o nome completo.</Text>
                       </View>
                   ):null}
                   {showElementSala==true ? (
-                      <View style={{ backgroundColor:'#f02929', marginTop: 10, padding:10, flexDirection:'row', width:'100%'}}>
+                      <View style={styles.errOuIncorr}>
                           <TouchableOpacity onPress={()=>setShowElementSala(false)}>
                               <Feather name="x" size={20} color="white" />
                           </TouchableOpacity>
-                          <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Insira a sala do aluno.</Text>
+                          <Text style={{fontFamily:'AileronR', fontSize:16, color:'white'}}>Insira a sala do aluno.</Text>
                       </View>
                   ):null}
                   {showElementSerie==true ? (
-                      <View style={{ backgroundColor:'#f02929', marginTop: 10, padding:10, flexDirection:'row', width:'100%'}}>
+                      <View style={styles.errOuIncorr}>
                           <TouchableOpacity onPress={()=>setShowElementSerie(false)}>
                               <Feather name="x" size={20} color="white" />
                           </TouchableOpacity>
-                          <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Insira a serie do aluno.</Text>
+                          <Text style={{fontFamily:'AileronR', fontSize:16, color:'white'}}>Insira a serie do aluno.</Text>
                       </View>
                   ):null}
                   {showElementEscola==true ? (
-                      <View style={{ backgroundColor:'#f02929', marginTop: 10, padding:10, flexDirection:'row', width:'100%'}}>
+                      <View style={styles.errOuIncorr}>
                           <TouchableOpacity onPress={()=>setShowElementEscola(false)}>
                               <Feather name="x" size={20} color="white" />
                           </TouchableOpacity>
-                          <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Insira a escola do aluno.</Text>
+                          <Text style={{fontFamily:'AileronR', fontSize:16, color:'white'}}>Insira a escola do aluno.</Text>
                       </View>
                   ):null}
                   {showElementEndereco==true ? (
-                      <View style={{ backgroundColor:'#f02929', marginTop: 10, padding:10, flexDirection:'row', width:'100%'}}>
+                      <View style={styles.errOuIncorr}>
                           <TouchableOpacity onPress={()=>setShowElementEndereco(false)}>
                               <Feather name="x" size={20} color="white" />
                           </TouchableOpacity>
-                          <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Insira o endereço do aluno.</Text>
+                          <Text style={{fontFamily:'AileronR', fontSize:16, color:'white'}}>Insira o endereço do aluno.</Text>
                       </View>
                   ):null}
                   {showElementPeriodo==true ? (
-                      <View style={{ backgroundColor:'#f02929', marginTop: 10, padding:10, flexDirection:'row', width:'100%'}}>
+                      <View style={styles.errOuIncorr}>
                           <TouchableOpacity onPress={()=>setShowElementPeriodo(false)}>
                               <Feather name="x" size={20} color="white" />
                           </TouchableOpacity>
-                          <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Escolha um período.</Text>
+                          <Text style={{fontFamily:'AileronR', fontSize:16, color:'white'}}>Escolha um período.</Text>
                       </View>
                   ):null}
               </View>

@@ -4,13 +4,14 @@ import {StyleSheet} from 'react-native'
 
 export default StyleSheet.create({
   h1:{
-    fontSize: 80,
+    fontSize: 55,
     fontFamily:'AileronH',
     alignItems: 'center',
+    marginTop:'45%'
   },
   tela:{
     width:'100%',
-    paddingVertical:80
+    paddingVertical:20
   },
   input:{
     width:'100%',
@@ -37,24 +38,25 @@ export default StyleSheet.create({
   iconErro:{
     position:'absolute',
     zIndex:2,
-    marginLeft:10,
+    marginLeft:20,
     color:'#f02929'
   },
   icon:{
     position:'absolute',
     zIndex:2,
-    marginLeft:10,
+    marginLeft:11,
   },
   gradient:{
-    width:150, height:50, alignSelf: 'center', borderRadius:50
+    width:140, height:45, alignSelf: 'center', borderRadius:50
   },
   botao:{
-    width:150,
+    width:140,
     backgroundColor:'yellow',
     alignItems: 'center',
-    height:50,
+    height:43,
     justifyContent:'center',
-    borderRadius:50
+    borderRadius:50,
+    marginTop:'7%'
   },
   modalView: {
     margin: 20,
@@ -83,6 +85,15 @@ export default StyleSheet.create({
     fontSize:15,
     paddingVertical:0.9,
     textAlign:'justify'
-  }
+  },
+  errOuIncorr:{
+    position:'absolute', 
+    backgroundColor:'#f02929', 
+    marginTop: 20, 
+    padding:10, 
+    flexDirection:'row', 
+    borderRadius:13,
+    alignSelf:'center'
+  },
 })
 
