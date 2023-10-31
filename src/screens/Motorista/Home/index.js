@@ -33,12 +33,51 @@ export default function MHomeRota ({route, navigation}) {
         shouldShowAlert: true
       })
     })
+
+    const handleCallNotification = async () =>{
+      const {status} = await Notification.getPermissionsAsync()
+
+      console.log(status)
+  
+      if(status != 'granted'){
+        console.log('notificação não aceita')
+        return
+      }
+
+      await Notification.getExpoPushTokenAsync().then((token)=>{
+         setToken(token.data)
+         onAuthStateChanged(auth, (user)=>{
+          if(user){
+            updateDoc(doc(db, 'motorista', user.uid), {token: token})
+          }
+         })
+      })
+    }
+
+    const message = {
+      to: {token},
+      title: 'Original Title',
+      body: 'And here is the body!',
+    }
+    
+    async function send(){
+      fetch('https://exp.host/--/api/v2/push/send', {
+        method:'POST',
+        headers: {
+          Accept: 'application/json',
+          'Accept-encoding': 'gzip, deflate',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(message)
+      })
+    }
     
     const verSaldo=()=>{
       setVer(current=>!current)
 
     } 
     useEffect(()=>{
+        handleCallNotification()
         var date = new Date().getDate(); //Current Date
         var month = new Date().getMonth(); //Current Month
         setCurrentDate(
@@ -152,6 +191,7 @@ export default function MHomeRota ({route, navigation}) {
                     </Text>
                 </View>
               <Text style={{ fontSize: 18, marginBottom: 5 }}>Saldo total</Text>
+              <TouchableOpacity onPress={()=>send()}><Text>aa</Text></TouchableOpacity>
               <View
                 style={{ alignContent: 'space-between', flexDirection: 'row' }}>
                 {ver?(
