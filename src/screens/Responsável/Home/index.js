@@ -6,6 +6,7 @@ import {db, auth} from '../../../firebase/config';
 import {View, Text,Image,  TouchableOpacity, TextInput, Modal, ScrollView, Keyboard, Linking} from 'react-native'
 import { doc, getDoc, onSnapshot, getDocs, collection, collectionGroup, query, where, updateDoc} from 'firebase/firestore';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import * as  Notification from 'expo-notifications'
 
 //fazer home pra nenhum motorista
 export default function RHome ({route, navigation}) {
@@ -17,7 +18,9 @@ export default function RHome ({route, navigation}) {
     const [rota, setRota] = useState('')
     const [rec, setRec] = useState('')
     const [pago, setPago] = useState('')
+    const[token, setToken] = useState(null)
     useEffect(()=>{
+        handleCallNotification()
         var date = new Date().getDate(); //Current Date
         var month = new Date().getMonth(); //Current Month
         setCurrentDate(
@@ -45,6 +48,53 @@ export default function RHome ({route, navigation}) {
         })
         setPago(rec.pago)
     },[])
+
+    Notification.setNotificationHandler({
+        handleNotification: async () => ({
+          shouldPlaySound: true,
+          shouldSetBadge: true,
+          shouldShowAlert: true
+        })
+      })
+  
+      const handleCallNotification = async () =>{
+        const {status} = await Notification.getPermissionsAsync()
+  
+        console.log(status)
+    
+        if(status != 'granted'){
+          console.log('notificação não aceita')
+          return
+        }
+  
+        await Notification.getExpoPushTokenAsync().then((token)=>{
+           setToken(token.data)
+           onAuthStateChanged(auth, (user)=>{
+            if(user){
+              updateDoc(doc(db, 'motorista', user.uid), {token: token})
+            }
+           })
+        })
+      }
+  
+      const message = {
+        to: {token},
+        title: 'Original Title',
+        body: 'And here is the body!',
+      }
+      
+      async function send(){
+        fetch('https://exp.host/--/api/v2/push/send', {
+          method:'POST',
+          headers: {
+            Accept: 'application/json',
+            'Accept-encoding': 'gzip, deflate',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(message)
+        })
+      }
+      
 
     const acompanhar=()=>{
         Linking.openURL(rota)
