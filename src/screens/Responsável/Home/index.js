@@ -99,7 +99,7 @@ export default function RHome ({route, navigation}) {
     const acompanhar=()=>{
         Linking.openURL(rota)
     }
-    return(
+    return( 
         <View style={styles.container}>
             <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
             <View style={styles.viewInput}>
