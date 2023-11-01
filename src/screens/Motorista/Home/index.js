@@ -25,6 +25,7 @@ export default function MHomeRota ({route, navigation}) {
     const [ver, setVer] = useState(false)
     const s = []
     const[token, setToken] = useState(null)
+    const[token2, setToken2] = useState(null)
 
     Notification.setNotificationHandler({
       handleNotification: async () => ({
@@ -35,6 +36,16 @@ export default function MHomeRota ({route, navigation}) {
     })
 
     const handleCallNotification = async () =>{
+
+      if (Platform.OS === 'android') {
+        Notification.setNotificationChannelAsync('default', {
+          name: 'default',
+          importance: Notification.AndroidImportance.MAX,
+          vibrationPattern: [0, 250, 250, 250],
+          lightColor: '#FF231F7C',
+        });
+      }
+      
       const {status} = await Notification.getPermissionsAsync()
 
       console.log(status)
@@ -44,20 +55,20 @@ export default function MHomeRota ({route, navigation}) {
         return
       }
 
-      await Notification.getExpoPushTokenAsync().then((token)=>{
+      await Notification.getExpoPushTokenAsync({projectId: '54bfc0a1-1a9c-42a0-916d-0a1b837de342'}).then((token)=>{
          setToken(token.data)
          onAuthStateChanged(auth, (user)=>{
           if(user){
-            updateDoc(doc(db, 'motorista', user.uid), {token: token})
+            updateDoc(doc(db, 'motorista', user.uid), {token: token.data})
           }
          })
       })
     }
 
     const message = {
-      to: {token},
-      title: 'Original Title',
-      body: 'And here is the body!',
+      to: token2,
+      title: 'pinto buceta',
+      body: 'cuuu',
     }
     
     async function send(){
@@ -95,7 +106,7 @@ export default function MHomeRota ({route, navigation}) {
                 setAviso(rec.avisando)
                 setAvisoA(rec.aviso)
                 setAvisoD(rec.data)
-                
+                setToken2(rec.token)                
                 const snapshot2 = await getDocs(q)
                 snapshot2.forEach((item)=>{
                     const dado = item.data()
@@ -187,6 +198,7 @@ export default function MHomeRota ({route, navigation}) {
                     </Text>
                 </View>
               <Text style={{ fontSize: 18, marginBottom: 5 }}>Saldo total</Text>
+              <TouchableOpacity onPress={()=>handleCallNotification()}><Text>aa</Text></TouchableOpacity>
               <TouchableOpacity onPress={()=>send()}><Text>aa</Text></TouchableOpacity>
               <View
                 style={{ alignContent: 'space-between', flexDirection: 'row' }}>
