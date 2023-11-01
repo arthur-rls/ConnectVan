@@ -11,8 +11,8 @@ import * as  Notification from 'expo-notifications'
 //fazer home pra nenhum motorista
 export default function RHome ({route, navigation}) {
     const [currentDate, setCurrentDate] = useState('');
-    const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+    const monthNames = ["JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO",
+    "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO"];
     const [motorista, setMotorista] = useState('')
     const [viagem, setViagem] = useState(false);
     const [rota, setRota] = useState('')
@@ -25,7 +25,7 @@ export default function RHome ({route, navigation}) {
         var date = new Date().getDate(); //Current Date
         var month = new Date().getMonth(); //Current Month
         setCurrentDate(
-            'Hoje, '+date + ' de ' + monthNames[month]
+            'HOJE, '+date + ' DE ' + monthNames[month]
         );
         onAuthStateChanged(auth, async(user)=>{
             const docRef = doc(db, 'responsavel', user.uid)
@@ -115,37 +115,35 @@ export default function RHome ({route, navigation}) {
         <View style={styles.container}>
             <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
             <View style={styles.viewInput}>
-                <View style={{position:'absolute', width:'100%', zIndex:2, marginLeft:'10%'}}>
+                <View style={{position:'absolute', width:'100%', zIndex:2, marginLeft:'18%'}}>
                     <TouchableOpacity style={{ width:'5%'}} onPress={()=>navigation.openDrawer()}>
-                        <Entypo name="menu" size={24} color="black"/>
+                        <Entypo name="menu" size={28} color="black"/>
                     </TouchableOpacity>
                 </View>
                 <TextInput style={styles.input} onFocus={()=>navigation.navigate('Pesquisar')}/>
-                <View style={{position:'absolute', width:'100%', alignItems:'flex-end', marginRight:'10%'}}>
+                <View style={{position:'absolute', width:'100%', alignItems:'flex-end', marginRight:'20%'}}>
                     <TouchableOpacity onPress={()=>navigation.navigate('Pesquisar')}>
-                        <FontAwesome name="search" size={24} color="black" />
+                        <FontAwesome name="search" size={21} color="black" />
                     </TouchableOpacity>
                 </View>
             </View>
 
             <View style={styles.fundoTab}>
-                <Text style={{ fontSize: 25,margin: '8%', fontFamily:'AileronH' }}>
+                <Text style={{ fontSize: 20, margin:'6%', fontFamily:'AileronH' }}>
                     {currentDate}
                 </Text>
-                <TouchableOpacity onPress={()=>send()}><Text>aa</Text></TouchableOpacity>
                 {motorista?(
                 <View style={styles.saldot}>
                     <View style={styles.fundoSaldo}>
                         <View style={styles.viewMae}/>
-                            <View style={{margin: 23}}>
-                                
-                                    <View style={{flexDirection:'row'}}>
-                                        <Image source={require('../../../../assets/logo.png')} style={{width: 25, height: 25, resizeMode: 'stretch', borderRadius:100, marginRight:10}}/>
-                                        <Text
-                                            style={{ fontSize: 20, marginBottom: 5, fontWeight: 'bold' }}>
-                                            {rec.nome}
-                                        </Text>
-                                    </View>
+                            <View style={{padding: 23}}>
+                                <View style={{flexDirection:'row'}}>
+                                    <Image source={require('../../../../assets/logo.png')} style={styles.logo}/>
+                                    <Text
+                                        style={{ fontSize: 20, fontFamily:'AileronH', marginTop:8}}>
+                                        {rec.nome}
+                                    </Text>
+                                </View>
                                 <Text style={{ fontSize: 18, marginBottom: 5 }}>Mensalidade</Text>
                                 <View style={{width:'100%', height:'30%', flexDirection:'row',}}>
                                     <Text
@@ -180,7 +178,7 @@ export default function RHome ({route, navigation}) {
                                         </Text>
                                         )}
                                     </View>
-                                    
+                                        
                                 </View>
                             </View>
                         </View>

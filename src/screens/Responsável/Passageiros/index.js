@@ -32,7 +32,7 @@ export default function Passageiros({navigation}) {
   return (
     <View style={styles.container}>
       <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-            <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
+            <View style={{ marginTop:'15%', justifyContent:'center', marginBottom:'2%'}}>
                 <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
                   <Entypo name="menu" size={29} color="black" style={styles.iconMenu}/>
                 </TouchableOpacity>
@@ -63,9 +63,9 @@ export default function Passageiros({navigation}) {
           )
         })}
         <View style={styles.viewBotao}>
-          <TouchableOpacity onPress={() => navigation.navigate('AddPassageiro')} style={styles.botaoMaps}>
+          <TouchableOpacity onPress={() => navigation.navigate('AddPassageiro')} style={styles.botaoAdd}>
               <Image source={require('../../../../assets/gradient.png')} style={[styles.gradient, {position:'absolute'}]}/>
-              <Text style={{fontSize:16, fontWeight:'bold',}}>Adicionar aluno</Text>
+              <Text style={{fontSize:16, fontFamily:'AileronH'}}>Adicionar passageiro</Text>
           </TouchableOpacity>
         </View>
       </View>
