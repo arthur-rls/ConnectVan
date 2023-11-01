@@ -88,6 +88,7 @@ export default function MHomeRota ({route, navigation}) {
 
     } 
     useEffect(()=>{
+        navigation.addListener('focus', () => {
         handleCallNotification()
         var date = new Date().getDate(); //Current Date
         var month = new Date().getMonth(); //Current Month
@@ -106,7 +107,8 @@ export default function MHomeRota ({route, navigation}) {
                 setAviso(rec.avisando)
                 setAvisoA(rec.aviso)
                 setAvisoD(rec.data)
-                setToken2(rec.token)                
+                setToken2(rec.token)   
+                updateDoc(docRef, {viajando: false, rota:''})             
                 const snapshot2 = await getDocs(q)
                 snapshot2.forEach((item)=>{
                     const dado = item.data()
@@ -122,6 +124,7 @@ export default function MHomeRota ({route, navigation}) {
                 setSaldo(saldoS)
             }
         });
+      })
         
     },[aviso, gatilho])
 
