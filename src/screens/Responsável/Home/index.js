@@ -20,6 +20,7 @@ export default function RHome ({route, navigation}) {
     const [pago, setPago] = useState('')
     const[token, setToken] = useState(null)
     useEffect(()=>{
+        navigation.addListener('focus', () => {
         handleCallNotification()
         var date = new Date().getDate(); //Current Date
         var month = new Date().getMonth(); //Current Month
@@ -47,6 +48,7 @@ export default function RHome ({route, navigation}) {
             }
         })
         setPago(rec.pago)
+    })
     },[])
 
     Notification.setNotificationHandler({
@@ -58,6 +60,16 @@ export default function RHome ({route, navigation}) {
       })
   
       const handleCallNotification = async () =>{
+
+        if (Platform.OS === 'android') {
+          Notification.setNotificationChannelAsync('default', {
+            name: 'default',
+            importance: Notification.AndroidImportance.MAX,
+            vibrationPattern: [0, 250, 250, 250],
+            lightColor: '#FF231F7C',
+          });
+        }
+        
         const {status} = await Notification.getPermissionsAsync()
   
         console.log(status)
@@ -67,18 +79,18 @@ export default function RHome ({route, navigation}) {
           return
         }
   
-        await Notification.getExpoPushTokenAsync().then((token)=>{
+        await Notification.getExpoPushTokenAsync({projectId: '54bfc0a1-1a9c-42a0-916d-0a1b837de342'}).then((token)=>{
            setToken(token.data)
            onAuthStateChanged(auth, (user)=>{
             if(user){
-              updateDoc(doc(db, 'motorista', user.uid), {token: token})
+              updateDoc(doc(db, 'responsavel', user.uid), {token: token})
             }
            })
         })
       }
   
       const message = {
-        to: {token},
+        to: token,
         title: 'Original Title',
         body: 'And here is the body!',
       }
@@ -120,6 +132,7 @@ export default function RHome ({route, navigation}) {
                 <Text style={{ fontSize: 25,margin: '8%', fontFamily:'AileronH' }}>
                     {currentDate}
                 </Text>
+                <TouchableOpacity onPress={()=>send()}><Text>aa</Text></TouchableOpacity>
                 {motorista?(
                 <View style={styles.saldot}>
                     <View style={styles.fundoSaldo}>

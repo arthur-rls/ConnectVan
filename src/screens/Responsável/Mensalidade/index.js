@@ -14,6 +14,7 @@ export default function Mensalidade({navigation}) {
     const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
     "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
   useEffect(()=>{
+    navigation.addListener('focus', () => {
     var date = new Date().getDate();
     var month = new Date().getMonth(); //Current Month
     setDia(date)
@@ -29,6 +30,7 @@ export default function Mensalidade({navigation}) {
         console.log(dado.motorista)
         
     })
+  })
   },[])
 
   const pago=async()=>{
