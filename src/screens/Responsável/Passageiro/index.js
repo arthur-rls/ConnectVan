@@ -29,7 +29,7 @@ export default function Passageiro({route, navigation}) {
 
         <View style={styles.container}>
           <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-          <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
+          <View style={{ marginTop:'15%', justifyContent:'center', marginBottom:'2%'}}>
               <TouchableOpacity onPress={()=>navigation.navigate('Passageiros')} style={{flex:1,position:'absolute'}}>
                 <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
               </TouchableOpacity>
@@ -40,24 +40,24 @@ export default function Passageiro({route, navigation}) {
     
           <View style={styles.fundoTab}>
             <View style={styles.fundo}>
-            <View style={{flexDirection:'row'}}>
-            <View style={[styles.viewMae, {height:135}]}/> 
-              <View style={{flexDirection:'column', marginLeft:'11%'}}>
-                <Text style={styles.viewFilha}>Escola</Text>
-                <Text style={styles.infos}>{rec.escola[key]}</Text>
-                <Text style={styles.infos}>{rec.sala[key]}</Text>
-                <Text style={styles.infos}>{rec.serie[key]}</Text>
-                <Text style={styles.infos}>{rec.periodo[key]}</Text>
+              <View style={{flexDirection:'row'}}>
+                <View style={[styles.viewMae, {height:135}]}/> 
+                <View style={{flexDirection:'column', marginLeft:'11%'}}>
+                  <Text style={styles.viewFilha}>Escola</Text>
+                  <Text style={styles.infos}>{rec.escola[key]}</Text>
+                  <Text style={styles.infos}>{rec.sala[key]}</Text>
+                  <Text style={styles.infos}>{rec.serie[key]}</Text>
+                  <Text style={styles.infos}>{rec.periodo[key]}</Text>
+                </View>
               </View>
-          </View>
 
-          <View style={{flexDirection:'row'}}>
-            <View style={[styles.viewMae, {height:106}]}/>
-            <View style={{flexDirection:'column', marginLeft:'11%'}}>
-              <Text style={styles.viewFilha}>Endereço</Text>
-              <Text style={styles.infos}>{rec.endereco[key]}</Text>
-            </View>
-          </View>
+              <View style={{flexDirection:'row'}}>
+                <View style={[styles.viewMae, {height:106}]}/>
+                <View style={{flexDirection:'column', marginLeft:'11%'}}>
+                  <Text style={styles.viewFilha}>Endereço</Text>
+                  <Text style={styles.infos}>{rec.endereco[key]}</Text>
+                </View>
+              </View>
             </View>
           </View>
         </View>

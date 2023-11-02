@@ -9,7 +9,7 @@ export default StyleSheet.create({
       backgroundColor: '#FFBF00',
     },
     fundoTab:{
-      flex:1,
+      flex:2,
       backgroundColor: '#fff',
       width:'100%',
       marginTop:10,
@@ -50,7 +50,7 @@ export default StyleSheet.create({
       marginTop:'5%',
     },
     iconMenu:{
-      marginLeft:10,
+      padding:20,
     },
     fundoEscola:{
       borderRadius: 20,
@@ -67,7 +67,7 @@ export default StyleSheet.create({
     gradient:{
       width:'100%', height:'100%', alignSelf: 'center', borderRadius:50
     },
-    botaoMaps:{
+    botaoAdd:{
       backgroundColor:'transparent', 
       flexDirection:'row',
       borderRadius:25, 
@@ -75,5 +75,6 @@ export default StyleSheet.create({
       height:42, 
       alignItems:'center', 
       justifyContent:'center',
+      marginTop:'100%'
     },
   });

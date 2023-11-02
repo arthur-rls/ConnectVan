@@ -43,5 +43,8 @@ export default StyleSheet.create({
       },
       fundo:{
         marginTop:'10%'
-      }
+      },
+      iconMenu:{
+        padding:20
+      },
     });

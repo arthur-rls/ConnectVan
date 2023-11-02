@@ -34,7 +34,7 @@ export default StyleSheet.create({
     flex:1,
     backgroundColor: '#fff',
     width:'100%',
-    marginTop:'10%',
+    marginTop:'6%',
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     alignItems:'center'
@@ -59,21 +59,24 @@ export default StyleSheet.create({
     alignItems:'center', 
     justifyContent:'center',
   },
-
   saldot: {
     width: '90%',
     backgroundColor: 'white',
   },
   fundoSaldo: {
-    borderBottomRightRadius: 8,
-    borderTopRightRadius: 8,
+    borderBottomRightRadius: 15,
+    borderTopRightRadius: 15,
+    borderTopLeftRadius:10,
+    borderBottomLeftRadius:10,
     borderColor: '#DDDDDD',
-    borderWidth: 1,
+    borderWidth: 1.3,
     flexDirection:'row',
     alignItems:'center'
   },
   viewMae:{
-    width:3, 
+    width:5, 
+    borderTopLeftRadius:15,
+    borderBottomLeftRadius:15,
     backgroundColor:'#FFBF00', 
     position:'absolute',
     left:-1,
@@ -81,5 +84,12 @@ export default StyleSheet.create({
   },
   gradient:{
     width:'100%', height:'100%', alignSelf: 'center', borderRadius:50
+  },
+  logo:{
+    width: 42, 
+    height: 42, 
+    resizeMode: 'stretch', 
+    borderRadius:100, 
+    marginRight:10,
   },
 });
