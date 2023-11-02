@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "ConnectVan",
-    "slug": "ConnectVan",
+    "slug": "connectvantcc",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -28,8 +28,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "54bfc0a1-1a9c-42a0-916d-0a1b837de342"
+        "projectId": "bee4ad9b-b2ae-4c9d-afa7-fba1c08f8eb1"
       }
-    }
+    },
+    "owner": "arthurls"
   }
 }
