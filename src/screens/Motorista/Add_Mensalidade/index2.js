@@ -19,7 +19,7 @@ export default function AddMensalidade({route, navigation}) {
     const [showElement, setShowElement] = useState(false)
 
     const mensa = () => {
-      const dado = mensalidadeM.replace(/,/, '.');
+      const dado = mensalidadeM.replace(/,00/, '');
       const mensalidade= dado.replace('R$', '');
         if(vencimento!=''&&mensalidade!=''){
             navigation.navigate('AddAlunos', {idR, mensalidade, vencimento})
