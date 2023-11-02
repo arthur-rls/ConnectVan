@@ -5,6 +5,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import {db, auth} from '../../../firebase/config';
 import {View, Text,Image,  TouchableOpacity, TextInput, Modal, ScrollView, Keyboard, Linking} from 'react-native'
 import { doc, getDoc, onSnapshot, getDocs, collection, collectionGroup, query, where, updateDoc} from 'firebase/firestore';
+ 
 
 //fazer home pra nenhum motorista
 export default function RHome ({route, navigation}) {
