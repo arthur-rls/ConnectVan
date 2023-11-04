@@ -13,10 +13,7 @@ export default function RHome ({route, navigation}) {
     const monthNames = ["JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO",
     "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO"];
     const [motorista, setMotorista] = useState('')
-    const [viagem, setViagem] = useState(false);
-    const [rota, setRota] = useState('')
     const [rec, setRec] = useState('')
-    const [pago, setPago] = useState('')
     useEffect(()=>{
         navigation.addListener('focus', () => {
         var date = new Date().getDate(); //Current Date
@@ -27,31 +24,23 @@ export default function RHome ({route, navigation}) {
         onAuthStateChanged(auth, async(user)=>{
             const docRef = doc(db, 'responsavel', user.uid)
             const snapshot = await getDoc(docRef)
-            const dado = snapshot.data()
-
-            const moto = dado.motorista
-            setRec(dado)
+            setRec(snapshot.data())
+            const moto = rec.motorista
             console.log(moto)
-
-            if(moto != undefined){
+            if(rec.motorista != undefined && rec.motorista != null && rec.motorista != ''){
                 const docRef2 = doc(db, 'motorista', moto)
                 const snapshot2 = await getDoc(docRef2)
                 const dado2 = snapshot2.data()
                 setMotorista(dado2)
-                setViagem(motorista.viajando)
-                if(viagem){
-                    setRota(motorista.rota) 
-                }
             }
         })
-        setPago(rec.pago)
     })
     },[])
 
     const acompanhar=()=>{
-        Linking.openURL(rota)
+        Linking.openURL(motorista.rota)
     }
-    return( 
+    return(
         <View style={styles.container}>
             <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
             <View style={styles.viewInput}>
@@ -92,11 +81,11 @@ export default function RHome ({route, navigation}) {
                                         fontWeight: 'bold',
                                         marginRight: '30%',
                                     }}>
-                                    R${rec.mensalidade},00
+                                    R${rec.mensalidade}
                                     </Text>
                                     <View style={{width:'30%', justifyContent:'center', height:'100%', alignItems:'center'}}>
                                         <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} /> 
-                                        {pago?(
+                                        {motorista.pago?(
                                             <Text
                                             style={{
                                             fontSize: 16,
@@ -145,7 +134,7 @@ export default function RHome ({route, navigation}) {
                         )}
                     </View>
                 </View>
-                {viagem?(
+                {motorista.viajando?(
                 <View style={styles.viewBotao}>
                     <TouchableOpacity onPress={() => acompanhar()} style={styles.botaoMaps}>
                         <Image source={require('../../../../assets/gradient.png')} style={[styles.gradient, {position:'absolute'}]}/>
@@ -156,9 +145,27 @@ export default function RHome ({route, navigation}) {
                 ):null}
                 </View>
             ):(
-                <Text>
-                    Nenhum motorista adicionado ainda, mande solicitação para algum motorista para desfrutar o máximo do aplicativo.
-                </Text>
+                    <View style={styles.fundoTab}>
+                  <View style={styles.fundoTab}>
+                    <View style={{height:'10%', width:'50%'}}>
+                      <Image
+                        source={require('../../../../assets/avan.png')}
+                        style={{width:'100%', height:'100%'}}
+                      />
+                    </View>
+                    <View style={{marginTop:'3%'}}>
+                      <Text style={{fontSize:18, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>Oops! Ainda não há</Text>
+                      <Text style={{fontSize:18, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>nenhum motorista</Text>
+                      <Text style={{fontSize:18, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>contratado.</Text>
+                    </View>
+                    <View style={styles.viewBotao}>
+                      <TouchableOpacity style={styles.botao} onPress={()=>navigation.navigate('Pesquisar')}>
+                        <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
+                        <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Contratar</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>      
+                </View>
             )}
             </View>
             

@@ -50,6 +50,14 @@ export default StyleSheet.create({
     marginVertical:'15%',
     
   },
+  botao:{
+    backgroundColor:'#FFBF00', 
+    borderRadius:25, 
+    width:225,
+    height:45, 
+    alignItems:'center', 
+    justifyContent:'center',
+  },
   botaoMaps:{
     backgroundColor:'transparent', 
     flexDirection:'row',

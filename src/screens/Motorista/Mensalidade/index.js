@@ -163,7 +163,7 @@ export default function Mensalidade({navigation}){
                 </View>
                 <View style={styles.linha}/>
                 <View styles={{alignItems:'center', justifyContent:'center', }}>
-                    <Text style={styles.valor}>R${saldo},00</Text>
+                    <Text style={styles.valor}>R${saldo}</Text>
                     <Text style={styles.valorAcum}>Valor acumulado</Text>
                 </View>
                 <View style={{marginHorizontal:'10%'}}>

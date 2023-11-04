@@ -101,7 +101,7 @@ export default function Mensalidade({navigation}) {
           <View style={{flexDirection:'row', alignItems:'center'}}>
             <View style={{height:55, width:2, backgroundColor:'black', borderRadius:50}}/>
               <View style={{flexDirection:'column', marginLeft:'5%'}}>
-                <Text style={{fontSize:18, fontWeight:'bold'}}>R${dado.mensalidade},00</Text>
+                <Text style={{fontSize:18, fontWeight:'bold'}}>R${dado.mensalidade}</Text>
                 {dado.data>=dia?(
                     <Text style={styles.infos}>Vence dia {dado.data}</Text>
                 ):(

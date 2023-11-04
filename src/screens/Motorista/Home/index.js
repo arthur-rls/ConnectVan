@@ -96,6 +96,15 @@ export default function MHomeRota ({route, navigation}) {
         })
         setAviso(false)
     }
+
+    const parar =()=>{
+      onAuthStateChanged(auth, (user)=>{
+        if(user){
+          const docRef = doc(db, 'motorista', user.uid)
+          updateDoc(docRef, {viajando:false})
+        }
+      })
+    }
     return(
         <View style={styles.container}>
             <Image source={require('../../../../assets/gradient.png')} style={{position:'absolute', width:'100%', height:'100%'}}/>
@@ -148,7 +157,7 @@ export default function MHomeRota ({route, navigation}) {
                     fontWeight: 'bold',
                     marginRight: '30%',
                   }}>
-                  R${saldo},00
+                  R${saldo}
                 </Text>
                 ):(
                   <Text
@@ -241,7 +250,18 @@ export default function MHomeRota ({route, navigation}) {
               Pedidos de contratação
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity
+          {rec.viajando?(
+              <TouchableOpacity
+              style={styles.botaoAdd2} onPress={()=>parar()}>
+              <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient} />
+              <View style={{ flexDirection: 'row', position:'absolute' }}>
+              <Text style={{ fontSize: 19, marginLeft: 10, fontFamily:'AileronH'}}>
+                Parar rota
+              </Text>
+              </View>
+            </TouchableOpacity>
+          ):(
+            <TouchableOpacity
             style={styles.botaoAdd2} onPress={()=>navigation.navigate('HomeRotaMotorista')}>
             <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
             <View style={{ flexDirection: 'row', position:'absolute' }}>
@@ -251,6 +271,7 @@ export default function MHomeRota ({route, navigation}) {
             </Text>
             </View>
           </TouchableOpacity>
+          )}
         </View>
         </View>
         </View>

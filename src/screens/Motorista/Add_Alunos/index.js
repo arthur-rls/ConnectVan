@@ -97,7 +97,7 @@ export default function AddAlunos ({route, navigation}) {
           <View style={styles.viewMae}/>
           <View style={{flexDirection:'column', marginLeft:'11%'}}>
             <Text style={styles.titulo}>Mensalidade</Text>
-            <Text style={{marginTop:'2%', fontStyle:'italic', color:'#757575'}}>{mensalidade? mensalidade:'Nenhum valor foi inserido.'}</Text>
+            <Text style={{marginTop:'2%', fontStyle:'italic', color:'#757575'}}>{mensalidade? 'R$'+mensalidade :'Nenhum valor foi inserido.'}</Text>
           </View>
           <TouchableOpacity style={{padding:11, paddingLeft:23}} onPress={()=>navigation.navigate('AddMensalidades', {idR})}>
             <Ionicons name="add-sharp" size={34} color="black" />

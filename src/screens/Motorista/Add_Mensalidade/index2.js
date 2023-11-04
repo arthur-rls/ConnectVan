@@ -12,7 +12,7 @@ export default function AddMensalidade({route, navigation}) {
 
 
     const { idR } = route.params;
-    const [mensalidadeM, setMensalidadeM] = useState('');
+    const [mensalidadeM, setMensalidadeM] = useState(0);
     const [vencimento, setVencimento] = useState('')
     const [modalVisible, setModalVisible] = useState(false);
     const [data, setData] = useState('12 de cada mês')
@@ -20,7 +20,8 @@ export default function AddMensalidade({route, navigation}) {
 
     const mensa = () => {
       const dado = mensalidadeM.replace(/,00/, '');
-      const mensalidade= dado.replace('R$', '');
+      const mensalidadee= dado.replace('R$', '');
+      const mensalidade = parseInt(mensalidadee)
         if(vencimento!=''&&mensalidade!=''){
             navigation.navigate('AddAlunos', {idR, mensalidade, vencimento})
         }
