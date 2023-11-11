@@ -11,11 +11,17 @@ export default function CustomDrawer(props){
     const [rec, setRec] = useState('')
     useEffect(()=>{
         onAuthStateChanged(auth, async(user)=>{
-            if(user){
+            const userRef = doc(db, 'responsavel', user.uid)
+            const snap = await getDoc(userRef)
+            const verify = snap.data()
+                if(verify == undefined){
                     const docRef = doc(db, 'motorista', user.uid)
                     const snapshot = await getDoc(docRef)
                     setRec(snapshot.data());
-            }
+                }
+                else{
+                    setRec(snap.data());
+                }
         })
     },[])
     if(!rec){
@@ -30,7 +36,7 @@ export default function CustomDrawer(props){
                         <View style={styles.viewMae}>
                             <TouchableOpacity>
                                 <Image
-                                source={require('../../../assets/logo.png')}
+                                source={require('../../../assets/Logo-branca.png')}
                                 style={styles.imagem}
                                 />
                             </TouchableOpacity>

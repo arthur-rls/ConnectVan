@@ -35,7 +35,7 @@ export default function AddAlunos ({route, navigation}) {
               updateDoc(docRef, {solicitacao: arrayRemove(idR)})
           }
       })
-      navigation.navigate('HomeMotorista')
+      navigation.navigate('Home')
   }
   const adicionar =()=>{
       onAuthStateChanged(auth, (user) => {
@@ -52,7 +52,7 @@ export default function AddAlunos ({route, navigation}) {
               updateDoc(doc(db, 'responsavel', idR), {motorista: user.uid, mensalidade: mensalidade, data: vencimento,  pago:true})
           }
       });
-      navigation.navigate('HomeMotorista')
+      navigation.navigate('Home')
 
   }
 
@@ -77,7 +77,7 @@ export default function AddAlunos ({route, navigation}) {
 
       <View style={styles.fundoTab}>
         <Text style={{fontSize:18, fontFamily:'AileronH', marginTop:'5%'}}>
-          TODOS ({arr.length})
+          TODOS ({soli.length})
         </Text>
         {soli.map((item, index) => {
           const key = index;

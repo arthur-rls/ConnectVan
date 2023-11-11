@@ -28,6 +28,7 @@ export default function Mensalidade({navigation}){
     const [saldo, setSaldo] = useState(0)
 
     useEffect(()=>{
+        navigation.addListener('focus', () => {
         var date = new Date().getDate(); //Current Date
         var month = new Date().getMonth(); //Current Month
         setDia(date)
@@ -35,7 +36,9 @@ export default function Mensalidade({navigation}){
         consultas()
         consultas2()
         consultas3()
+        })
     },[])
+
 
     const Item = ({item}) => (
         <View style={styles.viewAtr1}> 
@@ -148,7 +151,7 @@ export default function Mensalidade({navigation}){
     return(
         <View style={styles.container}>
             <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-            <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
+            <View style={{ marginTop:'13%', justifyContent:'center'}}>
                 <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
                   <Entypo name="menu" size={29} color="black" style={styles.iconMenu}/>
                 </TouchableOpacity>
@@ -156,7 +159,8 @@ export default function Mensalidade({navigation}){
                 <Text style={{fontSize:18, fontFamily:'AileronH'}}>Mensalidades</Text>
               </View>
             </View>
-            <View style={{flex:1, alignItems:'center'}}>
+
+            <View style={{flex:1.2, alignItems:'center'}}>
             <View style={styles.fundoTab1}>
                 <View style={{flexDirection:'row', justifyContent:'center'}}> 
                     <Text style={styles.mes}>{mes}</Text>
@@ -194,7 +198,8 @@ export default function Mensalidade({navigation}){
                     </View>
                 </View>
             </View>
-            <View style={[styles.fundoTab1, {flex:2}]}>
+            
+            <View style={[styles.fundoTab2, {flex:2}]}>
                 {a?(
                     <View>
                         <View style={styles.viewAPA}> 

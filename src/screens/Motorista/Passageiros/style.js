@@ -12,7 +12,7 @@ export default StyleSheet.create({
         flex:1,
         backgroundColor: '#fff',
         width:'100%',
-        marginTop:10,
+        marginTop:'5%',
         borderRadius: 40,
         borderBottomEndRadius:0,
         borderBottomStartRadius:0,
@@ -33,7 +33,7 @@ export default StyleSheet.create({
         width:'90%',
         height: 80,
         backgroundColor: 'white',
-        marginVertical:'5%',
+        marginBottom:'5%',
       },
       iconBack:{
         marginLeft:5,

@@ -32,11 +32,12 @@ import Pesquisa from './Responsável/Pesquisar/index'
 import PerfilMoto from './Responsável/Perfil_Motorista/index'
 import EditarPerfilR from './Responsável/Perfil/index'
 import Acompanhar from './Responsável/Acompanhar/index'
+import Motorista from './Responsável/Motorista/index'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { AntDesign, FontAwesome5, FontAwesome, Ionicons, Entypo, MaterialIcons } from '@expo/vector-icons';
+import { AntDesign, FontAwesome5, FontAwesome, Ionicons, Entypo, MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import CustomDrawer from './CustomDrawer/index';
 
@@ -103,65 +104,51 @@ function DrawerM() {
 
   function DrawerR(){
     return(
-    <Drawer.Navigator screenOptions={{headerShown:false}}>
-      <Drawer.Screen name="Home" component={HomeResponsavel}/>
-      <Drawer.Screen name='Mensalidade' component={MensalidadeR}/>
-      <Drawer.Screen name='Passageiros' component={PassageiroR}/>
-      <Drawer.Screen name='Perfil' component={EditarPerfilR}/>
+    <Drawer.Navigator 
+    drawerContent={props => <CustomDrawer {...props} />} 
+    screenOptions={{
+      drawerActiveBackgroundColor:'#bdbdbd',
+      drawerActiveTintColor:'white',
+      drawerInactiveTintColor:'#808080',
+      drawerLabelStyle: {marginLeft:-15},
+      headerShown:false,
+    }}>
+      <Drawer.Screen 
+        name="Home" 
+        component={HomeResponsavel} 
+        options={{
+          drawerIcon: ({ color, size }) => <AntDesign name='home' color={color} size={24} marginLeft={7} />,
+        }}
+      />
+      <Drawer.Screen 
+        name="Mensalidades" 
+        component={MensalidadeR}
+        options={{
+          drawerIcon: ({ color, size }) => <FontAwesome5 name='money-bill-wave' color={color} size={18} marginLeft={7} />,
+        }}
+      />
+      <Drawer.Screen 
+        name="Passageiros" 
+        component={PassageiroR} 
+        options={{
+          drawerIcon: ({ color, size }) => <MaterialCommunityIcons name="bag-personal" color={color} size={24} marginLeft={7} />,
+        }}
+      />
+      <Drawer.Screen 
+        name="Motorista" 
+        component={Motorista} 
+        options={{
+          drawerIcon: ({ color, size }) => <FontAwesome name='drivers-license' color={color} size={20} marginLeft={7} />,
+        }}
+      />
+      <Drawer.Screen 
+        name="Perfil" 
+        component={EditarPerfilR} 
+        options={{
+          drawerIcon: ({ color, size }) => <FontAwesome5 name='user-alt' color={color} size={20} marginLeft={10} />,
+        }}
+      />
     </Drawer.Navigator>
-
-  //   <Drawer.Navigator 
-  //   drawerContent={props => <CustomDrawer {...props} />} 
-  //   screenOptions={{
-  //     drawerActiveBackgroundColor:'#bdbdbd',
-  //     drawerActiveTintColor:'white',
-  //     drawerInactiveTintColor:'#808080',
-  //     drawerLabelStyle: {marginLeft:-15},
-  //     headerShown:false,
-  //   }}>
-  //     <Drawer.Screen 
-  //       name="Home" 
-  //       component={HomeResponsavel} 
-  //       options={{
-  //         drawerIcon: ({ color, size }) => <AntDesign name='home' color={color} size={24} marginLeft={7} />,
-  //       }}
-  //     />
-  //     <Drawer.Screen 
-  //       name="Mensalidades" 
-  //       component={MensalidadeR}
-  //       options={{
-  //         drawerIcon: ({ color, size }) => <FontAwesome5 name='money-bill-wave' color={color} size={18} marginLeft={7} />,
-  //       }}
-  //     />
-  //     <Drawer.Screen 
-  //       name="Passageiros" 
-  //       component={PassageiroR} 
-  //       options={{
-  //         drawerIcon: ({ color, size }) => <MaterialCommunityIcons name="bag-personal" color={color} size={24} marginLeft={7} />,
-  //       }}
-  //     />
-  //     <Drawer.Screen 
-  //       name="Motorista" 
-  //       component={Motorista} 
-  //       options={{
-  //         drawerIcon: ({ color, size }) => <FontAwesome name='drivers-license' color={color} size={20} marginLeft={7} />,
-  //       }}
-  //     />
-  //     <Drawer.Screen 
-  //       name="Perfil" 
-  //       component={EditarPerfilR} 
-  //       options={{
-  //         drawerIcon: ({ color, size }) => <FontAwesome5 name='user-alt' color={color} size={20} marginLeft={10} />,
-  //       }}
-  //     />
-  //     <Drawer.Screen 
-  //       name="Configurações" 
-  //       component={Configurações} 
-  //       options={{
-  //         drawerIcon: ({ color, size }) => <Ionicons name='ios-settings-sharp' color={color} size={24} marginLeft={7} />,
-  //       }}
-  //     />
-  // </Drawer.Navigator>
     )
   }
 

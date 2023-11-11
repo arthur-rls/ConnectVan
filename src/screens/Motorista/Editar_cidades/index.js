@@ -48,14 +48,14 @@ export default function EditEscola({navigation}) {
   return (
     <View style={styles.container}>
       <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-        <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
-            <TouchableOpacity onPress={()=>navigation.navigate('Cidades')} style={{flex:1,position:'absolute'}}>
-              <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
-            </TouchableOpacity>
-            <View style={{ justifyContent:'center', alignItems:'center'}}>
-            <Text style={{fontSize:18, fontFamily:'AileronH'}}>Cidades</Text>
-          </View>
+      <View style={{ marginTop:'13%', justifyContent:'center', marginLeft:'4%'}}>
+        <TouchableOpacity onPress={()=>navigation.navigate('Cidades')} style={{flex:1,position:'absolute'}}>
+          <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
+        </TouchableOpacity>
+        <View style={{ justifyContent:'center', alignItems:'center'}}>
+          <Text style={{fontSize:18, fontFamily:'AileronH'}}>Cidades</Text>
         </View>
+      </View>
 
       <View style={styles.fundoTab}>
         {cidades?(
@@ -65,18 +65,12 @@ export default function EditEscola({navigation}) {
             </Text>
             {cidades.map((item) => {
                 return (
-                  <View style={styles.fundoEscola}>
-                  <View style={{padding:18, flexDirection:'row', alignItems:'center'}}>
+                  <View style={styles.botaoEscola}>
                     <Text style={{fontSize:17, fontFamily:'AileronH',}}>{item}</Text>
+                    <TouchableOpacity onPress={()=>excluir(item)}>
+                      <Ionicons name="ios-trash-outline" size={20} color="black" />
+                    </TouchableOpacity>
                   </View>
-                  <View style={{flex: 1, justifyContent:'flex-end', flexDirection:'row'}}>
-                    <View style={{justifyContent:'center', marginRight:'10%'}}>
-                      <TouchableOpacity onPress={()=>excluir(item)}>
-                        <Ionicons name="ios-trash-outline" size={20} color="black" />
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                </View>
                 );
             })}
             </View>
@@ -105,9 +99,9 @@ export default function EditEscola({navigation}) {
         </View>
 
         <View style={styles.viewBotao}>
-          <View style={{flexDirection:'row', justifyContent:'flex-end', padding: '10%'}}>
+          <View style={{flexDirection:'row', justifyContent:'flex-end', padding: '5%'}}>
             <TouchableOpacity style={styles.botaoAdd} onPress={()=>navigation.navigate('Cidades')}>
-              <MaterialIcons name="done" size={22} color="white" />
+            <MaterialIcons name="done" size={22} color="white" />
             </TouchableOpacity>
           </View>
         </View>

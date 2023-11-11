@@ -1,4 +1,4 @@
-import { Entypo, FontAwesome, AntDesign, FontAwesome5, Ionicons, EvilIcons } from '@expo/vector-icons';
+import { Entypo, FontAwesome, AntDesign, FontAwesome5, Ionicons, EvilIcons, Feather } from '@expo/vector-icons';
 import { useEffect, useState, useRef } from 'react'
 import styles from './style'
 import { onAuthStateChanged, signOut } from 'firebase/auth';
@@ -16,6 +16,7 @@ export default function EditarPerfilR({navigation}) {
     const [nomeM, setNomeM] = useState('')
     const [emailM, setEmailM] = useState('')
     const [telefoneM, setTelefoneM] = useState('')
+    const [modalVisible, setModalVisible] = useState(false)
 
     useEffect(()=>{
         navigation.addListener('focus', () => {
@@ -54,6 +55,30 @@ export default function EditarPerfilR({navigation}) {
       return (
     
         <View style={styles.container}>
+          <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => {
+          setModalVisible(!modalVisible);
+          }}>
+              <View style={styles.centeredView}>
+                  <View style={styles.modalView}>
+                      <View style={{position:'absolute', padding:10}}>
+                          <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                              <Feather name="x" size={24} color="black" />
+                          </TouchableOpacity>
+                      </View>
+                      <Text style={{ fontSize:25, textAlign:'justify', paddingBottom:5}}>Deseja realmente sair da conta?</Text>
+                      <View style={{paddingVertical:10}}>
+                          <TouchableOpacity style={styles.botaoAdd} onPress={() => logout()}>
+                              <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
+                              <Text style={{fontSize:25, position:'absolute', fontFamily:'AileronR'}}>Sair</Text>
+                          </TouchableOpacity>
+                      </View>
+                  </View>
+              </View>
+          </Modal>
         <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
         <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
             <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute', marginLeft:'3%'}}>
@@ -110,7 +135,7 @@ export default function EditarPerfilR({navigation}) {
                 <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Salvar</Text>
               </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.botaoAdd} onPress={()=>logout()}>
+            <TouchableOpacity style={styles.botaoAdd} onPress={()=>setModalVisible(true)}>
               <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
               <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Sair</Text>
             </TouchableOpacity>

@@ -9,13 +9,20 @@ const styles = StyleSheet.create({
   fundoTab1:{ 
     backgroundColor:'white', 
     borderRadius:30,
-    width:'90%',
-    flex:1,
+    width:'91%',
+    flex:1.3,
     marginVertical:'5%'
+  },
+  fundoTab2:{ 
+    backgroundColor:'white', 
+    borderRadius:30,
+    width:'91%',
+    flex:2,
+    marginBottom:'5%'
   },
   valor:{
     marginTop:'7%',
-    fontSize:26,
+    fontSize:30,
     alignSelf:'center',
     fontFamily:'AileronH',
   },
@@ -24,6 +31,7 @@ const styles = StyleSheet.create({
     fontSize:17,
     alignSelf:'center',
     fontFamily:'AileronR',
+    marginTop:3
   },
   viewBarra:{
     width:'100%', 
@@ -106,23 +114,25 @@ const styles = StyleSheet.create({
     backgroundColor:'#f4f4f4', 
   },
   iconMenu:{
-    marginLeft:10,
+    marginLeft:15,
   },
   numero:{
     color:'white',
     fontFamily:'AileronH',
-    fontSize:20
+    fontSize:17,
+    alignSelf:'center'
   },
   viewAPA:{
     flexDirection:'row',
     justifyContent:'center',
-    paddingVertical:'1%'
+    paddingVertical:'1%',
   },
   apa:{
     marginVertical:'10%', 
+    alignItems:'center',
     fontFamily:'AileronR',
     fontSize:18,
-    marginHorizontal:40
+    marginHorizontal:28
   },
   apaSelect:{
     fontFamily:'AileronH',

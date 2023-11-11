@@ -48,15 +48,15 @@ export default function Pedidos ({navigation}) {
     if(!soli){
         return(
           <View style={styles.container}>
-          <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-          <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
-            <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={{flex:1,position:'absolute'}}>
-              <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
-            </TouchableOpacity>
-            <View style={{ justifyContent:'center', alignItems:'center'}}>
-              <Text style={{fontSize:18, fontFamily:'AileronH'}}>Pedidos de Contratação</Text>
+            <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
+            <View style={{ marginTop:'12%', justifyContent:'center', marginBottom:'2%', flexDirection:'column'}}>
+              <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={{flex:1,position:'absolute'}}>
+                <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
+              </TouchableOpacity>
+              <View style={{ justifyContent:'center', alignItems:'center'}}>
+                <Text style={{fontSize:18, fontFamily:'AileronH'}}>Pedidos de Contratação</Text>
+              </View>
             </View>
-          </View>
           <View style={styles.fundoTab}>
             <Text style={{fontFamily:'AileronH', fontSize:30, marginTop:'10%'}}>Nenhum pedido no momento</Text>
           </View>      
@@ -66,7 +66,7 @@ export default function Pedidos ({navigation}) {
   return (
     <View style={styles.container}>
       <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-      <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
+      <View style={{ marginTop:'12%', justifyContent:'center', marginBottom:'2%', flexDirection:'column'}}>
         <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={{flex:1,position:'absolute'}}>
           <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
         </TouchableOpacity>

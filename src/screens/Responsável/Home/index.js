@@ -1,13 +1,14 @@
-import { Entypo, FontAwesome, AntDesign, FontAwesome5, Ionicons } from '@expo/vector-icons';
+import { Entypo, FontAwesome, AntDesign, FontAwesome5, Ionicons, Feather } from '@expo/vector-icons';
 import { useEffect, useState, useRef } from 'react'
 import styles from './style'
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged,  } from 'firebase/auth';
 import {db, auth} from '../../../firebase/config';
 import {View, Text,Image,  TouchableOpacity, TextInput, Modal, ScrollView, Keyboard, Linking} from 'react-native'
-import { doc, getDoc, onSnapshot, getDocs, collection, collectionGroup, query, where, updateDoc} from 'firebase/firestore';
+import { doc, getDoc, onSnapshot, getDocs, collection, collectionGroup, query, where, updateDoc, arrayUnion} from 'firebase/firestore';
 import Calendar from 'react-native-calendars/src/calendar'
- 
 
+ 
+//colocar todo o{selected: true, disableTouchEvent: true, selectedDotColor: 'orange'} dentro de uma const com for each do selected
 //fazer home pra nenhum motorista
 export default function RHome ({route, navigation}) {
     const [currentDate, setCurrentDate] = useState('');
@@ -18,16 +19,36 @@ export default function RHome ({route, navigation}) {
     const [modalVisible, setModalVisible] = useState(false);
     const selected = [];
     const [dia, setDia] = useState([])
+    const [marked, setMarked] = useState()
+    let obj = {}
+
     const onDayPress = (day) => {
         selected.push(day.dateString)
-        console.log(selected)
-        setDia(selected)
+        selected.forEach((item)=>{
+             obj = {...obj, [item]: {selected: true, marked: true, selectedColor: 'red'}}
+        })
+        setMarked((prev)=>{
+            const newObj = {...prev, ...obj}
+            return newObj
+        })
       };
-      const [selectedRedDates, setSelectedRedDates] = useState([]);
-
-        const onSaveButtonClick = () => {
-        
-        };
+    const confirmar = ()=>{
+        if(marked){
+            const a = Object.keys(marked)
+            a.forEach((item)=>{
+                updateDoc(doc(db, 'motorista', rec.motorista, 'responsavel', rec.nome), {faltar:arrayUnion(item)})
+            })
+            setModalVisible(false) 
+        }
+        else{
+            setModalVisible(false)
+        }
+    }
+    const clean=()=>{
+        setMarked()
+        updateDoc(doc(db, 'motorista', rec.motorista, 'responsavel', rec.nome), {faltar:''})
+    }
+    
     useEffect(()=>{
         navigation.addListener('focus', () => {
         var date = new Date().getDate(); //Current Date
@@ -35,20 +56,46 @@ export default function RHome ({route, navigation}) {
         setCurrentDate(
             'HOJE, '+date + ' DE ' + monthNames[month]
         );
+        
+        pegarDado()
+        })
+    },[])
+
+    function pegarDado(){
         onAuthStateChanged(auth, async(user)=>{
             const docRef = doc(db, 'responsavel', user.uid)
-            const snapshot = await getDoc(docRef)
-            setRec(snapshot.data())
-            if(rec.motorista != undefined && rec.motorista != null && rec.motorista != ''){
-                const docRef2 = doc(db, 'motorista', rec.motorista)
-                const snapshot2 = await getDoc(docRef2)
-                const dado2 = snapshot2.data()
-                setMotorista(dado2)
-            }
+            await getDoc(docRef).then(async(snapshot)=>{
+                const moto = snapshot.data().motorista
+
+                setRec(snapshot.data())
+                if(moto != undefined && moto != null && moto != ''){
+                    
+                    const docRef2 = doc(db, 'motorista', moto)
+                    const snapshot2 = await getDoc(docRef2)
+                    const dado2 = snapshot2.data()
+                    setMotorista(dado2)
+                    const docRef3 = doc(db, 'motorista', moto, 'responsavel', rec.nome)
+                    await getDoc(docRef3).then((snapshot3)=>{
+                        setDia(snapshot3.data().faltar)
+                        if(dia != undefined && dia != null && dia != ''){
+                            
+                            dia.forEach((item)=>{
+                                obj = {...obj, [item]: {selected: true, marked: true, selectedColor: 'red'}}
+                           })
+                           setMarked((prev)=>{
+                               const newObj = {...prev, ...obj}
+                               return newObj
+                           })
+                        }
+                        else{
+                            
+                        }
+                        })
+                    
+                }
+            })
         })
-        
-    })
-    },[])
+    }
 
     const acompanhar=()=>{
         Linking.openURL(motorista.rota)
@@ -157,7 +204,6 @@ export default function RHome ({route, navigation}) {
                         <Text style={{fontSize:16, fontWeight:'bold', marginLeft:'5%'}}>Calendário</Text>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={()=>console.log(dia)}><Text>aa</Text></TouchableOpacity>
                 {motorista.viajando?(
                 <View style={styles.viewBotao}>
                     <TouchableOpacity onPress={() => acompanhar()} style={styles.botaoMaps}>
@@ -193,29 +239,21 @@ export default function RHome ({route, navigation}) {
 
             )}
             </View>
-            <Modal visible={modalVisible}>
-                <Calendar hideArrows={false} enableSwipeMonths={true} 
-                onDayPress={onDayPress}
-                markedDates={{
-                  ...selected,
-                  // Marca os dias da semana em verde
-                  '2023-11-01': { selected: true, selectedColor: 'green' },
-                  '2023-11-02': { selected: true, selectedColor: 'green' },
-                  '2023-11-03': { selected: true, selectedColor: 'green' },
-                  '2023-11-04': { selected: true, selectedColor: 'green' },
-                  '2023-11-05': { selected: true, selectedColor: 'green' },
-                  // Marca os sábados e domingos em vermelho
-                  '2023-11-06': { selected: true, selectedColor: 'red' },
-                  '2023-11-12': { selected: true, selectedColor: 'red' },
-                  '2023-11-13': { selected: true, selectedColor: 'red' },
-                  '2023-11-19': { selected: true, selectedColor: 'red' },
-                  '2023-11-20': { selected: true, selectedColor: 'red' },
-                  '2023-11-26': { selected: true, selectedColor: 'red' },
-                  '2023-11-27': { selected: true, selectedColor: 'red' },
-                  
-                }}
-                />
-                <TouchableOpacity onPress={()=>setModalVisible(false)}><Text>aa</Text></TouchableOpacity>      
+            <Modal visible={modalVisible} transparent={true}>
+                <View style={styles.modalView}>
+                    <View style={{position:'absolute', padding:10}}>
+                        <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                            <Feather name="x" size={24} color="black" />
+                        </TouchableOpacity>
+                    </View>
+                    <Calendar hideArrows={false} enableSwipeMonths={true} 
+                    onDayPress={day => onDayPress(day)}
+                      markedDates={marked}
+                    />
+                    <TouchableOpacity onPress={()=>confirmar()}><Text>salvar</Text></TouchableOpacity>    
+                    <TouchableOpacity onPress={()=>clean()}><Text>limpar</Text></TouchableOpacity>  
+                    <TouchableOpacity onPress={()=>console.log(dia)}><Text>limpar</Text></TouchableOpacity>  
+                </View>  
             </Modal>
             
         </View>

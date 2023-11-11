@@ -21,6 +21,27 @@ export default StyleSheet.create({
         borderBottomStartRadius:0,
         alignItems:'center',
       },
+      modalView: {
+        margin: 20,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        borderColor: 'black',
+        borderWidth: 2,
+        padding: 35,
+    
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+      },
+      centeredView:{
+        justifyContent:'center',
+        marginTop:'50%'
+      },
       viewBotao:{
         justifyContent:'center',
         marginTop:'15%',

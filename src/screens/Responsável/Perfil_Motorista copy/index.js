@@ -6,8 +6,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import {db, auth} from '../../../firebase/config';
 import {  doc, getDoc, setDoc, updateDoc, arrayRemove, arrayUnion} from 'firebase/firestore';
 
-export default function Motorista_Perfil ({route, navigation}) {
-    const {idM} = route.params
+export default function Motorista ({route, navigation}) {
     const [rec, setRec] = useState('');
     const [escolas, setEscolas] = useState([])
     const [showElement, setShowElement] = useState(false)
@@ -29,33 +28,24 @@ export default function Motorista_Perfil ({route, navigation}) {
 
 
     useEffect(()=>{
-        dados()
+        onAuthStateChanged(auth, async(user)=>{
+            const docRefM = doc(db, 'responsavel', user.uid)
+            await getDoc(docRefM).then(async(snapshot2)=>{
+                const moto = snapshot2.data().motorista
+                const docRef = doc(db, 'motorista', moto)
+                await getDoc(docRef).then((snapshot)=>{
+                    setRec(snapshot.data())
+                    setEscolas(snapshot.data().escola)
+                })
+            })
+        })
     }, [])
     if(!rec || !escolas){
         return(
-            <View style={{padding:50}}>
-            <TouchableOpacity onPress={()=>dados()}>
-              <Text>reload</Text>
-            </TouchableOpacity>
-          </View>
+            <Text>não tem</Text>
         )
     }
 
-    async function dados(){
-        const docRef = doc(db, 'motorista' , idM)
-        await getDoc(docRef).then((snapshot)=>{
-            setRec(snapshot.data())
-            setEscolas(snapshot.data().escola)
-        })
-    }
-
-    const contratar=async()=>{
-        onAuthStateChanged(auth, async(user)=>{
-            const docRef = doc(db, 'motorista' , idM)
-            updateDoc(docRef,{solicitacao:arrayUnion(user.uid)})
-            setShowElement(true)
-        })
-    }
     return(
         <View style={{paddingVertical:50}}>
             <Text style={{fontSize:20}}>{rec.nome}</Text>
@@ -64,18 +54,6 @@ export default function Motorista_Perfil ({route, navigation}) {
                 data={escolas}
                 renderItem={renderItem}
             />
-
-            <TouchableOpacity onPress={()=>contratar()}>
-                <Text>
-                    contratar
-                </Text>
-            </TouchableOpacity>
-
-            {showElement==true ? (
-                <View style={{position:'absolute', backgroundColor:'green', marginTop: 50}}>
-                    <Text style={{fontFamily:'aileron-regular', fontSize:25, color:'white'}}>Solicitação enviada!</Text>
-                </View>
-            ):null}
         </View>
     )
 }

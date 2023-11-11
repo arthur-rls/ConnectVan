@@ -1,7 +1,5 @@
 import {StyleSheet} from 'react-native'
 
-
-
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -10,61 +8,107 @@ export default StyleSheet.create({
     width:'100%'
   },
   fundoTab: {
-    flex: 18,
+    flex:1,
     backgroundColor: '#fff',
-    width: '100%',
-    marginTop: 20,
+    width:'100%',
+    marginTop:'5%',
     borderRadius: 40,
-    borderBottomEndRadius: 0,
-    borderBottomStartRadius: 0,
-    alignItems: 'center',
+    borderBottomEndRadius:0,
+    borderBottomStartRadius:0,
+    alignItems:'center',
   },
-  iconMenu: {
-    marginLeft: 30,
-    paddingTop: 25,
+  iconMenu:{
+    marginLeft:15,
   },
   saldot: {
-    flex: 1,
-    width: '90%',
+    flex:0.5,
+    width: '83%',
     height: 80,
+    alignContent:'center',
     backgroundColor: 'white',
   },
-  fundoSaldo: {
-    borderBottomRightRadius: 8,
-    borderTopRightRadius: 8,
+  avisos: {
+    flex:1,
+    width: '83%',
+    height: '15%',
+    alignContent:'center',
+    backgroundColor: 'white',
+  },
+  fundoAvisos:{
+    borderRadius: 11,
     borderColor: '#DDDDDD',
     borderWidth: 1,
     flexDirection:'row',
-    alignItems:'center'
+    alignItems:'center',
   },
-  botaoAdd: {
+  fundoSaldo: {
+    borderRadius: 11,
+    borderColor: '#DDDDDD',
+    borderWidth: 1,
+    flexDirection:'row',
+    alignItems:'center',
+  },
+  linhaAmarela:{
+    width:6, 
+    backgroundColor:'#FFBF00', 
+    height:'100%',
+    borderTopLeftRadius:11,
+    borderBottomLeftRadius:11,
+    position:'absolute',
+  },
+  textSaldo:{
+    fontSize: 17, 
+    marginTop:12, 
+    fontFamily:'AileronR'
+  },
+  botaoOcultar: {
     flexDirection: 'column',
     backgroundColor: '#FFBF00',
-    borderRadius: 25,
+    borderRadius: 12,
     width: 80,
     height: 38,
-    alignSelf: 'flex-end',
+    marginLeft:'8%',
     justifyContent: 'center',
-    alignItems:'center'
+    alignItems:'center',
+    position:'absolute',
+    bottom:0,
+    right:0
   },
-  data: {
+  botaoVer: {
+    flexDirection: 'column',
+    backgroundColor: '#FFBF00',
+    borderRadius: 12,
+    width: 80,
+    height: 35,
+    marginLeft:'17%',
+    justifyContent: 'center',
+    alignItems:'center',
+  },
+  gradient:{
+    width:'100%', 
+    height:'100%', 
+    alignSelf: 'center', 
+    borderRadius:12
+  },
+  data:{
     fontSize: 14,
     color: '#999999',
     marginLeft: '40%',
   },
   inputi: {
-    alignSelf: 'flex-start',
-    height: 85,
+    height: 45,
     fontSize: 17,
     borderColor: '#DDDDDD',
     borderRadius: 4,
+    fontStyle:'italic',
+    fontFamily:'AileronR',
   },
   viewBotao: {
     justifyContent: 'center',
   },
   botaoAdd2: {
     backgroundColor: '#FFBF00',
-    borderRadius: 50,
+    borderRadius: 80,
     width: 298,
     height: 50,
     alignSelf: 'center',
@@ -72,20 +116,20 @@ export default StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 20,
   },
+  gradientBotao:{
+    width:'100%', 
+    height:'100%', 
+    alignSelf: 'center', 
+    borderRadius:50
+  },
   apaga: {
     marginTop: 8,
     alignSelf:'flex-end'
   },
-  viewMae:{
-    width:3, 
-    backgroundColor:'#FFBF00', 
-    height:'101%',
+  enviar: {
+    justifyContent:'flex-end',
+    marginLeft:'93%',
+    marginBottom:10,
     position:'absolute',
-    left:-1
   },
-  gradient:{
-    width:'100%', height:'100%', alignSelf: 'center', borderRadius:50
-  },
-
 });
-

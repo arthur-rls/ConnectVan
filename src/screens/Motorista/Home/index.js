@@ -10,8 +10,8 @@ import { doc, getDoc, onSnapshot, getDocs, collection, collectionGroup, query, w
 export default function MHomeRota ({route, navigation}) {
     const [currentDate, setCurrentDate] = useState('');
     const [date, setDate] = useState('')
-    const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-    "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+    const monthNames = ["JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO",
+    "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO"];
     const [avisoA, setAvisoA] = useState('')
     const [avisoM, setAvisoM] = useState('')
     const [rec, setRec] = useState('')
@@ -32,10 +32,10 @@ export default function MHomeRota ({route, navigation}) {
         var date = new Date().getDate(); //Current Date
         var month = new Date().getMonth(); //Current Month
         setCurrentDate(
-            'Hoje, '+date + ' de ' + monthNames[month]
+            date + ' DE ' + monthNames[month] + ' DE 2023'
         );
         setDate(
-            date + ' de ' + monthNames[month]
+          '0'+ date + ' de ' + monthNames[month] + ' DE 2023'
         )
         onAuthStateChanged(auth, async (user) => {
             if (user) {
@@ -53,8 +53,6 @@ export default function MHomeRota ({route, navigation}) {
                     const men = dado.mensalidade
                     s.push(men)
                 })
-                
-
                 
                 for(var i = 0; i < s.length; i++) {
                   saldoS += s[i];
@@ -108,169 +106,83 @@ export default function MHomeRota ({route, navigation}) {
     return(
         <View style={styles.container}>
             <Image source={require('../../../../assets/gradient.png')} style={{position:'absolute', width:'100%', height:'100%'}}/>
-            <View style={{width:'100%', alignItems:'center', paddingTop:'10%', flexDirection:'row'}}>
-                        <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{paddingHorizontal:'2%'}}>
-                            <Entypo
-                                name="menu"
-                                size={34}
-                                color="black"
-                            />
-                        </TouchableOpacity>
-                        <View style={{ alignSelf:'center', paddingLeft:'30%'}}>
-                            <Text
-                            style={{
-                                fontSize: 24,
-                                fontWeight: 'bold',
-                                alignSelf:'center'
-                            }}>
-                            Home
-                            </Text>
-                        </View>
-                        
+            <View style={{ marginTop:'13%', justifyContent:'center'}}>
+                <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
+                  <Entypo name="menu" size={29} color="black" style={styles.iconMenu}/>
+                </TouchableOpacity>
+                <View style={{ justifyContent:'center', alignItems:'center'}}>
+                <Text style={{fontSize:20, fontFamily:'AileronH'}}>Home</Text>
+              </View>
             </View>
 
-        <View style={styles.fundoTab}>
-        <Text style={{ fontSize: 18, fontWeight: 'bold', margin: '8%', fontFamily:'AileronR' }}>
-          {currentDate}
-        </Text>
+          <View style={styles.fundoTab}>
+            <Text style={{ fontSize: 21, fontWeight: 'bold', paddingVertical: '7%', fontFamily:'AileronR' }}>
+              {currentDate}
+          </Text>
 
-        <View style={styles.saldot}>
+        
+
+        {/* <View style={styles.avisos}>
             
           <View style={styles.fundoSaldo}>
-          <View style={styles.viewMae}/>
-            <View style={{margin: 23}}>
-                
-                <View style={{flexDirection:'row'}}>
-                    <Image source={require('../../../../assets/logo.png')} style={{width: 25, height: 25, resizeMode: 'stretch', borderRadius:100, marginRight:10}}/>
-                    <Text
-                        style={{ fontSize: 20, marginBottom: 5, fontWeight: 'bold' }}>
-                        {rec.nome}
-                    </Text>
-                </View>
-              <Text style={{ fontSize: 18, marginBottom: 5 }}>Saldo total</Text>
-              <View
-                style={{ alignContent: 'space-between', flexDirection: 'row' }}>
-                {ver?(
+            <View style={styles.linhaAmarela}/>
+            <View style={{width:'100%', padding:21}}>
+              <View style={{flexDirection:'row', alignItems:'center'}}>
                   <Text
-                  style={{
-                    fontSize: 29,
-                    fontWeight: 'bold',
-                    marginRight: '30%',
-                  }}>
-                  R${saldo}
-                </Text>
-                ):(
-                  <Text
-                  style={{
-                    fontSize: 29,
-                    fontWeight: 'bold',
-                    marginRight: '30%',
-                  }}>
-                  R$ ****
-                </Text>
-                )}
-                <TouchableOpacity style={styles.botaoAdd} onPress={()=>verSaldo()}>
-                <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      fontWeight: 'bold',
-                      textAlign: 'center',
-                      position:'absolute'
-                    }}>
-                    Ver
+                      style={{ fontSize: 20, fontWeight: 'bold', fontFamily:'AileronH'}}>
+                      AVISOS
                   </Text>
-                </TouchableOpacity>
               </View>
-            </View>
-          </View>
-        </View>
-        <View style={[styles.saldot, { paddingBottom: '10%' }]}>
-          <View style={[styles.fundoSaldo, {flex:1}]}>
-            <View style={styles.viewMae}/>
-            <View style={{margin:23}}>
-             <View style={{ flexDirection:'row'}}>
-                <Text
-                  style={{
-                    fontSize: 26,
-                    marginBottom: 3,
-                    fontWeight: 'bold',
-                    marginRight: '59%',
-                  }}>
-                  AVISOS
-                </Text>
-                {aviso?(
-                <View>
-                <TouchableOpacity style={styles.apaga} onPress={()=>apagar()}>
-                    <FontAwesome5 name="trash" size={24} color="black" />
-                </TouchableOpacity>
-                </View>
-                ):null}
-              </View>
-                {aviso?(
-                   <Text>{avisoA}</Text>
-                   
-                ):(
-                    <TextInput
-                    placeholder="Escreva Aqui..."
-                    placeholderTextColor="#8B8A8A"
-                    editable
-                    multiline
-                    numberOfLines={5}
-                    maxLength={600}
-                    style={styles.inputi}
-                    onChangeText={(value)=>setAvisoM(value)}
-                    value={avisoM}
-                  />
-                )}
+              <View style={{flexDirection:'row', alignItems:'center', justifyContent:'space-between'}}>
+                <TextInput
+                  placeholder="Escreva aqui..."
+                  placeholderTextColor="#8B8A8A"
+                  editable
+                  multiline
+                  numberOfLines={5}
+                  maxLength={300}
+                  style={styles.inputi}
+                  onChangeText={(value)=>setAvisoM(value)}
+                  value={avisoM}
+                />
                 {aviso?null:(
-                <TouchableOpacity style={styles.apaga} onPress={()=>avisar()}>
-                    <FontAwesome name="send" size={24} color="black" />
-                </TouchableOpacity>
+                  <TouchableOpacity style={styles.enviar} onPress={()=>avisar()}>
+                      <FontAwesome name="send" size={19} color="black" />
+                  </TouchableOpacity>
                 )}
-                
-              
-               {aviso?(
-                <Text style={[styles.data, { fontSize: 17, marginBottom: 5, alignSelf:'flex-end' }]}>
-                    Feito em {avisoD}
-                </Text>
-               ):(        
-              <Text style={[styles.data, { fontSize: 17, marginBottom: 5, alignSelf:'flex-end' }]}>
-                {date}
-              </Text>
-              )}
+              </View>
             </View>
           </View>
-        </View>
+        </View> */}
 
         <View style={styles.viewBotao}>
-          <TouchableOpacity style={styles.botaoAdd2} onPress={()=>navigation.navigate('Pedidos')}>
-          <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
-            <Text style={{ fontSize: 19, fontFamily:'AileronH', position:'absolute' }}>
-              Pedidos de contratação
-            </Text>
-          </TouchableOpacity>
-          {rec.viajando?(
-              <TouchableOpacity
+            <TouchableOpacity style={styles.botaoAdd2} onPress={()=>navigation.navigate('Pedidos')}>
+              <Image source={require('../../../../assets/gradient.png')} style={styles.gradientBotao}/>
+              <Text style={{ fontSize: 18, fontFamily:'AileronH', position:'absolute' }}>
+                Pedidos de contratação
+              </Text>
+            </TouchableOpacity>
+            {rec.viajando?(
+            <TouchableOpacity
               style={styles.botaoAdd2} onPress={()=>parar()}>
-              <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient} />
+              <Image source={require('../../../../assets/gradient2.png')} style={styles.gradientBotao} />
               <View style={{ flexDirection: 'row', position:'absolute' }}>
-              <Text style={{ fontSize: 19, marginLeft: 10, fontFamily:'AileronH'}}>
+              <Text style={{ fontSize: 18, marginLeft: 10, fontFamily:'AileronH'}}>
                 Parar rota
               </Text>
-              </View>
+            </View>
             </TouchableOpacity>
           ):(
             <TouchableOpacity
-            style={styles.botaoAdd2} onPress={()=>navigation.navigate('HomeRotaMotorista')}>
-            <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
-            <View style={{ flexDirection: 'row', position:'absolute' }}>
-            <FontAwesome5 name="map-marker-alt" size={24} color="black" />
-            <Text style={{ fontSize: 19, marginLeft: 10, fontFamily:'AileronH'}}>
-              Iniciar Rota
-            </Text>
-            </View>
-          </TouchableOpacity>
+              style={styles.botaoAdd2} onPress={()=>navigation.navigate('HomeRotaMotorista')}>
+              <Image source={require('../../../../assets/gradient.png')} style={styles.gradientBotao} />
+              <View style={{ flexDirection: 'row', position:'absolute' }}>
+              <FontAwesome5 name="map-marker-alt" size={23} color="black" />
+              <Text style={{ fontSize: 18, marginLeft:10, fontFamily:'AileronH'}}>
+                Iniciar Rota
+              </Text>
+              </View>
+            </TouchableOpacity>
           )}
         </View>
         </View>

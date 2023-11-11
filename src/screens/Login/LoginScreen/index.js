@@ -8,13 +8,23 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import { doc, getDoc  } from 'firebase/firestore';
 
 
-
 export default function Login ({navigation}) {
     
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showElement, setShowElement] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
+    const [moto, setMoto] = useState(true)
+
+
+
+    const userA = auth.currentUser
+    if (userA != null) {
+        console.log('tem')
+    } else {
+        console.log('nao tem')
+    }
+
     async function onLoginPress () {
         
         await signInWithEmailAndPassword(auth, email, password)
@@ -26,10 +36,11 @@ export default function Login ({navigation}) {
                     const snap = await getDoc(userRef)
                     const verify = snap.data()
                         if(verify == undefined){
-                            navigation.navigate('drawerM')
+                            navigation.navigate('drawerM', {moto})
                         }
                         else{
-                            navigation.navigate('drawerR')
+                            navigation.navigate('drawerR', {moto})
+                            setMoto(false)
                         }
                     
                 }
@@ -122,3 +133,4 @@ export default function Login ({navigation}) {
         </KeyboardAwareScrollView>
     )
 }
+

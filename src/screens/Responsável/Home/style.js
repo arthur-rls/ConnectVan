@@ -16,6 +16,15 @@ export default StyleSheet.create({
     alignItems:'center',
     width:'95%',
   },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    borderColor: 'black',
+    borderWidth: 2,
+    padding: 35,
+    
+  },
   input:{
     height:42, 
     width:'100%',

@@ -13,21 +13,16 @@ export default function Passageiros({navigation}) {
     useEffect(()=>{
         onAuthStateChanged(auth, async (user) => {
                 const docRef = doc(db, 'responsavel', user.uid)
-                const snapshot = await getDoc(docRef)
-                setRec(snapshot.data())
+                await getDoc(docRef).then((snapshot)=>{
+                  setRec(snapshot.data())
+                  setAluno(snapshot.data().nomeAluno)
+                  console.log(aluno)
+                })
         });
-        setAluno(rec.nomeAluno)
-        console.log(aluno)
     }, [gatilho])
 
     if(!rec || !aluno){
-        return(
-          <View style={{padding:50}}>
-            <TouchableOpacity onPress={()=>setGatilho(curent=>!curent)}>
-              <Text>reload</Text>
-            </TouchableOpacity>
-          </View>
-        )
+        return null
     }
   return (
     <View style={styles.container}>
@@ -62,12 +57,14 @@ export default function Passageiros({navigation}) {
             </TouchableOpacity>
           )
         })}
-        <View style={styles.viewBotao}>
-          <TouchableOpacity onPress={() => navigation.navigate('AddPassageiro')} style={styles.botaoAdd}>
-              <Image source={require('../../../../assets/gradient.png')} style={[styles.gradient, {position:'absolute'}]}/>
-              <Text style={{fontSize:16, fontFamily:'AileronH'}}>Adicionar passageiro</Text>
-          </TouchableOpacity>
-        </View>
+        {!rec.motorista ? (
+          <View style={styles.viewBotao}>
+            <TouchableOpacity onPress={() => navigation.navigate('AddPassageiro')} style={styles.botaoAdd}>
+                <Image source={require('../../../../assets/gradient.png')} style={[styles.gradient, {position:'absolute'}]}/>
+                <Text style={{fontSize:16, fontFamily:'AileronH'}}>Adicionar passageiro</Text>
+            </TouchableOpacity>
+          </View>
+        ):null}
       </View>
     
     </View>

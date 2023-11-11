@@ -15,20 +15,21 @@ const styles = StyleSheet.create({
         alignItems:'center',
     },
     imagem:{
-        width:83, 
-        height:83,
+        width:80, 
+        height:80,
         borderRadius:40,
+        marginLeft:-5
     },
     nome:{
         fontWeight:'bold', 
         fontSize:17, 
-        marginLeft:'5%', 
+        marginLeft:'2%', 
         lineHeight:22, 
         color:'white'
     },
     email:{
         fontSize:13, 
-        marginLeft:'5%', 
+        marginLeft:'2%', 
         color:'white'
     },
     imageBackground:{

@@ -12,28 +12,25 @@ container: {
     flex:1,
     backgroundColor: '#fff',
     width:'100%',
-    marginTop:10,
+    marginTop:'5%',
     borderRadius: 40,
     borderBottomEndRadius:0,
     borderBottomStartRadius:0,
     alignItems:'center',
-    
   },
   viewBotao:{
     position:'absolute',
     width:'100%',
     height:'100%',
     justifyContent:'flex-end',
-    
   },
   botaoAdd:{
     backgroundColor:'black', 
     borderRadius:25, 
-    width:37,
-    height:37, 
+    width:44,
+    height:44, 
     alignItems:'center', 
     justifyContent:'center',
-    
   },
   botaoEscola:{
     width:'90%',
@@ -42,14 +39,9 @@ container: {
     marginTop:'5%',
     borderWidth:0.5,
     borderRadius:25,
-    justifyContent:'center',
+    alignItems:'center',
+    justifyContent:'space-between',
+    flexDirection:'row',
     paddingHorizontal:'5%'
-  },
-  iconMenu:{
-    marginLeft:10,
-  },
-  iconLupa:{
-    position:'absolute',
-    marginLeft:10,
   },
 });

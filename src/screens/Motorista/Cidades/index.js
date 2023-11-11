@@ -29,7 +29,7 @@ export default function CidadesMotorista ({route, navigation}) {
     <View style={styles.container}>
       
       <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-      <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
+      <View style={{ marginTop:'13%', justifyContent:'center', marginLeft:'4%'}}>
           <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
             <Entypo name="menu" size={29} color="black" style={styles.iconMenu}/>
           </TouchableOpacity>
@@ -48,6 +48,7 @@ export default function CidadesMotorista ({route, navigation}) {
               return (
               <View style={styles.botaoEscola}>
                 <Text style={{fontSize:17,fontFamily:'AileronH'}}>{item}</Text>
+                <Entypo name="chevron-right" size={24} color="black" />
               </View>
               );
           })}
@@ -59,12 +60,13 @@ export default function CidadesMotorista ({route, navigation}) {
         )}
         
         <View style={styles.viewBotao}>
-          <View style={{flexDirection:'row', justifyContent:'flex-end', padding: '10%'}}>
+          <View style={{flexDirection:'row', justifyContent:'flex-end', padding: '5%'}}>
             <TouchableOpacity style={styles.botaoAdd} onPress={()=>navigation.navigate('EditarC')}>
-                <FontAwesome5 name="pencil-alt" size={17} color="white" />
+              <FontAwesome5 name="pencil-alt" size={17} color="white" />
             </TouchableOpacity>
           </View>
         </View>
+        
       </View>
     </View>
   );
