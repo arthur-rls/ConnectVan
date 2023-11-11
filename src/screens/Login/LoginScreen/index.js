@@ -15,15 +15,8 @@ export default function Login ({navigation}) {
     const [showElement, setShowElement] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
     const [moto, setMoto] = useState(true)
+    const [ver, setVer] = useState(false)
 
-
-
-    const userA = auth.currentUser
-    if (userA != null) {
-        console.log('tem')
-    } else {
-        console.log('nao tem')
-    }
 
     async function onLoginPress () {
         
@@ -75,7 +68,10 @@ export default function Login ({navigation}) {
                     </View>
                     <View style={styles.viewInput}>
                         <MaterialIcons name="lock" size={20} color="#4D4D4D" style={showElement ? styles.iconErro : styles.icon}/>
-                        <TextInput style={showElement ? styles.inputErro : styles.input} placeholder="Senha" secureTextEntry onChangeText={(text) => setPassword(text)} value={password} autoCapitalize='none'/>
+                        <TextInput style={showElement ? styles.inputErro : styles.input} placeholder="Senha" onChangeText={(text) => setPassword(text)} value={password} autoCapitalize='none' secureTextEntry={ver? false : true}/>
+                        <TouchableOpacity onPress={()=>setVer(current=>!current)}>
+                            <Entypo name={ver? "eye-with-line": "eye"} size={20} color="#4D4D4D" style={[styles.icon, {position:'absolute'}]}/>
+                        </TouchableOpacity>
                     </View>
 
                     <View style={[styles.viewButton, {paddingTop:20}]}>

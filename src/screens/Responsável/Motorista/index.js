@@ -7,15 +7,13 @@ import {db, auth} from '../../../firebase/config';
 import {  doc, getDoc, setDoc, updateDoc, arrayRemove, arrayUnion} from 'firebase/firestore';
 import { List } from 'react-native-paper';
 
-export default function Motorista_Perfil ({route, navigation}) {
-    const {idM} = route.params
+export default function Motorista ({route, navigation}) {
     const [rec, setRec] = useState('');
     const [escolas, setEscolas] = useState([])
     const [showElement, setShowElement] = useState(false)
-
     const Item = ({item}) => (
         <View>
-            <Text style={{fontSize:20}}>{item}</Text>
+            <List.Item title={item} />
         </View>
       );
 
@@ -30,33 +28,24 @@ export default function Motorista_Perfil ({route, navigation}) {
 
 
     useEffect(()=>{
-        dados()
+        onAuthStateChanged(auth, async(user)=>{
+            const docRefM = doc(db, 'responsavel', user.uid)
+            await getDoc(docRefM).then(async(snapshot2)=>{
+                const moto = snapshot2.data().motorista
+                const docRef = doc(db, 'motorista', moto)
+                await getDoc(docRef).then((snapshot)=>{
+                    setRec(snapshot.data())
+                    setEscolas(snapshot.data().escola)
+                })
+            })
+        })
     }, [])
     if(!rec || !escolas){
         return(
-            <View style={{padding:50}}>
-            <TouchableOpacity onPress={()=>dados()}>
-              <Text>reload</Text>
-            </TouchableOpacity>
-          </View>
+            <Text>não tem</Text>
         )
     }
 
-    async function dados(){
-        const docRef = doc(db, 'motorista' , idM)
-        await getDoc(docRef).then((snapshot)=>{
-            setRec(snapshot.data())
-            setEscolas(snapshot.data().escola)
-        })
-    }
-
-    const contratar=async()=>{
-        onAuthStateChanged(auth, async(user)=>{
-            const docRef = doc(db, 'motorista' , idM)
-            updateDoc(docRef,{solicitacao:arrayUnion(user.uid)})
-            setShowElement(true)
-        })
-    }
     return(
         <View style={styles.container}>
           <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
@@ -91,17 +80,8 @@ export default function Motorista_Perfil ({route, navigation}) {
                         />
                 </List.Accordion>
                 </List.Section>
-                <TouchableOpacity style={styles.botao} onPress={()=>contratar()}>
-                    <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
-                    <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Contratar</Text>
-                </TouchableOpacity>
+                
             </View>
-
-            {showElement==true ? (
-                <View style={{position:'absolute', backgroundColor:'green', marginTop: 50}}>
-                    <Text style={{fontFamily:'aileron-regular', fontSize:25, color:'white'}}>Solicitação enviada!</Text>
-                </View>
-            ):null}
         </View>
     )
 }
