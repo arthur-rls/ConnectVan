@@ -12,60 +12,46 @@ container: {
     flex:1,
     backgroundColor: '#fff',
     width:'100%',
-    marginTop:10,
+    marginTop:'5%',
     borderRadius: 40,
     borderBottomEndRadius:0,
     borderBottomStartRadius:0,
     alignItems:'center',
-    
   },
   viewBotao:{
     position:'absolute',
     width:'100%',
     height:'100%',
     justifyContent:'flex-end',
-    
-    
   },
   botaoAdd:{
     backgroundColor:'black', 
     borderRadius:25, 
-    width:37,
-    height:37, 
+    width:44,
+    height:44, 
     alignItems:'center', 
     justifyContent:'center',
-    
   },
   botaoEscola:{
     width:'90%',
     height: 80,
-    marginTop:'6%',
-    marginBottom:'1%'
-  },
-  iconMenu:{
-    marginLeft:10,
+    backgroundColor: 'white',
+    marginBottom:'5%',
+    borderWidth:0.5,
+    borderRadius:25,
+    alignItems:'center',
+    justifyContent:'space-between',
+    flexDirection:'row',
+    paddingHorizontal:'5%'
   },
   iconLupa:{
     position:'absolute',
     marginLeft:10,
   },
-  botaoEscola:{
-    width:'90%',
-    height: 80,
-    marginBottom:'2%',
-  },
-  fundoEscola:{
-    borderRadius: 20,
-    borderWidth:0.5,
-    flexDirection:'row',
-    width:'100%',
-    
-  },
   nome:{
     fontFamily:'AileronH',
     fontSize:18
   },
-
   passageiros:{
     fontFamily:'AileronR',
     fontSize:14

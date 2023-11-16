@@ -1,7 +1,5 @@
 import {StyleSheet} from 'react-native'
 
-
-
 export default StyleSheet.create({
     container: {
       flex: 1,
@@ -35,11 +33,17 @@ export default StyleSheet.create({
     },
     botaoAdd:{
       backgroundColor:'black', 
-      borderRadius:25, 
-      width:44,
-      height:44, 
+      borderRadius:50, 
+      width:'60%',
+      height:50, 
       alignItems:'center', 
       justifyContent:'center',
+    },
+    gradientBotao:{
+      width:'100%', 
+      height:'100%', 
+      alignSelf: 'center', 
+      borderRadius:50
     },
     botaoEscola:{
       width:'90%',

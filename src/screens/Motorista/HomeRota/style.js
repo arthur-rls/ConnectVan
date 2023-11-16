@@ -1,7 +1,5 @@
 import {StyleSheet} from 'react-native'
 
-
-
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -12,7 +10,7 @@ export default StyleSheet.create({
     flex:1,
     backgroundColor: '#fff',
     width:'100%',
-    marginTop:10,
+    marginTop:'5%',
     borderRadius: 40,
     borderBottomEndRadius:0,
     borderBottomStartRadius:0,
@@ -36,24 +34,22 @@ export default StyleSheet.create({
     flexDirection:'row'
   },
   dropdown: {
-    backgroundColor: '#ECECEC',
-    color: '#6F6F6F',
-    fontSize:13,
+    backgroundColor: 'white',
+    color: '#CCCCCC',
+    fontSize:14,
     fontFamily:'AileronR',
-    borderRadius:8,
-    borderWidth:0,
-    
-    width:'90%'
+    borderRadius:12,
+    borderWidth:0.6,
+    width:'95%',
   },
   box:{
-    width: '100%',
-    backgroundColor: '#ECECEC',
-    color: '#6F6F6F',
-    fontSize:13,
+    backgroundColor: 'white',
+    color: '#CCCCCC',
+    fontSize:14,
     fontFamily:'AileronR',
-    borderRadius:8,
-    borderWidth:0,
-    width:'90%'
+    borderRadius:12,
+    borderWidth:0.6,
+    width:'95%',
   },
   containerStyle:{
     width: '90%',
@@ -113,7 +109,8 @@ export default StyleSheet.create({
   botaoAdd:{
     backgroundColor:'#FFBF00',
     borderRadius:25,
-    width:105,
+    width:135,
+    marginTop:5,
     height:45,
     alignItems:'center',
     justifyContent:'center'
@@ -122,16 +119,15 @@ export default StyleSheet.create({
     justifyContent:'center',
     marginTop:'5%',
     flexDirection:'row', 
-    gap:12
+    gap:18
   },
   modalView: {
-    margin: 20,
+    margin: 30,
     backgroundColor: 'white',
     borderRadius: 20,
     borderColor: 'black',
-    borderWidth: 2,
-    padding: 35,
-
+    borderWidth: 1,
+    padding: 22,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -144,6 +140,9 @@ export default StyleSheet.create({
   centeredView:{
     justifyContent:'center',
     marginTop:'50%'
+  },
+  gradient:{
+    width:'100%', height:'100%', alignSelf: 'center', borderRadius:50
   },
 });
 

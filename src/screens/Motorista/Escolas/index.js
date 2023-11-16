@@ -8,8 +8,6 @@ import {  doc, getDoc, collectionGroup, query, where, getDocs} from 'firebase/fi
 
 export default function EscolasMotorista ({route, navigation}) {
     const [escolas, setEscolas]=useState([]);
-    const [passageiros, setPassageiros] = useState('')
-    const a = []
     useEffect(()=>{
       navigation.addListener('focus', () => {
         onAuthStateChanged(auth, async (user) => {
@@ -18,33 +16,18 @@ export default function EscolasMotorista ({route, navigation}) {
             const snapshot = await getDoc(docRef)
             setEscolas(snapshot.data().escola)
           }
-        //   escolas.forEach(async(item)=>{
-        //     const q = query(collectionGroup(db, 'passageiros'), where('escola','==', item))
-        //     const queryy = await getDocs(q)
-        //     const alunos = []
-        //       queryy.forEach((aluno) => {
-        //           alunos.push(aluno.id) 
-        //       })
-        //     a.push(alunos.length)
-        // });
-        // setPassageiros(a)
-        // console.log(passageiros)
         });
     },[])
   },[]) 
-
-// if(passageiros == null || a == null){
-//   return null
-// }
   return (
     <View style={styles.container}>
       
       <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-      <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
-          <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
-            <Entypo name="menu" size={29} color="black" style={styles.iconMenu}/>
-          </TouchableOpacity>
-          <View style={{ justifyContent:'center', alignItems:'center'}}>
+      <View style={{ marginTop:'13%', justifyContent:'center', marginLeft:'4%'}}>
+        <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
+          <Entypo name="menu" size={29} color="black" style={styles.iconMenu}/>
+        </TouchableOpacity>
+        <View style={{ justifyContent:'center', alignItems:'center'}}>
           <Text style={{fontSize:18, fontFamily:'AileronH'}}>Escolas</Text>
         </View>
       </View>
@@ -56,22 +39,13 @@ export default function EscolasMotorista ({route, navigation}) {
               TODAS ({escolas.length})
             </Text>
             {escolas.map((item, index) => {
-                const esc = item
+                const esc = item 
                 return (
                   <TouchableOpacity style={styles.botaoEscola} onPress={()=>navigation.navigate('PassageirosE', {esc})}>
-                    <View style={styles.fundoEscola}>
-                      <View style={{paddingVertical:20, paddingLeft:20}}>
+                      <View style={{paddingVertical:20}}>
                         <Text style={styles.nome}>{item}</Text>
-                        {/* <Text style={styles.passageiros}>{passageiros[index]} passageiros</Text> */}
                       </View>
-                      <View style={{flex: 1, justifyContent:'flex-end', flexDirection:'row'}}>
-                        <View style={{justifyContent:'center', marginRight:'10%'}}>
-                          <TouchableOpacity>
-                            <Entypo name="chevron-right" size={24} color="black" />
-                          </TouchableOpacity>
-                        </View>
-                      </View>
-                    </View>
+                      <Entypo name="chevron-right" size={24} color="black" />
                   </TouchableOpacity>
                 );
             })}
@@ -81,13 +55,15 @@ export default function EscolasMotorista ({route, navigation}) {
               TODAS (0)
             </Text>
         )}
-       <View style={styles.viewBotao}>
-          <View style={{flexDirection:'row', justifyContent:'flex-end', padding: '10%'}}>
+        
+        <View style={styles.viewBotao}>
+          <View style={{flexDirection:'row', justifyContent:'flex-end', padding: '5%'}}>
             <TouchableOpacity style={styles.botaoAdd} onPress={()=>navigation.navigate('EditarE')}>
-                <FontAwesome5 name="pencil-alt" size={17} color="white" />
+              <FontAwesome5 name="pencil-alt" size={17} color="white" />
             </TouchableOpacity>
           </View>
         </View>
+        
       </View>
     </View>
   );

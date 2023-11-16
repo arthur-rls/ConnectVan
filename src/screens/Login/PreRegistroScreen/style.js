@@ -32,7 +32,10 @@ export default StyleSheet.create({
     zIndex:2,
   },
   gradient:{
-    width:'100%', height:150, alignSelf: 'center', borderRadius:20
+    width:'100%', 
+    height:150, 
+    alignSelf: 'center', 
+    borderRadius:20
   },
   botao:{
     width:'100%',

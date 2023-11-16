@@ -6,7 +6,6 @@ import { onAuthStateChanged } from 'firebase/auth';
 import {db, auth} from '../../../firebase/config';
 import {  setDoc, doc, getDoc, updateDoc, arrayUnion , deleteField, arrayRemove } from 'firebase/firestore';
 
-
 export default function AddAluno ({route, navigation}) {
     const { idA, resp } = route.params;
     const [rec, setRec] = useState('');
@@ -44,9 +43,9 @@ export default function AddAluno ({route, navigation}) {
 
     <View style={styles.container}>
       <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-      <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
+      <View style={{ marginTop:'13%', justifyContent:'center'}}>
           <TouchableOpacity onPress={()=>navigation.navigate('Passageiros')} style={{flex:1,position:'absolute'}}>
-            <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
+            <Entypo name="chevron-left" size={29} color="black" style={{marginLeft:13}}/>
           </TouchableOpacity>
           <View style={{ justifyContent:'center', alignItems:'center'}}>
           <Text style={{fontSize:18, fontFamily:'AileronH'}}>{rec.nome}</Text>
@@ -59,7 +58,7 @@ export default function AddAluno ({route, navigation}) {
             <View style={[styles.viewMae, {height:60}]}/>
               <View style={{flexDirection:'column', marginLeft:'11%'}}>
                 <Text style={styles.titulo}>{rec.responsavel}</Text>
-                <Text style={styles.infos}>Responsavel</Text>
+                <Text style={styles.infos}>Responsável</Text>
               </View>
               <TouchableOpacity style={{padding:17, paddingLeft:18}} onPress={()=>Linking.openURL('whatsapp://send?text='+ mensagem +'&phone=' + rec.telefone)}>
                 <FontAwesome name="whatsapp" size={28} color="black" />

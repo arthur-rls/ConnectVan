@@ -1,7 +1,5 @@
 import {StyleSheet} from 'react-native'
 
-
-
 export default StyleSheet.create({
     container: {
         flex: 1,
@@ -12,7 +10,7 @@ export default StyleSheet.create({
         flex:1,
         backgroundColor: '#fff',
         width:'100%',
-        marginTop:10,
+        marginTop:'5%',
         borderRadius: 40,
         borderBottomEndRadius:0,
         borderBottomStartRadius:0,
@@ -29,14 +27,13 @@ export default StyleSheet.create({
         fontWeight:'bold',
         alignSelf:'center'
       },
+      iconMenu:{
+        marginLeft:-12
+      },
       botaoEscola:{
         width:'90%',
         height: 80,
         backgroundColor: 'white',
         marginVertical:'5%',
-      },
-      iconBack:{
-        marginLeft:5,
-        marginTop:13
       },
     });

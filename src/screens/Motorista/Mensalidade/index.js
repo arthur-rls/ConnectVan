@@ -27,10 +27,15 @@ export default function Mensalidade({navigation}){
     const s = []
     const [saldo, setSaldo] = useState(0)
 
+    const [ver, setVer] = useState(false)
+
     useEffect(()=>{
         navigation.addListener('focus', () => {
         var date = new Date().getDate(); //Current Date
         var month = new Date().getMonth(); //Current Month
+        setSaldoS(0)
+        setSaldo(0)
+        s.length=0
         setDia(date)
         setMes(monthNames[month])
         consultas()
@@ -80,7 +85,9 @@ export default function Mensalidade({navigation}){
     }
 
     const consultas = async ()=> {
-
+        s.length=0
+        setSaldoS(0)
+        setSaldo(0)
         onAuthStateChanged(auth, async (user)=>{
         const pago = query(collection(db, 'motorista', user.uid, 'responsavel'), where('pago','==', true))
 
@@ -91,22 +98,33 @@ export default function Mensalidade({navigation}){
             docs.forEach((responsavel)=>{
                 const dado = responsavel.data()
                 arr.push(dado)
-
-                const men = dado.mensalidade
-                s.push(men)
             })
             setQntPagando(arr.length)
             setPag(arr)
-
-        })
-        for(var i = 0; i < s.length; i++) {
-            saldoS += s[i];
-          }
-          setSaldo(saldoS)
     })
-        
-        
+    })
     }
+
+    const calcSaldo =async()=>{
+        onAuthStateChanged(auth, async (user) => {
+          if (user) {
+            const pago = query(collection(db, 'motorista', user.uid, 'responsavel'), where('pago','==', true))
+            await getDocs(pago).then((docs)=>{
+              docs.forEach((responsavel)=>{
+                  const dado = responsavel.data()
+                  const men = dado.mensalidade
+                  s.push(men)
+              })
+          })
+          }
+        for(var i = 0; i < s.length; i++) {
+          saldoS += s[i];
+        }
+        setSaldo(saldoS)
+        })
+      }
+        
+    
 
     const consultas2=async()=>{
 
@@ -167,7 +185,34 @@ export default function Mensalidade({navigation}){
                 </View>
                 <View style={styles.linha}/>
                 <View styles={{alignItems:'center', justifyContent:'center', }}>
-                    <Text style={styles.valor}>R${saldo}</Text>
+                    {ver? (
+                        <Text style={styles.valor}>R${saldo}</Text>
+                    ):(
+                        <Text style={styles.valor}>R$----</Text>
+                    )}
+                    <TouchableOpacity onPress={()=>{calcSaldo();setVer(current=>!current)}}>
+                    {ver?(
+                    <Text
+                        style={{
+                        fontSize: 16,
+                        fontWeight: 'bold',
+                        textAlign: 'center',
+                        position:'absolute'
+                        }}>
+                        Ocultar
+                    </Text>
+                    ):(
+                    <Text
+                        style={{
+                        fontSize: 16,
+                        fontWeight: 'bold',
+                        textAlign: 'center',
+                        position:'absolute'
+                        }}>
+                        Ver
+                    </Text>
+                    )}
+                    </TouchableOpacity>
                     <Text style={styles.valorAcum}>Valor acumulado</Text>
                 </View>
                 <View style={{marginHorizontal:'10%'}}>

@@ -7,11 +7,11 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: '#FFBF00',
-    alignItems:'center'
+    alignItems:'center',
   },
   viewInput:{
     flexDirection:'row', 
-    marginTop:'15%',
+    marginTop:'13%',
     justifyContent:'center',
     alignItems:'center',
     width:'95%',
@@ -43,10 +43,10 @@ export default StyleSheet.create({
     flex:1,
     backgroundColor: '#fff',
     width:'100%',
-    marginTop:'6%',
+    marginTop:'5%',
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
-    alignItems:'center'
+    alignItems:'center',
   },
   fundoEscola:{
     borderRadius: 20,
@@ -57,12 +57,11 @@ export default StyleSheet.create({
     alignItems:'center',
     justifyContent:'center',
     marginVertical:'15%',
-    
   },
   botao:{
     backgroundColor:'#FFBF00', 
     borderRadius:25, 
-    width:225,
+    width:145,
     height:45, 
     alignItems:'center', 
     justifyContent:'center',
@@ -76,31 +75,65 @@ export default StyleSheet.create({
     alignItems:'center', 
     justifyContent:'center',
   },
-  saldot: {
-    width: '90%',
+  avisos: {
+    flex:1,
+    width: '83%',
+    height: '15%',
+    alignContent:'center',
     backgroundColor: 'white',
   },
-  fundoSaldo: {
-    borderBottomRightRadius: 15,
-    borderTopRightRadius: 15,
-    borderTopLeftRadius:10,
-    borderBottomLeftRadius:10,
-    borderColor: '#DDDDDD',
-    borderWidth: 1.3,
-    flexDirection:'row',
-    alignItems:'center'
+  viewSaldo: {
+    flex:0.3,
+    width: '83%',
+    alignContent:'center',
   },
-  viewMae:{
-    width:5, 
-    borderTopLeftRadius:15,
-    borderBottomLeftRadius:15,
+  viewAvisos: {
+    flex:0.5,
+    width: '83%',
+    height:'30%',
+    alignContent:'center',
+    marginTop:'30%'
+  },
+  fundoAvisos:{
+    borderRadius: 11,
+    borderColor: '#DDDDDD',
+    borderWidth: 1,
+    alignContent:'center',
+    alignItems:'flex-start', 
+    paddingLeft:'5%',
+    marginTop:'7%',
+  },
+  fundoSaldo: {
+    borderRadius: 11,
+    borderColor: '#DDDDDD',
+    borderWidth: 1,
+    flexDirection:'row',
+    alignItems:'center',
+  },
+  linhaAmarela:{
+    width:6, 
     backgroundColor:'#FFBF00', 
+    height:'100%',
+    borderTopLeftRadius:11,
+    borderBottomLeftRadius:11,
     position:'absolute',
-    left:-1,
-    height:'100%'
+  },
+  botaoPagNPag: {
+    flexDirection: 'column',
+    backgroundColor: '#FFBF00',
+    borderRadius: 12,
+    width: 80,
+    height: 32,
+    marginLeft:'19%',
+    marginTop:4,
+    justifyContent: 'center',
+    alignItems:'center',
   },
   gradient:{
-    width:'100%', height:'100%', alignSelf: 'center', borderRadius:50
+    width:'100%', 
+    height:'100%', 
+    alignSelf: 'center', 
+    borderRadius:12
   },
   logo:{
     width: 42, 
@@ -108,5 +141,6 @@ export default StyleSheet.create({
     resizeMode: 'stretch', 
     borderRadius:100, 
     marginRight:10,
+    marginTop:-5
   },
 });

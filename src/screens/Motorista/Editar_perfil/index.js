@@ -1,4 +1,4 @@
-import { Entypo, FontAwesome, AntDesign, FontAwesome5, Ionicons, EvilIcons, Feather } from '@expo/vector-icons';
+import { Entypo, FontAwesome, AntDesign, FontAwesome5, Ionicons, EvilIcons, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useEffect, useState, useRef } from 'react'
 import styles from './style'
 import { onAuthStateChanged, signOut } from 'firebase/auth';
@@ -53,7 +53,7 @@ export default function EditarPerfil({navigation}) {
             }
         })
     }
-
+ 
       return (
     
         <View style={styles.container}>
@@ -66,36 +66,38 @@ export default function EditarPerfil({navigation}) {
           }}>
               <View style={styles.centeredView}>
                   <View style={styles.modalView}>
-                      <View style={{position:'absolute', padding:10}}>
-                          <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                              <Feather name="x" size={24} color="black" />
-                          </TouchableOpacity>
+                      <Text style={{ fontSize:19, textAlign:'justify', paddingBottom:5}}>Tem certeza que deseja sair da conta? Esta ação não poderá ser desfeita.</Text>
+                      
+                      <View style={styles.viewBotao}>
+                        <TouchableOpacity style={[styles.botaoAdd, {backgroundColor:'gray'}]} onPress={() => setModalVisible(!modalVisible)}>
+                          <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient} />
+                          <Text style={{fontSize:16, position:'absolute', fontFamily:'AileronH'}}>Cancelar</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.botaoAdd} onPress={() => logout()}>
+                          <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
+                          <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Sim, sair</Text>
+                        </TouchableOpacity>
                       </View>
-                      <Text style={{ fontSize:25, textAlign:'justify', paddingBottom:5}}>Deseja realmente sair da conta?</Text>
-                      <View style={{paddingVertical:10}}>
-                          <TouchableOpacity style={styles.botaoAdd} onPress={() => logout()}>
-                              <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
-                              <Text style={{fontSize:25, position:'absolute', fontFamily:'AileronR'}}>Sair</Text>
-                          </TouchableOpacity>
-                      </View>
+                      
                   </View>
               </View>
           </Modal>
-        <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-        <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
-            <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute', marginLeft:'3%'}}>
+
+          <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
+          <View style={{ marginTop:'13%', justifyContent:'center', marginLeft:'4%'}}>
+            <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
               <Entypo name="menu" size={29} color="black" style={styles.iconMenu}/>
             </TouchableOpacity>
             <View style={{ justifyContent:'center', alignItems:'center'}}>
-            <Text style={{fontSize:18, fontFamily:'AileronH'}}>Editar Perfil</Text>
+              <Text style={{fontSize:18, fontFamily:'AileronH'}}>Editar perfil</Text>
+            </View>
           </View>
-        </View>
 
     
           <View style={styles.fundoTab}>
     
-            <View style={{flexDirection:'column', alignContent:'center', marginTop:17}}>
-              <Text style={{fontSize:15, fontFamily:'AileronH', marginTop:'3%'}}>Nome</Text>
+            <View style={{flexDirection:'column', alignContent:'center', marginTop:'12%', marginBottom:'5%'}}>
+              <Text style={{fontSize:15, fontFamily:'AileronH', marginBottom:-5}}>Nome</Text>
               <TextInput
                 style={styles.input}
                 onChangeText={(value)=>setNomeM(value)}
@@ -104,8 +106,8 @@ export default function EditarPerfil({navigation}) {
               />
             </View>
     
-            <View style={{flexDirection:'column', alignContent:'center', marginTop:17}}>
-              <Text style={{fontSize:15, fontFamily:'AileronH'}}>E-mail</Text>
+            <View style={{flexDirection:'column', alignContent:'center', marginBottom:'5%'}}>
+              <Text style={{fontSize:15, fontFamily:'AileronH', marginBottom:-5}}>E-mail</Text>
               <TextInput
                 style={styles.input}
                 onChangeText={(value)=>setEmailM(value)}
@@ -115,8 +117,8 @@ export default function EditarPerfil({navigation}) {
               />
             </View>
     
-            <View style={{flexDirection:'column', alignContent:'center', marginTop:17}}>
-              <Text style={{fontSize:15, fontFamily:'AileronH'}}>Telefone</Text>
+            <View style={{flexDirection:'column', alignContent:'center', marginBottom:'5%'}}>
+              <Text style={{fontSize:15, fontFamily:'AileronH', marginBottom:-5}}>Telefone</Text>
               <TextInputMask
                 style={styles.input}
                 onChangeText={(value)=>setTelefoneM(value)}
@@ -126,8 +128,8 @@ export default function EditarPerfil({navigation}) {
               />
             </View>
     
-            <View style={{flexDirection:'column', alignContent:'center', marginTop:17}}>
-              <Text style={{fontSize:15, fontFamily:'AileronH'}}>Placa</Text>
+            <View style={{flexDirection:'column', alignContent:'center', marginBottom:'5%'}}>
+              <Text style={{fontSize:15, fontFamily:'AileronH', marginBottom:-5}}>Placa</Text>
               <MaskInput
                 style={styles.input}
                 onChangeText={(value)=>setPlacaM(value)}
@@ -147,10 +149,12 @@ export default function EditarPerfil({navigation}) {
                 <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Finalizar</Text>
               </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.botaoAdd} onPress={()=>setModalVisible(true)}>
-              <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
-              <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Sair</Text>
+            
+            <TouchableOpacity style={styles.botaoSair} onPress={()=>setModalVisible(true)}>
+              <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
+              <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Sair da conta</Text>
             </TouchableOpacity>
+
           </View>
         </View>
       );

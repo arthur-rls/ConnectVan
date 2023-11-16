@@ -1,4 +1,4 @@
-import styles from './style'
+import styles from './style' 
 import React from 'react';
 import { Text, SafeAreaView, StyleSheet, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import { Entypo, MaterialIcons, Ionicons } from '@expo/vector-icons';
@@ -42,7 +42,6 @@ export default function EditEscola({navigation}) {
                 updateDoc(docRef, {cidade: arrayUnion(cidade)})
             }
         });
-        
     }
 
   return (
@@ -89,7 +88,7 @@ export default function EditEscola({navigation}) {
           />
             <View style={{position:'absolute', width:'100%', height:'100%', justifyContent:'flex-end'}}>
               <View style={{flexDirection:'row', justifyContent:'flex-end', width:'100%', height:'100%'}}>
-                <View style={{justifyContent:'center', marginRight:'10%'}}>
+                <View style={{justifyContent:'center', marginRight:'6%'}}>
                   <TouchableOpacity onPress={()=>adicionar()}>
                     <MaterialIcons name="check" size={20} color="black" />
                   </TouchableOpacity>
@@ -99,9 +98,12 @@ export default function EditEscola({navigation}) {
         </View>
 
         <View style={styles.viewBotao}>
-          <View style={{flexDirection:'row', justifyContent:'flex-end', padding: '5%'}}>
+          <View style={{flexDirection:'row', justifyContent:'center', padding: '7%'}}>
             <TouchableOpacity style={styles.botaoAdd} onPress={()=>navigation.navigate('Cidades')}>
-            <MaterialIcons name="done" size={22} color="white" />
+              <Image source={require('../../../../assets/gradient.png')} style={styles.gradientBotao}/>
+              <Text style={{ fontSize: 17, fontFamily:'AileronH', position:'absolute' }}>
+                Salvar alterações
+              </Text>
             </TouchableOpacity>
           </View>
         </View>

@@ -69,9 +69,7 @@ export default function Login ({navigation}) {
                     <View style={styles.viewInput}>
                         <MaterialIcons name="lock" size={20} color="#4D4D4D" style={showElement ? styles.iconErro : styles.icon}/>
                         <TextInput style={showElement ? styles.inputErro : styles.input} placeholder="Senha" onChangeText={(text) => setPassword(text)} value={password} autoCapitalize='none' secureTextEntry={ver? false : true}/>
-                        <TouchableOpacity onPress={()=>setVer(current=>!current)}>
-                            <Entypo name={ver? "eye-with-line": "eye"} size={20} color="#4D4D4D" style={[styles.icon, {position:'absolute'}]}/>
-                        </TouchableOpacity>
+                        
                     </View>
 
                     <View style={[styles.viewButton, {paddingTop:20}]}>
@@ -114,12 +112,12 @@ export default function Login ({navigation}) {
                                         <Feather name="x" size={24} color="black" />
                                     </TouchableOpacity>
                                 </View>
-                                <Text style={{ fontSize:25, textAlign:'justify', paddingBottom:5}}>Preencha com o e-mail que você usou para se cadastrar. Você receberá um e-mail com instruções sobre como redefinir sua senha.</Text>
-                                <TextInput style={styles.input} placeholder="Email"onChangeText={(text) => setEmail(text)} value={email}/>
-                                <View style={{paddingVertical:10}}>
-                                    <TouchableOpacity style={[styles.botao, {justifyContent:'center', alignItems:'center'}]} onPress={() => forgotPassword()}>
-                                        <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
-                                        <Text style={{fontSize:25, position:'absolute', fontFamily:'AileronR'}}>Enviar email</Text>
+                                <Text style={{ fontSize:19, textAlign:'justify', paddingBottom:15}}>Preencha com o e-mail que você usou para se cadastrar. Você receberá um e-mail com instruções sobre como redefinir sua senha.</Text>
+                                <TextInput style={styles.input2} placeholder="Email"onChangeText={(text) => setEmail(text)} value={email}/>
+                                <View style={[styles.viewButton, {marginTop:'6%', alignSelf:'center'}]}>
+                                    <TouchableOpacity style={styles.botaoCadastrar} onPress={() => navigation.navigate('preRegistro')}>
+                                        <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
+                                        <Text style={styles.textButton}>Enviar email</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>

@@ -1,7 +1,5 @@
 import {StyleSheet} from 'react-native'
 
-
-
 export default StyleSheet.create({
   h1:{
     fontSize: 45,
@@ -38,17 +36,20 @@ export default StyleSheet.create({
     fontFamily:'AileronR'
   },
   gradient:{
-    height:50, alignSelf: 'center', borderRadius:50, width:'100%'
-    },
-    botao:{
-      width:'100%',
-      backgroundColor:'yellow',
-      alignItems: 'center',
-      justifyContent:'center',
-      borderRadius:50,
-      flex: 1,
-      marginTop:'8%'
-    },
+    height:50, 
+    alignSelf: 'center', 
+    borderRadius:50, 
+    width:'100%'
+  },
+  botao:{
+    width:'100%',
+    backgroundColor:'yellow',
+    alignItems: 'center',
+    justifyContent:'center',
+    borderRadius:50,
+    flex: 1,
+    marginTop:'8%'
+  },
   input2:{
     height: 50,
     borderRadius: 8,
@@ -100,12 +101,13 @@ export default StyleSheet.create({
   },
   containerStyle:{
     width: 100,
+    height:10,
+    marginTop:8,
     backgroundColor: '#ECECEC',
     color: '#6F6F6F',
     fontSize:13,
     fontFamily:'AileronR',
     borderRadius:8,
-    
   },
   text:{
     fontSize:13,

@@ -26,6 +26,12 @@ const styles = StyleSheet.create({
     alignSelf:'center',
     fontFamily:'AileronH',
   },
+  gradient:{
+    width:'100%', 
+    height:'100%', 
+    alignSelf: 'center', 
+    borderRadius:12,
+  },
   valorAcum:{
     color:'gray',
     fontSize:17,

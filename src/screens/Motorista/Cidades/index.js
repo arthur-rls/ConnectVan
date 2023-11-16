@@ -25,7 +25,7 @@ export default function CidadesMotorista ({route, navigation}) {
         
     },[])
 
-  return (
+  return ( 
     <View style={styles.container}>
       
       <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
@@ -38,7 +38,7 @@ export default function CidadesMotorista ({route, navigation}) {
         </View>
       </View>
 
-      <View style={styles.fundoTab}>
+      <View style={styles.fundoTab}> 
         {cidades?(
           <View style={{width:'100%', alignItems:'center'}}>
           <Text style={{fontSize:18, fontFamily:'AileronH', marginTop:'5%'}}>
@@ -48,7 +48,6 @@ export default function CidadesMotorista ({route, navigation}) {
               return (
               <View style={styles.botaoEscola}>
                 <Text style={{fontSize:17,fontFamily:'AileronH'}}>{item}</Text>
-                <Entypo name="chevron-right" size={24} color="black" />
               </View>
               );
           })}

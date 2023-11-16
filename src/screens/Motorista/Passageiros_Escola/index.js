@@ -23,18 +23,41 @@ export default function PassageirosEscola({navigation, route}) {
         setPassageiros(alunos)
         console.log(passageiros)
     }
-
-    return (
-      <View style={styles.container}>
-        <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-        <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
+    if(passageiros.length==0){
+      return(
+        <View style={styles.container}>
+          <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
+          <View style={{ marginTop:'13%', justifyContent:'center', marginLeft:'4%'}}>
             <TouchableOpacity onPress={()=>navigation.navigate('Escolas')} style={{flex:1,position:'absolute', marginLeft:'3%'}}>
               <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
             </TouchableOpacity>
             <View style={{ justifyContent:'center', alignItems:'center'}}>
+              <Text style={{fontSize:18, fontFamily:'AileronH'}}>Passageiros</Text>
+            </View>
+          </View>
+          <View style={styles.fundoTab}>
+            <View style={{ height:'100%', justifyContent:'center'}}>
+              <Text style={{fontSize:22, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>Oops! Ainda não há</Text>
+              <Text style={{fontSize:22, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>passageiros na escola</Text>
+              <Text style={{fontSize:22, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>selecionada.</Text>
+            </View>
+          </View>     
+      </View>
+    );
+      
+    }
+    return (
+      <View style={styles.container}>
+        <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
+        <View style={{ marginTop:'13%', justifyContent:'center', marginLeft:'4%'}}>
+          <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
+            <Entypo name="menu" size={29} color="black" style={{marginLeft:15}}/>
+          </TouchableOpacity>
+          <View style={{ justifyContent:'center', alignItems:'center'}}>
             <Text style={{fontSize:18, fontFamily:'AileronH'}}>Passageiros</Text>
           </View>
         </View>
+
         <ScrollView style={styles.fundoTab} contentContainerStyle={{alignItems:'center',}}>
           <Text style={{fontSize:18, fontFamily:'AileronH', marginTop:'5%'}}>
             TODOS ({passageiros.length})
@@ -52,12 +75,10 @@ export default function PassageirosEscola({navigation, route}) {
                       />
                       <Text style={styles.nome}>{item.nome}</Text>
                     </View>
-                    <View style={{flex: 1, justifyContent:'flex-end', flexDirection:'row'}}>
-                      <View style={{justifyContent:'center', marginRight:'10%'}}>
-                        <TouchableOpacity>
-                          <Entypo name="chevron-right" size={24} color="black" />
-                        </TouchableOpacity>
-                      </View>
+                    <View style={{ marginTop:'13%', justifyContent:'center', marginLeft:'4%'}}>
+                      <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
+                        <Entypo name="menu" size={29} color="black" style={{marginLeft:15}}/>
+                      </TouchableOpacity>
                     </View>
                   </View>
                 </TouchableOpacity>

@@ -53,14 +53,14 @@ export default function Mensalidade({navigation}) {
     return(
         <View style={styles.container}>
           <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-            <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
-                <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
-                  <Entypo name="menu" size={29} color="black" style={styles.iconMenu}/>
-                </TouchableOpacity>
-                <View style={{ justifyContent:'center', alignItems:'center'}}>
-                <Text style={{fontSize:18, fontFamily:'AileronH'}}>Mensalidades</Text>
+          <View style={{ marginTop:'13%', justifyContent:'center'}}>
+              <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
+                  <Entypo name="menu" size={29} color="black" style={{marginLeft:15}}/>
+              </TouchableOpacity>
+              <View style={{ justifyContent:'center', alignItems:'center'}}>
+                  <Text style={{fontSize:18, fontFamily:'AileronH'}}>Mensalidades</Text>
               </View>
-            </View>
+          </View>
 
       <View style={styles.fundoTab2}>
         <View style={{height:'10%', width:'50%'}}>
@@ -88,14 +88,14 @@ export default function Mensalidade({navigation}) {
   return (
     <View style={styles.container}>
       <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-        <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
-            <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
-              <Entypo name="menu" size={29} color="black" style={styles.iconMenu}/>
-            </TouchableOpacity>
-            <View style={{ justifyContent:'center', alignItems:'center'}}>
-            <Text style={{fontSize:18, fontFamily:'AileronH'}}>Mensalidades</Text>
+      <View style={{ marginTop:'13%', justifyContent:'center'}}>
+          <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
+              <Entypo name="menu" size={29} color="black" style={{marginLeft:15}}/>
+          </TouchableOpacity>
+          <View style={{ justifyContent:'center', alignItems:'center'}}>
+              <Text style={{fontSize:18, fontFamily:'AileronH'}}>Mensalidades</Text>
           </View>
-        </View>
+      </View>
       <View style={styles.fundoTab}>
         <View style={{paddingVertical:'10%'}}>
           <View style={{flexDirection:'row', alignItems:'center'}}>
@@ -114,7 +114,7 @@ export default function Mensalidade({navigation}) {
           <View style={styles.viewBotao}>
             <TouchableOpacity style={styles.botao} onPress={()=>pago()}>
               <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
-              <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Avisar que está pago</Text>
+              <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Definir como pago</Text>
             </TouchableOpacity>
           </View>
 
@@ -124,13 +124,6 @@ export default function Mensalidade({navigation}) {
               <Text style={{fontSize:18, fontWeight:'bold'}}>Próximo pagamento</Text>
               <Text style={styles.infos}>Dia {dado.data} de {mes}</Text>
             </View>
-          </View>
-
-          <View style={styles.viewBotao}>
-            <TouchableOpacity style={styles.botao}>
-              <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
-              <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Receber notificação</Text>
-            </TouchableOpacity>
           </View>
         </View>
 

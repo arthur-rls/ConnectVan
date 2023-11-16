@@ -27,14 +27,14 @@ export default function Passageiros({navigation}) {
   return (
     <View style={styles.container}>
       <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-            <View style={{ marginTop:'15%', justifyContent:'center', marginBottom:'2%'}}>
-                <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
-                  <Entypo name="menu" size={29} color="black" style={styles.iconMenu}/>
-                </TouchableOpacity>
-                <View style={{ justifyContent:'center', alignItems:'center'}}>
-                <Text style={{fontSize:18, fontFamily:'AileronH'}}>Passageiros</Text>
-              </View>
-            </View>
+      <View style={{ marginTop:'13%', justifyContent:'center'}}>
+        <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
+          <Entypo name="menu" size={29} color="black" style={styles.iconMenu}/>
+        </TouchableOpacity>
+        <View style={{ justifyContent:'center', alignItems:'center'}}>
+        <Text style={{fontSize:18, fontFamily:'AileronH'}}>Passageiros</Text>
+      </View>
+    </View>
 
       <View style={styles.fundoTab}>
         <Text style={{fontSize:18,fontFamily:'AileronH', marginTop:'5%'}}>
@@ -44,7 +44,8 @@ export default function Passageiros({navigation}) {
         {aluno.map((item, index)=>{
           const key = index
             return(
-              <TouchableOpacity style={styles.botaoEscola} onPress={()=>navigation.navigate('TelaAluno', {key})}>
+
+            <TouchableOpacity style={styles.botaoEscola} onPress={()=>navigation.navigate('TelaAluno', {key})}>
               <View style={styles.fundoEscola}>
                 <View style={{padding:18, flexDirection:'row', alignItems:'center'}}>
                   <Image

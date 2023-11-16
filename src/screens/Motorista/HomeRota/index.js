@@ -122,6 +122,7 @@ export default function MHomeRota ({navigation}) {
       onAuthStateChanged(auth, async(user)=>{
         updateDoc(doc(db, 'motorista', user.uid), {rota: rota, viajando: true})
       })
+      setModalVisible(false)
     }
     async function local(){
         const{granted} = await requestForegroundPermissionsAsync();
@@ -135,15 +136,15 @@ export default function MHomeRota ({navigation}) {
     }
       
       const Item = ({item}) => (
-        <View style={{flexDirection:'row', marginVertical: '10%', paddingHorizontal:25}}>
+        <View style={{flexDirection:'row', marginTop: '8%', paddingHorizontal:30}}>
             <View style={styles.viewMae}/>
             <View style={{alignItems:'center'}}>
-              <View style={{flexDirection:'column', marginLeft:'6%'}}>
+              <View style={{flexDirection:'column', marginLeft:'5%'}}>
                   <Text style={styles.viewFilha}>{item.nome}</Text>
                   <Text style={styles.infos}>{item.endereco}</Text>
               </View>
             </View>
-        </View>
+        </View> 
       );
       
       
@@ -171,7 +172,7 @@ export default function MHomeRota ({navigation}) {
                                 <Feather name="x" size={24} color="black" />
                             </TouchableOpacity>
                         </View>
-                        <Text style={{fontFamily:'AileronR', fontSize: 16, marginVertical:'5%'}}>Após iniciar a rota, copie e cole o compartilhamento de trajeto a baixo e envie.</Text>
+                        <Text style={{fontFamily:'AileronR', fontSize: 16, marginVertical:'5%'}}>Após iniciar a rota, copie e cole abaixo o compartilhamento de trajeto e envie ao responsável.</Text>
                         <TextInput value={rota} onChangeText={(value)=>setRota(value)} style={styles.input}/>
                         <View style={styles.viewBotao2}>
                           <TouchableOpacity style={[styles.botaoAdd, {backgroundColor:'gray'}]} onPress={()=>iniciar()}>
@@ -187,9 +188,9 @@ export default function MHomeRota ({navigation}) {
                 </View>
             </Modal>
             <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-            <View style={{ marginTop:'12%', justifyContent:'center', marginBottom:'2%'}}>
-                <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={{flex:1,position:'absolute', marginLeft:'3%'}}>
-                  <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
+            <View style={{ marginTop:'13%', justifyContent:'center'}}>
+                <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={{flex:1,position:'absolute'}}>
+                  <Entypo name="chevron-left" size={29} color="black" style={{marginLeft:13}}/>
                 </TouchableOpacity>
                 <View style={{ justifyContent:'center', alignItems:'center'}}>
                 <Text style={{fontSize:18, fontFamily:'AileronH'}}>Iniciar Rota</Text>
@@ -237,7 +238,7 @@ export default function MHomeRota ({navigation}) {
                 <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.botaoMaps}>
                   <Image source={require('../../../../assets/gradient.png')} style={styles.gradientBotao} />
                       <Ionicons name="ios-location-sharp" size={24} color="black" />
-                      <Text style={{fontSize:16, fontWeight:'bold', marginLeft:'5%'}}>Abrir no Maps</Text>
+                      <Text style={{fontSize:17, fontWeight:'bold', marginLeft:'5%'}}>Abrir no Maps</Text>
                   </TouchableOpacity>
               </View>
             </View>

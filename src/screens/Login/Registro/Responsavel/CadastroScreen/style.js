@@ -1,6 +1,4 @@
-import {StyleSheet} from 'react-native'
-
-
+import {StyleSheet} from 'react-native' 
 
 export default StyleSheet.create({
   h1:{
@@ -83,7 +81,13 @@ export default StyleSheet.create({
   politica:{
     fontFamily:'AileronR',
     fontSize:15,
-    paddingVertical:0.9,
+    paddingVertical:5,
+    textAlign:'justify'
+  },
+  politica2:{
+    fontFamily:'AileronH',
+    fontSize:15,
+    paddingVertical:5,
     textAlign:'justify'
   },
   errOuIncorr:{

@@ -24,11 +24,26 @@ export default StyleSheet.create({
     flex:0.5,
     width: '83%',
     height: 80,
-    alignContent:'center',
+    alignConbotaotent:'center',
     backgroundColor: 'white',
+  },
+  logo:{
+    width: 42, 
+    height: 42, 
+    resizeMode: 'stretch', 
+    borderRadius:100, 
+    marginRight:10,
+    marginTop:-5
   },
   avisos: {
     flex:1,
+    width: '83%',
+    height: '15%',
+    alignContent:'center',
+    backgroundColor: 'white',
+  },
+  avisosSaldo: {
+    flex:0.5,
     width: '83%',
     height: '15%',
     alignContent:'center',
@@ -88,7 +103,7 @@ export default StyleSheet.create({
     width:'100%', 
     height:'100%', 
     alignSelf: 'center', 
-    borderRadius:12
+    borderRadius:12,
   },
   data:{
     fontSize: 14,
@@ -129,7 +144,6 @@ export default StyleSheet.create({
   enviar: {
     justifyContent:'flex-end',
     marginLeft:'93%',
-    marginBottom:10,
     position:'absolute',
   },
 });

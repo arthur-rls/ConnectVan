@@ -46,6 +46,16 @@ export default StyleSheet.create({
     fontSize:13,
     fontFamily: 'AileronR'
   },
+  input2:{
+    width:'100%',
+    height: 50,
+    borderRadius: 8,
+    backgroundColor: '#ECECEC',
+    color: '#6F6F6F',
+    paddingHorizontal: 20,
+    fontSize:14,
+    fontFamily: 'AileronR'
+  },
   inputErro:{
     width:'100%',
     height: 50,

@@ -80,12 +80,12 @@ export default function EditarPerfilR({navigation}) {
               </View>
           </Modal>
         <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-        <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
-            <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute', marginLeft:'3%'}}>
-              <Entypo name="menu" size={29} color="black" style={styles.iconMenu}/>
+        <View style={{ marginTop:'13%', justifyContent:'center'}}>
+            <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
+              <Entypo name="menu" size={29} color="black" style={{marginLeft:15}}/>
             </TouchableOpacity>
             <View style={{ justifyContent:'center', alignItems:'center'}}>
-            <Text style={{fontSize:18, fontFamily:'AileronH'}}>Editar Perfil</Text>
+            <Text style={{fontSize:20, fontFamily:'AileronH'}}>Editar perfil</Text>
           </View>
         </View>
 

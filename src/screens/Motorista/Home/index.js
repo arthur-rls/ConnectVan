@@ -6,7 +6,7 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 import {db, auth} from '../../../firebase/config';
 import {View, Text,Image,  TouchableOpacity, TextInput, Modal, ScrollView, Keyboard}  from 'react-native'
 import { doc, getDoc, onSnapshot, getDocs, collection, collectionGroup, query, where, updateDoc} from 'firebase/firestore';
-
+ 
 export default function MHomeRota ({route, navigation}) {
     const [currentDate, setCurrentDate] = useState('');
     const [date, setDate] = useState('')
@@ -21,12 +21,23 @@ export default function MHomeRota ({route, navigation}) {
     const [gatilho, setGatilho] = useState(true)
     const [avisoD, setAvisoD] = useState('')
     const [ver, setVer] = useState(false)
-    const s = []
+    const s = [] 
+    const [edit, setEdit] = useState(true)
+    const [via, setVia] = useState(true)
     
       const verSaldo=()=>{
       setVer(current=>!current)
+      if(ver === false){
+        calcSaldo()
+      }
     } 
-
+    const pegarAviso= async ()=>{
+      setAvisoA(rec.aviso)
+      setAvisoD(rec.data)
+      setAviso(rec.avisando)
+      setAvisoM(avisoA)
+      setEdit(false)
+    }
     useEffect(()=>{
         navigation.addListener('focus', () => {
         var date = new Date().getDate(); //Current Date
@@ -35,29 +46,20 @@ export default function MHomeRota ({route, navigation}) {
             date + ' DE ' + monthNames[month] + ' DE 2023'
         );
         setDate(
-          '0'+ date + ' de ' + monthNames[month] + ' DE 2023'
+            'POSTADO EM: ' + date + ' DE ' + monthNames[month] + ' DE 2023'
         )
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                const q = query(collection(db, 'motorista', user.uid, 'responsavel'), where('pago','==', true))
                 const docRef = doc(db, 'motorista', user.uid)
-                const snapshot = await getDoc(docRef)
-                setRec(snapshot.data());
-                setAviso(rec.avisando)
-                setAvisoA(rec.aviso)
-                setAvisoD(rec.data)
-                updateDoc(docRef, {viajando: false, rota:''})             
-                const snapshot2 = await getDocs(q)
-                snapshot2.forEach((item)=>{
-                    const dado = item.data()
-                    const men = dado.mensalidade
-                    s.push(men)
+                await getDoc(docRef).then(async(snapshot)=>{
+                  setRec(snapshot.data())
+                  if(rec.avisando == true){
+                    pegarAviso()
+                  }
+                  console.log(rec)
+                  updateDoc(docRef, {viajando: false, rota:''})             
                 })
                 
-                for(var i = 0; i < s.length; i++) {
-                  saldoS += s[i];
-                }
-                setSaldo(saldoS)
             }
         });
       })
@@ -67,6 +69,26 @@ export default function MHomeRota ({route, navigation}) {
     if (!rec){
         return null
     }
+
+    const calcSaldo =async()=>{
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          const pago = query(collection(db, 'motorista', user.uid, 'responsavel'), where('pago','==', true))
+          await getDocs(pago).then((docs)=>{
+            docs.forEach((responsavel)=>{
+                const dado = responsavel.data()
+                const men = dado.mensalidade
+                s.push(men)
+            })
+        })
+        }
+      for(var i = 0; i < s.length; i++) {
+        saldoS += s[i];
+      }
+      setSaldo(saldoS)
+      })
+    }
+    
     const avisar =()=>{
         if(gatilho==true){
             setGatilho(false)
@@ -79,6 +101,8 @@ export default function MHomeRota ({route, navigation}) {
             updateDoc(docRef, {aviso: avisoM, data: date, avisando: true})
         })
         setAviso(true)
+        setEdit(false)
+        setAvisoD(date)
     }
 
     const apagar =()=>{
@@ -93,6 +117,9 @@ export default function MHomeRota ({route, navigation}) {
             updateDoc(docRef, {aviso: '', data: '', avisando: false})
         })
         setAviso(false)
+        setAvisoM('')
+        setEdit(true)
+        setAvisoD('')
     }
 
     const parar =()=>{
@@ -102,6 +129,7 @@ export default function MHomeRota ({route, navigation}) {
           updateDoc(docRef, {viajando:false})
         }
       })
+      setVia(false)
     }
     return(
         <View style={styles.container}>
@@ -118,18 +146,82 @@ export default function MHomeRota ({route, navigation}) {
           <View style={styles.fundoTab}>
             <Text style={{ fontSize: 21, fontWeight: 'bold', paddingVertical: '7%', fontFamily:'AileronR' }}>
               {currentDate}
-          </Text>
+            </Text>
 
-        
+            <View style={styles.avisosSaldo}>
+                <View style={styles.fundoSaldo}>
+                  <View style={styles.linhaAmarela}/>
+                  <View style={{width:'100%', padding:21}}>
+                    <View style={{flexDirection:'row', alignItems:'center'}}>
+                      <Image source={require('../../../../assets/logo.png')} style={styles.logo}/>
+                          <Text
+                              style={{ fontSize: 19, fontFamily:'AileronH'}}>
+                              {rec.nome}
+                          </Text>
+                      </View>
+                      <Text style={{ fontSize: 18, marginBottom: 5, marginTop:'3%', fontFamily:'AileronR' }}>Saldo mensal</Text>
+                      
+                      <View style={{width:'100%', height:'32%', flexDirection:'row',}}>
+                        {ver?(
+                          <Text
+                        style={{
+                            fontSize: 28,
+                            fontWeight: 'bold',
+                            marginRight: '27%',
+                            fontStyle:'AileronH'
+                        }}>
+                        R${saldo}
+                        </Text>
+                        ):(
+                          <Text
+                        style={{
+                            fontSize: 28,
+                            fontWeight: 'bold',
+                            marginRight: '27%',
+                            fontStyle:'AileronH'
+                        }}>
+                        R$----
+                        </Text>
+                        )}
+                        
+                        <View style={{width:'30%', justifyContent:'center', height:'95%', alignItems:'center', marginTop:5}}>
+                            <TouchableOpacity onPress={()=>{verSaldo()}}>
+                            <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} /> 
+                            {ver?(
+                            <Text
+                                style={{
+                                fontSize: 16,
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                position:'absolute'
+                                }}>
+                                Ocultar
+                            </Text>
+                            ):(
+                            <Text
+                                style={{
+                                fontSize: 16,
+                                fontWeight: 'bold',
+                                textAlign: 'center',
+                                position:'absolute'
+                                }}>
+                                Ver
+                            </Text>
+                            )}
+                            </TouchableOpacity>
+                        </View>          
+                      </View>
+                  </View>
+                </View>
+            </View> 
 
-        {/* <View style={styles.avisos}>
-            
+        <View style={styles.avisos}> 
           <View style={styles.fundoSaldo}>
             <View style={styles.linhaAmarela}/>
             <View style={{width:'100%', padding:21}}>
               <View style={{flexDirection:'row', alignItems:'center'}}>
                   <Text
-                      style={{ fontSize: 20, fontWeight: 'bold', fontFamily:'AileronH'}}>
+                      style={{ fontSize: 21, fontWeight: 'bold', fontFamily:'AileronH'}}>
                       AVISOS
                   </Text>
               </View>
@@ -137,23 +229,29 @@ export default function MHomeRota ({route, navigation}) {
                 <TextInput
                   placeholder="Escreva aqui..."
                   placeholderTextColor="#8B8A8A"
-                  editable
                   multiline
                   numberOfLines={5}
                   maxLength={300}
                   style={styles.inputi}
                   onChangeText={(value)=>setAvisoM(value)}
                   value={avisoM}
+                  editable={edit}
                 />
-                {aviso?null:(
+                {aviso?(
+                  <TouchableOpacity style={styles.enviar} onPress={()=>apagar()}>
+                    <FontAwesome name="trash" size={19} color="black" />
+                  </TouchableOpacity>
+                ):(
                   <TouchableOpacity style={styles.enviar} onPress={()=>avisar()}>
                       <FontAwesome name="send" size={19} color="black" />
                   </TouchableOpacity>
                 )}
+                
               </View>
+              <Text>{avisoD}</Text>
             </View>
           </View>
-        </View> */}
+        </View> 
 
         <View style={styles.viewBotao}>
             <TouchableOpacity style={styles.botaoAdd2} onPress={()=>navigation.navigate('Pedidos')}>
@@ -162,28 +260,57 @@ export default function MHomeRota ({route, navigation}) {
                 Pedidos de contratação
               </Text>
             </TouchableOpacity>
-            {rec.viajando?(
-            <TouchableOpacity
-              style={styles.botaoAdd2} onPress={()=>parar()}>
-              <Image source={require('../../../../assets/gradient2.png')} style={styles.gradientBotao} />
-              <View style={{ flexDirection: 'row', position:'absolute' }}>
-              <Text style={{ fontSize: 18, marginLeft: 10, fontFamily:'AileronH'}}>
-                Parar rota
-              </Text>
-            </View>
-            </TouchableOpacity>
-          ):(
-            <TouchableOpacity
-              style={styles.botaoAdd2} onPress={()=>navigation.navigate('HomeRotaMotorista')}>
-              <Image source={require('../../../../assets/gradient.png')} style={styles.gradientBotao} />
-              <View style={{ flexDirection: 'row', position:'absolute' }}>
-              <FontAwesome5 name="map-marker-alt" size={23} color="black" />
-              <Text style={{ fontSize: 18, marginLeft:10, fontFamily:'AileronH'}}>
-                Iniciar Rota
-              </Text>
+            {via?(
+              <View>
+                {rec.viajando?(
+                <TouchableOpacity
+                  style={styles.botaoAdd2} onPress={()=>parar()}>
+                  <Image source={require('../../../../assets/gradient2.png')} style={styles.gradientBotao} />
+                  <View style={{ flexDirection: 'row', position:'absolute' }}>
+                  <Text style={{ fontSize: 18, marginLeft: 10, fontFamily:'AileronH'}}>
+                    Parar rota 
+                  </Text>
+                </View>
+                </TouchableOpacity>
+              ):(
+                <TouchableOpacity
+                  style={styles.botaoAdd2} onPress={()=>navigation.navigate('HomeRotaMotorista')}>
+                  <Image source={require('../../../../assets/gradient.png')} style={styles.gradientBotao} />
+                  <View style={{ flexDirection: 'row', position:'absolute' }}>
+                  <FontAwesome5 name="map-marker-alt" size={23} color="black" />
+                    <Text style={{ fontSize: 18, marginLeft:10, fontFamily:'AileronH'}}>
+                      Iniciar Rota
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              )}
               </View>
-            </TouchableOpacity>
-          )}
+            ):(
+              <View>
+                {rec.viajando?(
+                <TouchableOpacity
+                  style={styles.botaoAdd2} onPress={()=>parar()}>
+                  <Image source={require('../../../../assets/gradient2.png')} style={styles.gradientBotao} />
+                  <View style={{ flexDirection: 'row', position:'absolute' }}>
+                  <Text style={{ fontSize: 18, marginLeft: 10, fontFamily:'AileronH'}}>
+                    Parar rota 
+                  </Text>
+                </View>
+                </TouchableOpacity>
+              ):(
+                <TouchableOpacity
+                  style={styles.botaoAdd2} onPress={()=>navigation.navigate('HomeRotaMotorista')}>
+                  <Image source={require('../../../../assets/gradient.png')} style={styles.gradientBotao} />
+                  <View style={{ flexDirection: 'row', position:'absolute' }}>
+                  <FontAwesome5 name="map-marker-alt" size={23} color="black" />
+                    <Text style={{ fontSize: 18, marginLeft:10, fontFamily:'AileronH'}}>
+                      Iniciar Rota
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              )}
+              </View>
+            )}
         </View>
         </View>
         </View>

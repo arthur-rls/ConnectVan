@@ -32,9 +32,9 @@ export default function Passageiros({navigation, route}) {
   
       <View style={styles.container}>
         <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-        <View style={{ marginTop:'13%', justifyContent:'center', marginLeft:'4%'}}>
+        <View style={{ marginTop:'13%', justifyContent:'center'}}>
             <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
-              <Entypo name="menu" size={29} color="black" style={styles.iconMenu}/>
+              <Entypo name="menu" size={29} color="black" style={{marginLeft:15}}/>
             </TouchableOpacity>
             <View style={{ justifyContent:'center', alignItems:'center'}}>
             <Text style={{fontSize:18, fontFamily:'AileronH'}}>Passageiros</Text>

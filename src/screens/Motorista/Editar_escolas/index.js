@@ -48,14 +48,14 @@ export default function EditEscola({navigation}) {
   return (
     <View style={styles.container}>
       <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-        <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
-            <TouchableOpacity onPress={()=>navigation.navigate('Escolas')} style={{flex:1,position:'absolute'}}>
-              <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
-            </TouchableOpacity>
-            <View style={{ justifyContent:'center', alignItems:'center'}}>
-            <Text style={{fontSize:18, fontFamily:'AileronH'}}>Escolas</Text>
-          </View>
+      <View style={{ marginTop:'13%', justifyContent:'center', marginLeft:'4%'}}>
+        <TouchableOpacity onPress={()=>navigation.navigate('Escolas')} style={{flex:1,position:'absolute'}}>
+          <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
+        </TouchableOpacity>
+        <View style={{ justifyContent:'center', alignItems:'center'}}>
+          <Text style={{fontSize:18, fontFamily:'AileronH'}}>Escolas</Text>
         </View>
+      </View>
 
       <View style={styles.fundoTab}>
         {escolas?(
@@ -87,16 +87,16 @@ export default function EditEscola({navigation}) {
             </Text>
         )}
 
-<View style={{width:'90%', alignContent:'center', marginTop:17}}>
+        <View style={{width:'90%', alignContent:'center', marginTop:17}}>
           <TextInput
             style={styles.input}
-            placeholder='Nome da Escola'
+            placeholder='Nome da escola'
             value={escola}
             onChangeText={value=>setEscola(value)}
           />
             <View style={{position:'absolute', width:'100%', height:'100%', justifyContent:'flex-end'}}>
               <View style={{flexDirection:'row', justifyContent:'flex-end', width:'100%', height:'100%'}}>
-                <View style={{justifyContent:'center', marginRight:'10%'}}>
+                <View style={{justifyContent:'center', marginRight:'6%'}}>
                   <TouchableOpacity onPress={()=>adicionar()}>
                     <MaterialIcons name="check" size={20} color="black" />
                   </TouchableOpacity>
@@ -106,9 +106,12 @@ export default function EditEscola({navigation}) {
         </View>
 
         <View style={styles.viewBotao}>
-          <View style={{flexDirection:'row', justifyContent:'flex-end', padding: '10%'}}>
-            <TouchableOpacity style={styles.botaoAdd} onPress={()=>navigation.navigate('Escolas')}>
-              <MaterialIcons name="done" size={22} color="white" />
+          <View style={{flexDirection:'row', justifyContent:'center', padding: '7%'}}>
+          <TouchableOpacity style={styles.botaoAdd} onPress={()=>navigation.navigate('Escolas')}>
+              <Image source={require('../../../../assets/gradient.png')} style={styles.gradientBotao}/>
+              <Text style={{ fontSize: 17, fontFamily:'AileronH', position:'absolute' }}>
+                Salvar alterações
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
