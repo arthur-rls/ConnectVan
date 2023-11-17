@@ -69,7 +69,7 @@ export default function Login ({navigation}) {
                     <View style={styles.viewInput}>
                         <MaterialIcons name="lock" size={20} color="#4D4D4D" style={showElement ? styles.iconErro : styles.icon}/>
                         <TextInput style={showElement ? styles.inputErro : styles.input} placeholder="Senha" onChangeText={(text) => setPassword(text)} value={password} autoCapitalize='none' secureTextEntry={ver? false : true}/>
-                        
+                        <TouchableOpacity onPress={()=>setVer(current=>!current)}><Entypo name={ver? "eye-with-line":"eye"} size={20} color="#4D4D4D" style={styles.icon}/></TouchableOpacity>
                     </View>
 
                     <View style={[styles.viewButton, {paddingTop:20}]}>

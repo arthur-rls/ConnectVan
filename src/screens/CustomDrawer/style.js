@@ -7,12 +7,13 @@ const styles = StyleSheet.create({
         marginLeft:8,
         justifyContent:'center', 
         backgroundColor:'#ffb300',
-        borderRadius:10
+        borderRadius:10,
     },
     viewMae:{
         flexDirection:'row', 
         padding:5,
         alignItems:'center',
+        width:'70%'
     },
     imagem:{
         width:80, 
@@ -22,15 +23,15 @@ const styles = StyleSheet.create({
     },
     nome:{
         fontWeight:'bold', 
-        fontSize:17, 
+        fontSize:16, 
         marginLeft:'2%', 
         lineHeight:22, 
         color:'white'
     },
     email:{
-        fontSize:13, 
+        fontSize:12, 
         marginLeft:'2%', 
-        color:'white'
+        color:'white',
     },
     imageBackground:{
         width: '100%',

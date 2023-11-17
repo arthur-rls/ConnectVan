@@ -111,7 +111,9 @@ export default StyleSheet.create({
     marginLeft: '40%',
   },
   inputi: {
-    height: 45,
+    height: 70,
+    marginBottom:-13,
+    width:'90%',
     fontSize: 17,
     borderColor: '#DDDDDD',
     borderRadius: 4,

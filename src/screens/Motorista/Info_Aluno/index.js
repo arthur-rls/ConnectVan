@@ -12,6 +12,7 @@ export default function AddAluno ({route, navigation}) {
     const [rec2, setRec2] = useState('');
     const [mensagem, setmensagem] = useState('')
     const [gatilho, setGatilho] = useState(false)
+    const [esc, setEsc] = useState('')
 
     useEffect(()=>{
         onAuthStateChanged(auth, async (user) => {
@@ -26,6 +27,7 @@ export default function AddAluno ({route, navigation}) {
                 const snapshot2 = await getDoc(docRef2)
                 setRec2(snapshot2.data());
                 console.log(idA)
+                setEsc(snapshot.data().escola)
             }
         })
     }, [gatilho])
@@ -44,7 +46,7 @@ export default function AddAluno ({route, navigation}) {
     <View style={styles.container}>
       <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
       <View style={{ marginTop:'13%', justifyContent:'center'}}>
-          <TouchableOpacity onPress={()=>navigation.navigate('Passageiros')} style={{flex:1,position:'absolute'}}>
+          <TouchableOpacity onPress={()=>navigation.navigate('PassageirosE', {esc})} style={{flex:1,position:'absolute'}}>
             <Entypo name="chevron-left" size={29} color="black" style={{marginLeft:13}}/>
           </TouchableOpacity>
           <View style={{ justifyContent:'center', alignItems:'center'}}>

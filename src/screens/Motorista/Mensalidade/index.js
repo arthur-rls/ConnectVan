@@ -184,35 +184,23 @@ export default function Mensalidade({navigation}){
                     <Text style={styles.mes}>{mes}</Text>
                 </View>
                 <View style={styles.linha}/>
-                <View styles={{alignItems:'center', justifyContent:'center', }}>
-                    {ver? (
-                        <Text style={styles.valor}>R${saldo}</Text>
-                    ):(
-                        <Text style={styles.valor}>R$----</Text>
-                    )}
-                    <TouchableOpacity onPress={()=>{calcSaldo();setVer(current=>!current)}}>
-                    {ver?(
-                    <Text
-                        style={{
-                        fontSize: 16,
-                        fontWeight: 'bold',
-                        textAlign: 'center',
-                        position:'absolute'
-                        }}>
-                        Ocultar
-                    </Text>
-                    ):(
-                    <Text
-                        style={{
-                        fontSize: 16,
-                        fontWeight: 'bold',
-                        textAlign: 'center',
-                        position:'absolute'
-                        }}>
-                        Ver
-                    </Text>
-                    )}
-                    </TouchableOpacity>
+                <View styles={{alignItems:'center', justifyContent:'center'}}>
+                    <View style={{flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+                        {ver? (
+                            <Text style={styles.valor}>R${saldo}</Text>
+                        ):(
+                            <Text style={styles.valor}>R$----</Text>
+                        )}
+                        <View style={{marginTop:27, marginLeft:10}}>
+                            <TouchableOpacity onPress={()=>{calcSaldo();setVer(current=>!current)}}>
+                            {ver?(
+                                <Entypo name="eye-with-line" size={24} color="black" />
+                            ):(
+                                <Entypo name="eye" size={24} color="black" />
+                            )}
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                     <Text style={styles.valorAcum}>Valor acumulado</Text>
                 </View>
                 <View style={{marginHorizontal:'10%'}}>

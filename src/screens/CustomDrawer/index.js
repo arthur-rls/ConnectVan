@@ -31,7 +31,7 @@ export default function CustomDrawer(props){
         <View style={{flex:1}}>
             <DrawerContentScrollView {...props}
                 contentContainerStyle={{}}>
-
+ 
                 <View style={styles.container}>
                         <View style={styles.viewMae}>
                             <TouchableOpacity>

@@ -49,11 +49,11 @@ export default function PassageirosEscola({navigation, route}) {
     return (
       <View style={styles.container}>
         <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-        <View style={{ marginTop:'13%', justifyContent:'center', marginLeft:'4%'}}>
-          <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
-            <Entypo name="menu" size={29} color="black" style={{marginLeft:15}}/>
-          </TouchableOpacity>
-          <View style={{ justifyContent:'center', alignItems:'center'}}>
+        <View style={{ marginTop:'13%', justifyContent:'center'}}>
+            <TouchableOpacity onPress={()=>navigation.navigate('Escolas')} style={{flex:1,position:'absolute'}}>
+              <Entypo name="chevron-left" size={29} color="black" style={{marginLeft:15}}/>
+            </TouchableOpacity>
+            <View style={{ justifyContent:'center', alignItems:'center'}}>
             <Text style={{fontSize:18, fontFamily:'AileronH'}}>Passageiros</Text>
           </View>
         </View>
@@ -66,7 +66,7 @@ export default function PassageirosEscola({navigation, route}) {
                 const idA = item.nome;
                 const resp = item.responsavel;
                 return(
-                <TouchableOpacity style={styles.botaoEscola} onPress={()=>navigation.navigate('InfoAluno2', {idA, resp})}>
+                  <TouchableOpacity style={styles.botaoEscola} onPress={()=>navigation.navigate('InfoAluno', {idA, resp})}>
                   <View style={styles.fundoEscola}>
                     <View style={{padding:18, flexDirection:'row', alignItems:'center'}}>
                       <Image
@@ -75,10 +75,12 @@ export default function PassageirosEscola({navigation, route}) {
                       />
                       <Text style={styles.nome}>{item.nome}</Text>
                     </View>
-                    <View style={{ marginTop:'13%', justifyContent:'center', marginLeft:'4%'}}>
-                      <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
-                        <Entypo name="menu" size={29} color="black" style={{marginLeft:15}}/>
-                      </TouchableOpacity>
+                    <View style={{flex: 1, justifyContent:'flex-end', flexDirection:'row'}}>
+                      <View style={{justifyContent:'center'}}>
+                        <TouchableOpacity>
+                          <Entypo name="chevron-right" size={24} color="black" />
+                        </TouchableOpacity>
+                      </View>
                     </View>
                   </View>
                 </TouchableOpacity>

@@ -1,7 +1,5 @@
 import {StyleSheet} from 'react-native'
 
-
-
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -14,7 +12,7 @@ export default StyleSheet.create({
     marginTop:'13%',
     justifyContent:'center',
     alignItems:'center',
-    width:'95%',
+    width:'92%',
   },
   modalView: {
     margin: 20,
@@ -23,7 +21,16 @@ export default StyleSheet.create({
     borderColor: 'black',
     borderWidth: 2,
     padding: 35,
-    
+
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+  },
+  centeredView:{
+    justifyContent:'center',
+    marginTop:'50%'
   },
   input:{
     height:42, 
@@ -54,9 +61,18 @@ export default StyleSheet.create({
     flexDirection:'row',
   },
   viewBotao:{
+    justifyContent:'center',
+    marginTop:'18%',
+    flexDirection:'row', 
+    gap:12, 
+  },
+  botaoAdd:{
+    backgroundColor:'#FFBF00',
+    borderRadius:25,
+    width:105,
+    height:45,
     alignItems:'center',
     justifyContent:'center',
-    marginVertical:'15%',
   },
   botao:{
     backgroundColor:'#FFBF00', 
@@ -69,9 +85,9 @@ export default StyleSheet.create({
   botaoMaps:{
     backgroundColor:'transparent', 
     flexDirection:'row',
-    borderRadius:25, 
+    borderRadius:45, 
     width:200,
-    height:42, 
+    height:47, 
     alignItems:'center', 
     justifyContent:'center',
   },
@@ -133,7 +149,13 @@ export default StyleSheet.create({
     width:'100%', 
     height:'100%', 
     alignSelf: 'center', 
-    borderRadius:12
+    borderRadius:15
+  },
+  gradientCalendario:{
+    width:'100%', 
+    height:'100%', 
+    alignSelf: 'center', 
+    borderRadius:35
   },
   logo:{
     width: 42, 

@@ -6,7 +6,7 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 import {db, auth} from '../../../firebase/config';
 import {View, Text,Image,  TouchableOpacity, TextInput, Modal, ScrollView, Keyboard}  from 'react-native'
 import { doc, getDoc, onSnapshot, getDocs, collection, collectionGroup, query, where, updateDoc} from 'firebase/firestore';
- 
+  
 export default function MHomeRota ({route, navigation}) {
     const [currentDate, setCurrentDate] = useState('');
     const [date, setDate] = useState('')
@@ -31,13 +31,6 @@ export default function MHomeRota ({route, navigation}) {
         calcSaldo()
       }
     } 
-    const pegarAviso= async ()=>{
-      setAvisoA(rec.aviso)
-      setAvisoD(rec.data)
-      setAviso(rec.avisando)
-      setAvisoM(avisoA)
-      setEdit(false)
-    }
     useEffect(()=>{
         navigation.addListener('focus', () => {
         var date = new Date().getDate(); //Current Date
@@ -46,15 +39,19 @@ export default function MHomeRota ({route, navigation}) {
             date + ' DE ' + monthNames[month] + ' DE 2023'
         );
         setDate(
-            'POSTADO EM: ' + date + ' DE ' + monthNames[month] + ' DE 2023'
+            'Postado em: ' + date + ' de ' + monthNames[month] + ' de 2023'
         )
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const docRef = doc(db, 'motorista', user.uid)
                 await getDoc(docRef).then(async(snapshot)=>{
                   setRec(snapshot.data())
-                  if(rec.avisando == true){
-                    pegarAviso()
+                  const a = snapshot.data().avisando
+                  if(rec.avisando === true || a === true||snapshot.data().avisando == true){
+                    setAvisoA(snapshot.data().aviso)
+                    setAvisoD(snapshot.data().data)
+                    setAviso(snapshot.data().avisando)
+                    setEdit(false)
                   }
                   console.log(rec)
                   updateDoc(docRef, {viajando: false, rota:''})             
@@ -98,7 +95,7 @@ export default function MHomeRota ({route, navigation}) {
             }
         onAuthStateChanged(auth, async (user)=>{
             const docRef = doc(db, 'motorista', user.uid)
-            updateDoc(docRef, {aviso: avisoM, data: date, avisando: true})
+            updateDoc(docRef, {aviso: avisoA, data: date, avisando: true})
         })
         setAviso(true)
         setEdit(false)
@@ -117,7 +114,7 @@ export default function MHomeRota ({route, navigation}) {
             updateDoc(docRef, {aviso: '', data: '', avisando: false})
         })
         setAviso(false)
-        setAvisoM('')
+        setAvisoA('')
         setEdit(true)
         setAvisoD('')
     }
@@ -161,7 +158,7 @@ export default function MHomeRota ({route, navigation}) {
                       </View>
                       <Text style={{ fontSize: 18, marginBottom: 5, marginTop:'3%', fontFamily:'AileronR' }}>Saldo mensal</Text>
                       
-                      <View style={{width:'100%', height:'32%', flexDirection:'row',}}>
+                      <View style={{width:'147%', height:'32%', flexDirection:'row',}}>
                         {ver?(
                           <Text
                         style={{
@@ -184,31 +181,33 @@ export default function MHomeRota ({route, navigation}) {
                         </Text>
                         )}
                         
-                        <View style={{width:'30%', justifyContent:'center', height:'95%', alignItems:'center', marginTop:5}}>
-                            <TouchableOpacity onPress={()=>{verSaldo()}}>
-                            <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} /> 
-                            {ver?(
-                            <Text
-                                style={{
-                                fontSize: 16,
-                                fontWeight: 'bold',
-                                textAlign: 'center',
-                                position:'absolute'
-                                }}>
-                                Ocultar
-                            </Text>
-                            ):(
-                            <Text
-                                style={{
-                                fontSize: 16,
-                                fontWeight: 'bold',
-                                textAlign: 'center',
-                                position:'absolute'
-                                }}>
-                                Ver
-                            </Text>
-                            )}
-                            </TouchableOpacity>
+                        <View style={{width:'22%', justifyContent:'center', height:'95%'}}>
+                            <Image source={require('../../../../assets/gradient.png')} style={[styles.gradient, {position:'absolute'}]} /> 
+                            <View style={{justifyContent:'flex-end'}}>
+                              <TouchableOpacity onPress={()=>{verSaldo()}} >
+                              
+                              {ver?(
+                              <Text
+                                  style={{
+                                  fontSize: 16,
+                                  fontWeight: 'bold',
+                                  textAlign: 'center',
+                                  }}>
+                                  Ocultar
+                              </Text>
+                              ):(
+                              <Text
+                                  style={{
+                                  fontSize: 16,
+                                  fontWeight: 'bold',
+                                  textAlign: 'center',
+                                  
+                                  }}>
+                                  Ver
+                              </Text>
+                              )}
+                              </TouchableOpacity>
+                            </View>
                         </View>          
                       </View>
                   </View>
@@ -221,7 +220,7 @@ export default function MHomeRota ({route, navigation}) {
             <View style={{width:'100%', padding:21}}>
               <View style={{flexDirection:'row', alignItems:'center'}}>
                   <Text
-                      style={{ fontSize: 21, fontWeight: 'bold', fontFamily:'AileronH'}}>
+                      style={{ fontSize: 21, fontWeight: 'bold', fontFamily:'AileronH', marginBottom:-15}}>
                       AVISOS
                   </Text>
               </View>
@@ -233,8 +232,8 @@ export default function MHomeRota ({route, navigation}) {
                   numberOfLines={5}
                   maxLength={300}
                   style={styles.inputi}
-                  onChangeText={(value)=>setAvisoM(value)}
-                  value={avisoM}
+                  onChangeText={(value)=>setAvisoA(value)}
+                  value={avisoA}
                   editable={edit}
                 />
                 {aviso?(

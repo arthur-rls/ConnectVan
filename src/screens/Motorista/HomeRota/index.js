@@ -20,9 +20,11 @@ export default function MHomeRota ({navigation}) {
     const [lati, setLati] = useState('')
     const [longi, setLongi] = useState('')
     const [escola, setEscola] = useState([])
+    const [faltantes, setFaltantes] = useState([])
     const arr = []
     const arr2 = []
     const arr3 = []
+    const arr4 =[]
     const [periodoAberto, setPeriodoAberto] = useState(false);
     const [periodoValue, setPeriodoValue] = useState('');
     const [data, setData] = useState('')
@@ -32,20 +34,23 @@ export default function MHomeRota ({navigation}) {
       { label: "Integral", value: "integral" },
     ]);
     const q = query(collectionGroup(db, 'passageiros'), where('periodo','==', periodoValue))
+    
     useEffect(()=>{
         local()
         peri()
         var date = new Date().getDate(); //Current Date
-        var month = new Date().getMonth(); //Current Month
-        if (date<10){
-          const dat = '0' + date
-          setData('2023-' + month + '-' + dat)
-        }
-        else{
-          setData('2023-' + month + '-' + date)
-        }
+        var month = new Date().getMonth()+1; //Current Month
+        setData('2023-' + month + '-' + date)
+        f()
     },[periodoValue])
 
+    const f =async()=>{
+      const qu = query(collectionGroup(db, 'responsavel'), where('faltar','array-contains', data))
+      const queryy = await getDocs(qu)
+      queryy.forEach((aluno) => {
+        setFaltantes(aluno.data().filho)
+      })
+    }
     async function peri(){
         setArray()
         const queryy = await getDocs(q)
@@ -73,7 +78,7 @@ export default function MHomeRota ({navigation}) {
                   }
                   else{
                     if(dado2.faltar.includes(data)){
-                    
+                      
                     }
                     else{
                     arr.push(dado)
@@ -98,7 +103,6 @@ export default function MHomeRota ({navigation}) {
               else{
                 console.log('não tem')
               }
-            
         })
     }
     if(!longi || !lati){
@@ -125,6 +129,7 @@ export default function MHomeRota ({navigation}) {
       setModalVisible(false)
     }
     async function local(){
+        f()
         const{granted} = await requestForegroundPermissionsAsync();
 
         if(granted){
@@ -156,6 +161,30 @@ export default function MHomeRota ({navigation}) {
             />
           );
         }
+
+        const Item2 = ({item}) => (
+          <View style={{flexDirection:'row', marginTop: '8%', paddingHorizontal:30}}>
+              <View style={styles.viewMae}/>
+              <View style={{alignItems:'center'}}>
+                <View style={{flexDirection:'column', marginLeft:'5%'}}>
+                    <Text style={styles.viewFilha}>{item}</Text>
+                </View>
+              </View>
+          </View> 
+        );
+        
+        
+          const renderItem2 = ({item}) => {
+        
+            return (
+              <Item2
+                item={item}
+              />
+            );
+          }
+
+
+
     return (
         <View style={styles.container}>
           <Modal
@@ -198,7 +227,7 @@ export default function MHomeRota ({navigation}) {
             </View>
     
           <View style={styles.fundoTab}>
-    
+            
             <View style={styles.accordion}>
                 <DropDownPicker
                 style={styles.dropdown}
@@ -220,7 +249,19 @@ export default function MHomeRota ({navigation}) {
                 data={array}
                 renderItem={renderItem}
             />
+            {faltantes.length!=0?(
+              <View>
+                <Text>Faltantes</Text>
+              <FlatList
+                data={faltantes}
+                renderItem={renderItem2}
+              />
+            </View>
+            ):null}
+            
 
+            
+              
             
               {/* {escola.map((item)=>{
                 <View style={{flexDirection:'row'}}>
@@ -231,6 +272,8 @@ export default function MHomeRota ({navigation}) {
                   </View>
                 </View>
               })} */}
+
+              
             </ScrollView>
             {array?(
               <View style={{justifyContent:'flex-end', alignItems:'center',}}>
