@@ -127,6 +127,7 @@ export default function MHomeRota ({navigation}) {
         updateDoc(doc(db, 'motorista', user.uid), {rota: rota, viajando: true})
       })
       setModalVisible(false)
+      navigation.navigate('Home')
     }
     async function local(){
         f()
@@ -250,8 +251,8 @@ export default function MHomeRota ({navigation}) {
                 renderItem={renderItem}
             />
             {faltantes.length!=0?(
-              <View>
-                <Text>Faltantes</Text>
+              <View style={{borderWidth:0.5, borderRadius:20, padding:20}}>
+                <Text style={{fontSize:20}}>Faltantes do dia</Text>
               <FlatList
                 data={faltantes}
                 renderItem={renderItem2}

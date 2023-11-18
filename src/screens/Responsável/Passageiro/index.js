@@ -7,17 +7,11 @@ import {db, auth} from '../../../firebase/config';
 import {  doc, getDoc, setDoc, updateDoc, arrayRemove, arrayUnion} from 'firebase/firestore';
 
 export default function Passageiro({route, navigation}) {
-    const {key} = route.params
+    const {item} = route.params
     const [rec, setRec] = useState('')
-    const [nome, setNome] = useState('')
-    const [escola, setEscola] = useState('')
-    const [sala, setSala] = useState('')
-    const [serie, setSerie] = useState('')
-    const [periodo, setPeriodo] = useState('')
-    const [endereco, setEndereco] = useState('')
     useEffect(()=>{
         onAuthStateChanged(auth, async (user) => {
-          const docRef = doc(db, 'responsavel', user.uid)
+          const docRef = doc(db, 'responsavel', user.uid, 'alunos', item)
           const snapshot = await getDoc(docRef)
           setRec(snapshot.data())
         });
@@ -44,10 +38,10 @@ export default function Passageiro({route, navigation}) {
                 <View style={[styles.viewMae, {height:135}]}/> 
                 <View style={{flexDirection:'column', marginLeft:'11%'}}>
                   <Text style={styles.viewFilha}>Escola</Text>
-                  <Text style={styles.infos}>{rec.escola[key]}</Text>
-                  <Text style={styles.infos}>{rec.sala[key]}</Text>
-                  <Text style={styles.infos}>{rec.serie[key]}</Text>
-                  <Text style={styles.infos}>{rec.periodo[key]}</Text>
+                  <Text style={styles.infos}>{rec.escola}</Text>
+                  <Text style={styles.infos}>{rec.sala}</Text>
+                  <Text style={styles.infos}>{rec.serie}</Text>
+                  <Text style={styles.infos}>{rec.periodo}</Text>
                 </View>
               </View>
 
@@ -55,7 +49,7 @@ export default function Passageiro({route, navigation}) {
                 <View style={[styles.viewMae, {height:106}]}/>
                 <View style={{flexDirection:'column', marginLeft:'11%'}}>
                   <Text style={styles.viewFilha}>Endereço</Text>
-                  <Text style={styles.infos}>{rec.endereco[key]}</Text>
+                  <Text style={styles.infos}>{rec.endereco}</Text>
                 </View>
               </View>
             </View>

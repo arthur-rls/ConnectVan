@@ -18,6 +18,15 @@ export default StyleSheet.create({
       borderBottomStartRadius:0,
       alignItems:'center',
     },
+    senhaErrOuIncorr:{
+      position:'absolute', 
+      backgroundColor:'#f02929', 
+      marginTop: 50, 
+      padding:10, 
+      flexDirection:'row', 
+      borderRadius:13,
+      alignSelf: 'center',
+    },
     fundoEscola:{
       borderRadius: 20,
       borderWidth:0.5,

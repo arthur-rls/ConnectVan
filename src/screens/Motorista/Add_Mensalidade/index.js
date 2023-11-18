@@ -69,9 +69,18 @@ export default function AddMensalidade({route, navigation}) {
             <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Finalizar</Text>
           </TouchableOpacity>
         </View>
-        <Modal visible={modalVisible}>
-            <Calendar onDayPress={day => {console.log('selected day', day); setVencimento(day.day); setModalVisible(false); setData(day.day + ' de cada mês')}} hideArrows={true} enableSwipeMonths={true} hideExtraDays={true} monthFormat={''} hideDayNames={true}/>
-        </Modal>
+        <Modal visible={modalVisible} transparent={true}>
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <View style={{position:'absolute', padding:10}}>
+                            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                                <Feather name="x" size={24} color="black" />
+                            </TouchableOpacity>
+                        </View>
+                        <Calendar onDayPress={day => {console.log('selected day', day); setVencimento(day.day); setModalVisible(false); setData(day.day + ' de cada mês')}} hideArrows={true} enableSwipeMonths={true} hideExtraDays={true} monthFormat={''} hideDayNames={true}/>
+                        </View> 
+                </View> 
+            </Modal>
         
       </View>
       {showElement==true ? (

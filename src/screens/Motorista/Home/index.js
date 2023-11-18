@@ -1,5 +1,5 @@
 
-import { Entypo, FontAwesome, AntDesign, FontAwesome5, Ionicons } from '@expo/vector-icons';
+import { Entypo, FontAwesome, AntDesign, FontAwesome5, Ionicons, Feather } from '@expo/vector-icons';
 import { useEffect, useState, useRef } from 'react'
 import styles from './style'
 import { onAuthStateChanged, signOut } from 'firebase/auth';
@@ -7,7 +7,7 @@ import {db, auth} from '../../../firebase/config';
 import {View, Text,Image,  TouchableOpacity, TextInput, Modal, ScrollView, Keyboard}  from 'react-native'
 import { doc, getDoc, onSnapshot, getDocs, collection, collectionGroup, query, where, updateDoc} from 'firebase/firestore';
   
-export default function MHomeRota ({route, navigation}) {
+export default function MHome ({route, navigation}) {
     const [currentDate, setCurrentDate] = useState('');
     const [date, setDate] = useState('')
     const monthNames = ["JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO",
@@ -19,11 +19,13 @@ export default function MHomeRota ({route, navigation}) {
     const [saldo, setSaldo] = useState(0)
     const [aviso, setAviso] = useState(false)
     const [gatilho, setGatilho] = useState(true)
+    const [gatilho2, setGatilho2] = useState(true)
     const [avisoD, setAvisoD] = useState('')
     const [ver, setVer] = useState(false)
     const s = [] 
     const [edit, setEdit] = useState(true)
     const [via, setVia] = useState(true)
+    const [showElement, setShowElement] = useState(false)
     
       const verSaldo=()=>{
       setVer(current=>!current)
@@ -31,6 +33,7 @@ export default function MHomeRota ({route, navigation}) {
         calcSaldo()
       }
     } 
+
     useEffect(()=>{
         navigation.addListener('focus', () => {
         var date = new Date().getDate(); //Current Date
@@ -47,21 +50,24 @@ export default function MHomeRota ({route, navigation}) {
                 await getDoc(docRef).then(async(snapshot)=>{
                   setRec(snapshot.data())
                   const a = snapshot.data().avisando
+                  setVia(snapshot.data().viajando)
+                  console.log(snapshot.data().avisando)
                   if(rec.avisando === true || a === true||snapshot.data().avisando == true){
                     setAvisoA(snapshot.data().aviso)
                     setAvisoD(snapshot.data().data)
                     setAviso(snapshot.data().avisando)
                     setEdit(false)
                   }
-                  console.log(rec)
-                  updateDoc(docRef, {viajando: false, rota:''})             
+                  console.log(rec)    
+                  if(rec.viajando){
+                    setShowElement(true)
+                  }
                 })
                 
             }
         });
       })
-        
-    },[aviso, gatilho])
+    },[aviso, gatilho, gatilho2, via])
 
     if (!rec){
         return null
@@ -123,10 +129,12 @@ export default function MHomeRota ({route, navigation}) {
       onAuthStateChanged(auth, (user)=>{
         if(user){
           const docRef = doc(db, 'motorista', user.uid)
-          updateDoc(docRef, {viajando:false})
+          updateDoc(docRef, {viajando:false, rota:''})
         }
       })
       setVia(false)
+      setGatilho(current=>!current)
+      setGatilho2(current=>!current)
     }
     return(
         <View style={styles.container}>
@@ -184,7 +192,7 @@ export default function MHomeRota ({route, navigation}) {
                         <View style={{width:'22%', justifyContent:'center', height:'95%'}}>
                             <Image source={require('../../../../assets/gradient.png')} style={[styles.gradient, {position:'absolute'}]} /> 
                             <View style={{justifyContent:'flex-end'}}>
-                              <TouchableOpacity onPress={()=>{verSaldo()}} >
+                              <TouchableOpacity onPress={()=>{verSaldo()}} style={{}}>
                               
                               {ver?(
                               <Text
@@ -260,8 +268,6 @@ export default function MHomeRota ({route, navigation}) {
               </Text>
             </TouchableOpacity>
             {via?(
-              <View>
-                {rec.viajando?(
                 <TouchableOpacity
                   style={styles.botaoAdd2} onPress={()=>parar()}>
                   <Image source={require('../../../../assets/gradient2.png')} style={styles.gradientBotao} />
@@ -271,32 +277,7 @@ export default function MHomeRota ({route, navigation}) {
                   </Text>
                 </View>
                 </TouchableOpacity>
-              ):(
-                <TouchableOpacity
-                  style={styles.botaoAdd2} onPress={()=>navigation.navigate('HomeRotaMotorista')}>
-                  <Image source={require('../../../../assets/gradient.png')} style={styles.gradientBotao} />
-                  <View style={{ flexDirection: 'row', position:'absolute' }}>
-                  <FontAwesome5 name="map-marker-alt" size={23} color="black" />
-                    <Text style={{ fontSize: 18, marginLeft:10, fontFamily:'AileronH'}}>
-                      Iniciar Rota
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              )}
-              </View>
             ):(
-              <View>
-                {rec.viajando?(
-                <TouchableOpacity
-                  style={styles.botaoAdd2} onPress={()=>parar()}>
-                  <Image source={require('../../../../assets/gradient2.png')} style={styles.gradientBotao} />
-                  <View style={{ flexDirection: 'row', position:'absolute' }}>
-                  <Text style={{ fontSize: 18, marginLeft: 10, fontFamily:'AileronH'}}>
-                    Parar rota 
-                  </Text>
-                </View>
-                </TouchableOpacity>
-              ):(
                 <TouchableOpacity
                   style={styles.botaoAdd2} onPress={()=>navigation.navigate('HomeRotaMotorista')}>
                   <Image source={require('../../../../assets/gradient.png')} style={styles.gradientBotao} />
@@ -307,10 +288,17 @@ export default function MHomeRota ({route, navigation}) {
                     </Text>
                   </View>
                 </TouchableOpacity>
-              )}
-              </View>
             )}
+            
         </View>
+        {showElement==true ? (
+            <View style={{position:'absolute', backgroundColor:'green', marginTop: 50, padding:10, flexDirection:'row'}}>
+                <TouchableOpacity onPress={()=>setShowElement(false)}>
+                    <Feather name="x" size={20} color="white" />
+                </TouchableOpacity>
+                <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Link de rota enviado com sucesso.</Text>
+            </View>
+        ):null}
         </View>
         </View>
     )

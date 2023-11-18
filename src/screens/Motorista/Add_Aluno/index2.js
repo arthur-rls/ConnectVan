@@ -8,18 +8,17 @@ import {  setDoc, doc, getDoc, updateDoc, arrayUnion , deleteField, arrayRemove 
 
 
 export default function AddAluno ({route, navigation}) {
-    const { idR, mensalidade, vencimento, key } = route.params;
+    const { mensalidade, vencimento, item, respo, idR } = route.params;
     const [rec, setRec] = useState('');
 
     useEffect(()=>{
         onAuthStateChanged(auth, async (user) => {
             if (user) {
-                const docRef = doc(db, 'responsavel', idR)
-                const snapshot = await getDoc(docRef)
-                setRec(snapshot.data());
+              const docRefA = doc(db, 'responsavel', idR, 'alunos', item)
+              const snapshotA = await getDoc(docRefA)
+              setRec(snapshotA.data())
             }
         })
-        console.log(rec)
     }, [])
     
 
@@ -35,7 +34,7 @@ export default function AddAluno ({route, navigation}) {
           <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
         </TouchableOpacity>
         <View style={{ justifyContent:'center', alignItems:'center'}}>
-          <Text style={{fontSize:18, fontFamily:'AileronH'}}>{rec.nome}</Text>
+          <Text style={{fontSize:18, fontFamily:'AileronH'}}>{respo}</Text>
         </View>
       </View>
 
@@ -44,9 +43,9 @@ export default function AddAluno ({route, navigation}) {
           <View style={{flexDirection:'row'}}>
             <View style={[styles.viewMae, {height:60}]}/>
             <View style={{flexDirection:'column', marginLeft:'11%'}}>
-              <Text style={styles.titulo}>{rec.nome}</Text>
+              <Text style={styles.titulo}>{respo}</Text>
               <Text style={styles.infos}>Responsável</Text>
-              <Text style={styles.titulo}>{rec.nomeAluno[key]}</Text>
+              <Text style={styles.titulo}>{rec.nome}</Text>
               <Text style={styles.infos}>Aluno</Text>
             </View>
           </View>
@@ -56,10 +55,10 @@ export default function AddAluno ({route, navigation}) {
             <View style={[styles.viewMae, {height:135}]}/> 
               <View style={{flexDirection:'column', marginLeft:'11%'}}>
                 <Text style={styles.viewFilha}>Escola</Text>
-            <Text style={styles.infos}>{rec.escola[key]}</Text>
-            <Text style={styles.infos}>{rec.sala[key]}</Text>
-            <Text style={styles.infos}>{rec.serie[key]}</Text>
-            <Text style={styles.infos}>{rec.periodo[key]}</Text>
+            <Text style={styles.infos}>{rec.escola}</Text>
+            <Text style={styles.infos}>{rec.sala}</Text>
+            <Text style={styles.infos}>{rec.serie}</Text>
+            <Text style={styles.infos}>{rec.periodo}</Text>
           </View>
         </View>
 
@@ -67,7 +66,7 @@ export default function AddAluno ({route, navigation}) {
             <View style={[styles.viewMae, {height:106}]}/>
             <View style={{flexDirection:'column', marginLeft:'11%'}}>
             <Text style={styles.viewFilha}>Endereço</Text>
-            <Text style={styles.infos}>{rec.endereco[key]}</Text>
+            <Text style={styles.infos}>{rec.endereco}</Text>
           </View>
         </View>
       </View>

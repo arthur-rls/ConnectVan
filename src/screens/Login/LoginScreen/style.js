@@ -33,8 +33,8 @@ export default StyleSheet.create({
   },
   viewInput:{
     flexDirection:'row', 
-    alignItems:'center',
-    marginTop:15 
+    alignItems:'center', 
+    marginTop:15,
   },
   input:{
     width:'95%',
@@ -70,8 +70,13 @@ export default StyleSheet.create({
   },
   icon:{
     position:'absolute',
-    zIndex:2,
-    marginLeft:10,
+    zIndex:10,
+    marginLeft:10
+  },
+  iconEye:{
+    position:'absolute',
+    zIndex:10,
+    marginLeft:'85%'
   },
   iconErro:{
     position:'absolute',
@@ -91,7 +96,7 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     borderColor: 'black',
-    borderWidth: 2,
+    borderWidth: 1.3,
     padding: 35,
 
     shadowColor: '#000',
@@ -109,7 +114,8 @@ export default StyleSheet.create({
   viewButton:{
     width:'40%', 
     alignItems:'center', 
-    paddingTop:11
+    paddingTop:11,
+    gap:15,
   },
   textButton:{
     fontSize:17, 
@@ -135,13 +141,13 @@ export default StyleSheet.create({
     marginTop:13
   },
   botaoCadastrar:{
-    width:155,
+    width:132,
     backgroundColor:'yellow',
     alignItems: 'center',
     height:40,
     justifyContent:'center',
     borderRadius:50,
-    marginBottom:'5%'
+    marginBottom:'5%',
   },
 })
 

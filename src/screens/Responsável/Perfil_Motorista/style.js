@@ -17,6 +17,7 @@ export default StyleSheet.create({
       borderBottomEndRadius:0,
       borderBottomStartRadius:0,
       alignItems:'center',
+      gap:20
     },
     fundoTab2:{
       flex:1,

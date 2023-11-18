@@ -1,4 +1,4 @@
-import { Text, SafeAreaView, StyleSheet, View, TextInput, TouchableOpacity, Image, FlatList } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, View, TextInput, TouchableOpacity, Image, FlatList, Linking } from 'react-native';
 import { Entypo, FontAwesome, AntDesign, FontAwesome5 } from '@expo/vector-icons';
 import styles from './style'
 import {useEffect, useState} from 'react'
@@ -11,6 +11,7 @@ export default function Motorista_Perfil ({route, navigation}) {
     const {idM} = route.params
     const [rec, setRec] = useState('');
     const [escolas, setEscolas] = useState([])
+    const [cidades, setCidades] = useState([])
     const [showElement, setShowElement] = useState(false)
 
     const Item = ({item}) => (
@@ -32,7 +33,7 @@ export default function Motorista_Perfil ({route, navigation}) {
     useEffect(()=>{
         dados()
     }, [])
-    if(!rec || !escolas){
+    if(!rec){
         return(
             <View style={{padding:50}}>
             <TouchableOpacity onPress={()=>dados()}>
@@ -47,6 +48,7 @@ export default function Motorista_Perfil ({route, navigation}) {
         await getDoc(docRef).then((snapshot)=>{
             setRec(snapshot.data())
             setEscolas(snapshot.data().escola)
+            setCidades(snapshot.data().cidade)
         })
     }
 
@@ -61,8 +63,8 @@ export default function Motorista_Perfil ({route, navigation}) {
         <View style={styles.container}>
             <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
             <View style={{ marginTop:'13%', justifyContent:'center'}}>
-                <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
-                    <Entypo name="menu" size={29} color="black" style={{marginLeft:15}}/>
+                <TouchableOpacity onPress={()=>navigation.navigate('Pesquisar')} style={{flex:1,position:'absolute'}}>
+                    <Entypo name="chevron-left" size={29} color="black" style={{marginLeft:15}}/>
                 </TouchableOpacity>
                 <View style={{ justifyContent:'center', alignItems:'center'}}>
                     <Text style={{fontSize:20, fontFamily:'AileronH'}}>{rec.nome}</Text>
@@ -79,17 +81,32 @@ export default function Motorista_Perfil ({route, navigation}) {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <List.Section style={{width:'100%', justifyContent:'center', paddingHorizontal:'5%'}}>
-                    <List.Accordion
-                    theme={{colors: {background: 'white', primary:'black'}}}
-                    style={styles.accordion}
-                    title="Escolas"
-                    left={(props) => <List.Icon {...props} icon="school" />}>
-                        <FlatList
-                            data={escolas}
-                            renderItem={renderItem}
-                        />
-                </List.Accordion>
+                <List.Section style={{width:'100%', justifyContent:'center', paddingHorizontal:'5%',gap:20}}>
+                    {escolas?(
+                        <List.Accordion
+                        theme={{colors: {background: 'white', primary:'black'}}}
+                        style={styles.accordion}
+                        title="Escolas"
+                        left={(props) => <List.Icon {...props} icon="school" />}>
+                            <FlatList
+                                data={escolas}
+                                renderItem={renderItem}
+                            />
+                        </List.Accordion>
+                    ):null}
+                    {cidades? (
+                        <List.Accordion
+                        theme={{colors: {background: 'white', primary:'black'}}}
+                        style={styles.accordion}
+                        title="Cidades"
+                        left={(props) => <List.Icon {...props} icon="city" />}>
+                            <FlatList
+                                data={cidades}
+                                renderItem={renderItem}
+                            />
+                        </List.Accordion>
+                    ):null}
+                    
                 </List.Section>
                 <TouchableOpacity style={styles.botao} onPress={()=>contratar()}>
                     <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
@@ -98,7 +115,7 @@ export default function Motorista_Perfil ({route, navigation}) {
             </View>
 
             {showElement==true ? (
-                <View style={{position:'absolute', backgroundColor:'green', marginTop: 50}}>
+                <View style={{position:'absolute', backgroundColor:'green', marginTop: 10, paddingHorizontal:50, borderRadius:25}}>
                     <Text style={{fontFamily:'aileron-regular', fontSize:25, color:'white'}}>Solicitação enviada!</Text>
                 </View>
             ):null}

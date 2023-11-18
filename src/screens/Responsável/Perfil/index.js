@@ -1,10 +1,10 @@
 import { Entypo, FontAwesome, AntDesign, FontAwesome5, Ionicons, EvilIcons, Feather } from '@expo/vector-icons';
 import { useEffect, useState, useRef } from 'react'
 import styles from './style'
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { onAuthStateChanged, signOut, deleteUser } from 'firebase/auth';
 import {db, auth} from '../../../firebase/config';
-import {View, Text,Image,  TouchableOpacity, TextInput, Modal, ScrollView, Keyboard} from 'react-native'
-import { doc, getDoc, onSnapshot, getDocs, collection, collectionGroup, query, where, updateDoc} from 'firebase/firestore';
+import {View, Text,Image,  TouchableOpacity, TextInput, Modal, ScrollView, Keyboard, Linking} from 'react-native'
+import { doc, getDoc, onSnapshot, getDocs, collection, collectionGroup, query, where, updateDoc, deleteDoc } from 'firebase/firestore';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import { TextInputMask } from 'react-native-masked-text';
 import MaskInput from 'react-native-mask-input';
@@ -17,6 +17,7 @@ export default function EditarPerfilR({navigation}) {
     const [emailM, setEmailM] = useState('')
     const [telefoneM, setTelefoneM] = useState('')
     const [modalVisible, setModalVisible] = useState(false)
+    const [modalVisible2, setModalVisible2] = useState(false)
 
     useEffect(()=>{
         navigation.addListener('focus', () => {
@@ -29,7 +30,15 @@ export default function EditarPerfilR({navigation}) {
         })
       })
     },[])
-
+    
+    const excluir=()=>{
+      onAuthStateChanged(auth, (user)=>{
+      deleteUser(user).then(async()=>{
+        await deleteDoc(doc(db, "responsavel", user.uid));
+        navigation.navigate('login')
+      })
+      })
+    }
     const logout=()=>{
       signOut(auth).then(()=>{
         navigation.navigate('login')
@@ -64,36 +73,64 @@ export default function EditarPerfilR({navigation}) {
           }}>
               <View style={styles.centeredView}>
                   <View style={styles.modalView}>
-                      <View style={{position:'absolute', padding:10}}>
-                          <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                              <Feather name="x" size={24} color="black" />
-                          </TouchableOpacity>
+                      <Text style={{ fontSize:19, textAlign:'justify'}}>Tem certeza que deseja sair da conta? Esta ação não poderá ser desfeita.</Text>
+                      
+                      <View style={styles.viewBotao}>
+                        <TouchableOpacity style={[styles.botaoAdd, {backgroundColor:'gray'}]} onPress={() => setModalVisible(!modalVisible)}>
+                          <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient} />
+                          <Text style={{fontSize:16, position:'absolute', fontFamily:'AileronH'}}>Cancelar</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.botaoAdd} onPress={() => logout()}>
+                          <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
+                          <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Sim, sair</Text>
+                        </TouchableOpacity>
                       </View>
-                      <Text style={{ fontSize:25, textAlign:'justify', paddingBottom:5}}>Deseja realmente sair da conta?</Text>
-                      <View style={{paddingVertical:10}}>
-                          <TouchableOpacity style={styles.botaoAdd} onPress={() => logout()}>
-                              <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
-                              <Text style={{fontSize:25, position:'absolute', fontFamily:'AileronR'}}>Sair</Text>
-                          </TouchableOpacity>
-                      </View>
+                      
                   </View>
-              </View>
+              </View> 
           </Modal>
+
+          <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible2}
+          onRequestClose={() => {
+          setModalVisible(!modalVisible2);
+          }}>
+              <View style={styles.centeredView}>
+                  <View style={styles.modalView}>
+                      <Text style={{ fontSize:19, textAlign:'justify'}}>Tem certeza que deseja excluir? Esta ação não poderá ser desfeita.</Text>
+                      
+                      <View style={styles.viewBotao}>
+                        <TouchableOpacity style={[styles.botaoAdd, {backgroundColor:'gray'}]} onPress={() => setModalVisible2(!modalVisible2)}>
+                          <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient} />
+                          <Text style={{fontSize:16, position:'absolute', fontFamily:'AileronH'}}>Cancelar</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.botaoAdd} onPress={() => excluir()}>
+                          <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
+                          <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Sim, excluir</Text>
+                        </TouchableOpacity>
+                      </View>
+                      
+                  </View>
+              </View> 
+          </Modal>
+
         <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
         <View style={{ marginTop:'13%', justifyContent:'center'}}>
             <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
               <Entypo name="menu" size={29} color="black" style={{marginLeft:15}}/>
             </TouchableOpacity>
             <View style={{ justifyContent:'center', alignItems:'center'}}>
-            <Text style={{fontSize:20, fontFamily:'AileronH'}}>Editar perfil</Text>
+            <Text style={{fontSize:18, fontFamily:'AileronH'}}>Editar perfil</Text>
           </View>
         </View>
 
     
           <View style={styles.fundoTab}>
     
-            <View style={{flexDirection:'column', alignContent:'center', marginTop:17}}>
-              <Text style={{fontSize:15, fontFamily:'AileronH', marginTop:'3%'}}>Nome</Text>
+          <View style={{flexDirection:'column', alignContent:'center', marginTop:'12%', marginBottom:'5%'}}>
+              <Text style={{fontSize:15, fontFamily:'AileronH', marginBottom:-5}}>Nome</Text>
               <TextInput
                 style={styles.input}
                 onChangeText={(value)=>setNomeM(value)}
@@ -102,8 +139,8 @@ export default function EditarPerfilR({navigation}) {
               />
             </View>
     
-            <View style={{flexDirection:'column', alignContent:'center', marginTop:17}}>
-              <Text style={{fontSize:15, fontFamily:'AileronH'}}>E-mail</Text>
+            <View style={{flexDirection:'column', alignContent:'center', marginBottom:'5%'}}>
+              <Text style={{fontSize:15, fontFamily:'AileronH', marginBottom:-5}}>E-mail</Text>
               <TextInput
                 style={styles.input}
                 onChangeText={(value)=>setEmailM(value)}
@@ -113,8 +150,8 @@ export default function EditarPerfilR({navigation}) {
               />
             </View>
     
-            <View style={{flexDirection:'column', alignContent:'center', marginTop:17}}>
-              <Text style={{fontSize:15, fontFamily:'AileronH'}}>Telefone</Text>
+            <View style={{flexDirection:'column', alignContent:'center', marginBottom:'5%'}}>
+              <Text style={{fontSize:15, fontFamily:'AileronH', marginBottom:-5}}>Telefone</Text>
               <TextInputMask
                 style={styles.input}
                 onChangeText={(value)=>setTelefoneM(value)}
@@ -126,20 +163,30 @@ export default function EditarPerfilR({navigation}) {
     
             
             <View style={styles.viewBotao}>
-              <TouchableOpacity style={[styles.botaoAdd, {backgroundColor:'gray'}]} onPress={()=>navigation.navigate('Home')}>
+              <TouchableOpacity style={[styles.botaoAdd, {backgroundColor:'gray'}]} onPress={()=>navigation.navigate('HomeMotorista')}>
                 <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient} />
                 <Text style={{fontSize:16, position:'absolute', fontFamily:'AileronH'}}>Cancelar</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.botaoAdd} onPress={()=>salvar()}>
                 <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
-                <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Salvar</Text>
+                <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Finalizar</Text>
               </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.botaoAdd} onPress={()=>setModalVisible(true)}>
-              <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
-              <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Sair</Text>
+            <View style={{gap:30}}>
+            <TouchableOpacity style={styles.botaoSair} onPress={()=>setModalVisible(true)}>
+              <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
+              <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Sair da conta</Text>
             </TouchableOpacity>
-    
+
+            <TouchableOpacity style={styles.botaoSair} onPress={()=>setModalVisible2(true)}>
+              <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient}/>
+              <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Excluir perfil</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.botaoSair} onPress={()=>Linking.openURL('mailto:connectvan4@gmail.com')}>
+              <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient}/>
+              <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Entrar em contato</Text>
+            </TouchableOpacity>
+            </View>
           </View>
         </View>
       );

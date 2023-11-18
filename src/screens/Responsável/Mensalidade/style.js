@@ -1,7 +1,5 @@
 import {StyleSheet} from 'react-native'
 
-
-
 export default StyleSheet.create({
     container: {
       flex: 1,
@@ -12,7 +10,7 @@ export default StyleSheet.create({
       flex:1,
       backgroundColor: '#fff',
       width:'100%',
-      marginTop:'5%',
+      marginTop:20,
       borderRadius: 40,
       borderBottomEndRadius:0,
       borderBottomStartRadius:0,
@@ -22,7 +20,7 @@ export default StyleSheet.create({
       flex:1,
       backgroundColor: '#fff',
       width:'100%',
-      marginTop:10,
+      marginTop:20,
       borderRadius: 40,
       borderBottomEndRadius:0,
       borderBottomStartRadius:0,
@@ -34,9 +32,21 @@ export default StyleSheet.create({
     },
     botao:{
       backgroundColor:'#FFBF00', 
-      borderRadius:25, 
-      width:225,
+      borderRadius:35, 
+      marginTop:-12,
+      width:145,
       height:45, 
+      borderRadius:35,
+      alignItems:'center', 
+      justifyContent:'center',
+    },
+    botaoDefPago:{
+      backgroundColor:'#FFBF00', 
+      borderRadius:35, 
+      marginTop:-12,
+      width:190,
+      height:45, 
+      borderRadius:35,
       alignItems:'center', 
       justifyContent:'center',
     },

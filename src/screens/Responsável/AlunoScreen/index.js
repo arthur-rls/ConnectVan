@@ -3,7 +3,7 @@ import {View, Text, Image, TouchableOpacity, TextInput, Modal, Alert} from 'reac
 import styles from './style'
 import { onAuthStateChanged } from 'firebase/auth';
 import {db, auth} from '../../../firebase/config';
-import {  doc, updateDoc, arrayUnion  } from 'firebase/firestore';
+import {  doc, updateDoc, arrayUnion, setDoc  } from 'firebase/firestore';
 import MaskInput from 'react-native-mask-input';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { Feather  } from '@expo/vector-icons';
@@ -43,7 +43,8 @@ export default function RegistroAluno ({route, navigation}) {
         onAuthStateChanged(auth, async (user) => {
           if (user) {
             const uid = user.uid;
-            updateDoc(doc(db, 'responsavel', uid), {nomeAluno:arrayUnion(nomeA), escola:arrayUnion(escolaA), serie:arrayUnion(serieA), sala:arrayUnion(salaA), periodo:arrayUnion(periodoValue), endereco:arrayUnion(enderecoA)});
+            setDoc(doc(db, 'responsavel', uid, 'alunos', nomeA), {nome:nomeA, escola:escolaA, serie:serieA, sala:salaA, periodo:periodoValue, endereco:enderecoA});
+            updateDoc(doc(db, 'responsavel', uid), {nomeAluno:arrayUnion(nomeA)})
             navigation.navigate('Passageiros');
             
           }

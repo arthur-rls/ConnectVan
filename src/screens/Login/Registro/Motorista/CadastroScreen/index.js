@@ -28,7 +28,7 @@ export default function CadastroMotorista ({navigation}) {
                 onAuthStateChanged(auth, (user) => {
                     if (user) {
                         const uid = user.uid;
-                        setDoc(doc(db, 'motorista', uid), {email:emailU, telefone: telefoneU, nome:'', placa: '', aviso:''})
+                        setDoc(doc(db, 'motorista', uid), {email:emailU, telefone: telefoneU, nome:'', placa: '', aviso:'', avisando:false, viajando: false, rota:''})
                         navigation.navigate('infoMotorista');
                         console.log('alo')
                     }

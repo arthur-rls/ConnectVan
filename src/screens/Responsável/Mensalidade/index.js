@@ -75,10 +75,10 @@ export default function Mensalidade({navigation}) {
           <Text style={{fontSize:18, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>contratado.</Text>
         </View>
         <View style={styles.viewBotao}>
-          <TouchableOpacity style={styles.botao} onPress={()=>navigation.navigate('Pesquisar')}>
+        <TouchableOpacity style={styles.botao} onPress={()=>navigation.navigate('Pesquisar')}>
             <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
             <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Contratar</Text>
-          </TouchableOpacity>
+        </TouchableOpacity> 
         </View>
       </View>      
     </View>
@@ -112,7 +112,7 @@ export default function Mensalidade({navigation}) {
           </View>
 
           <View style={styles.viewBotao}>
-            <TouchableOpacity style={styles.botao} onPress={()=>pago()}>
+            <TouchableOpacity style={styles.botaoDefPago} onPress={()=>pago()}>
               <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
               <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Definir como pago</Text>
             </TouchableOpacity>

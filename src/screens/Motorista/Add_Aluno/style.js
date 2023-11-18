@@ -1,7 +1,5 @@
 import {StyleSheet} from 'react-native'
 
-
-
 export default StyleSheet.create({
     container: {
         flex: 1,
@@ -17,6 +15,15 @@ export default StyleSheet.create({
         borderBottomEndRadius:0,
         borderBottomStartRadius:0,
         alignItems:'center',
+      },
+      senhaErrOuIncorr:{
+        position:'absolute', 
+        backgroundColor:'#f02929', 
+        marginTop: 50, 
+        padding:10, 
+        flexDirection:'row', 
+        borderRadius:13,
+        alignSelf: 'center',
       },
       iconMenu:{
         marginLeft:10,

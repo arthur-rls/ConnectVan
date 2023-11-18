@@ -37,7 +37,7 @@ export default function Pesquisa ({navigation}){
                 <TouchableOpacity style={{marginLeft:'86%'}} onPress={()=>pesquisar()}>
                     <FontAwesome name="search" size={21} color="black" style={styles.lupa}/>
                 </TouchableOpacity>
-            </View>
+            </View> 
             <ScrollView style={styles.fundoTab} contentContainerStyle={{alignItems:'center'}}>
 
                 {moto?(<Text style={styles.todos}>

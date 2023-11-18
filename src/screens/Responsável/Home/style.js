@@ -19,7 +19,7 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     borderColor: 'black',
-    borderWidth: 2,
+    borderWidth: 1.3,
     padding: 35,
 
     shadowColor: '#000',
@@ -62,23 +62,42 @@ export default StyleSheet.create({
   },
   viewBotao:{
     justifyContent:'center',
-    marginTop:'18%',
+    marginTop:'95%',
     flexDirection:'row', 
-    gap:12, 
+    gap:12,
+  },
+  viewBotaoCalendario:{
+    justifyContent:'center',
+    marginTop:'10%',
+    flexDirection:'row', 
+    gap:12,
   },
   botaoAdd:{
     backgroundColor:'#FFBF00',
     borderRadius:25,
-    width:105,
+    width:123,
     height:45,
     alignItems:'center',
     justifyContent:'center',
   },
+  botaoAdd2: {
+    backgroundColor: '#FFBF00',
+    borderRadius: 80,
+    width: 298,
+    height: 50,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+    marginTop:'15%'
+  },
   botao:{
     backgroundColor:'#FFBF00', 
-    borderRadius:25, 
+    borderRadius:35, 
+    marginTop:-30,
     width:145,
     height:45, 
+    borderRadius:35,
     alignItems:'center', 
     justifyContent:'center',
   },
@@ -149,7 +168,7 @@ export default StyleSheet.create({
     width:'100%', 
     height:'100%', 
     alignSelf: 'center', 
-    borderRadius:15
+    borderRadius:35
   },
   gradientCalendario:{
     width:'100%', 

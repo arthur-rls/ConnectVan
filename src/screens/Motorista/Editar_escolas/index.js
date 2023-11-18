@@ -10,6 +10,7 @@ import {  doc, getDoc, collectionGroup, query, where, getDocs, updateDoc, arrayR
 export default function EditEscola({navigation}) {
     const [escolas, setEscolas]=useState([]);
     const [gatilho, setGatilho] = useState(true)
+    const [gatilho2, setGatilho2] = useState(true)
     const [escola, setEscola] = useState('')
     useEffect(()=>{
         onAuthStateChanged(auth, async (user) => {
@@ -22,7 +23,7 @@ export default function EditEscola({navigation}) {
             }
              
           });
-    },[gatilho])
+    },[gatilho, gatilho2])
 
     const excluir=(item)=>{
       setGatilho(current=>!current)
@@ -32,7 +33,8 @@ export default function EditEscola({navigation}) {
                 updateDoc(docRef, {escola: arrayRemove(item)})
             }
         });
-        
+        setGatilho(current=>!current)
+        setGatilho2(current=>!current)
     }
     const adicionar=()=>{
       setGatilho(current=>!current)
@@ -42,14 +44,16 @@ export default function EditEscola({navigation}) {
                 updateDoc(docRef, {escola: arrayUnion(escola)})
             }
         });
-        
+      setGatilho(current=>!current)
+      setGatilho2(current=>!current)
+      setEscola('')
     }
 
   return (
     <View style={styles.container}>
       <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-      <View style={{ marginTop:'13%', justifyContent:'center', marginLeft:'4%'}}>
-        <TouchableOpacity onPress={()=>navigation.navigate('Escolas')} style={{flex:1,position:'absolute'}}>
+      <View style={{ marginTop:'13%', justifyContent:'center'}}>
+        <TouchableOpacity onPress={()=>navigation.navigate('Escolas')} style={{flex:1,position:'absolute', marginLeft:'4%'}}>
           <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
         </TouchableOpacity>
         <View style={{ justifyContent:'center', alignItems:'center'}}>

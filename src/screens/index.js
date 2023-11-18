@@ -19,6 +19,7 @@ import EditarCidades from './Motorista/Editar_cidades/index'
 import PassageirosEscola from './Motorista/Passageiros_Escola/index'
 import InfoAluno from './Motorista/Info_Aluno/index'
 import InfoAluno2 from './Motorista/Info_Aluno/index2'
+import InfoAluno3 from './Motorista/Info_Aluno/index3'
 import Passageiros from './Motorista/Passageiros/index'
 import SplashScreen from './SplashScreen/index'
 import EditarPerfilM from './Motorista/Editar_perfil/index'
@@ -175,6 +176,7 @@ export default function Rotas({navigation}){
             <Stack.Screen name='PassageirosE' component={PassageirosEscola}/>
             <Stack.Screen name='InfoAluno' component={InfoAluno}/>
             <Stack.Screen name='InfoAluno2' component={InfoAluno2}/>
+            <Stack.Screen name='InfoAluno3' component={InfoAluno3}/>
             <Stack.Screen name='Pedidos' component={Pedidos}/>
             <Stack.Screen name='AddPassageiro' component={AddPassageiro}/>
             <Stack.Screen name='TelaAluno' component={TelaAluno}/>

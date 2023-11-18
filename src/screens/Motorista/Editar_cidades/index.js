@@ -10,6 +10,7 @@ import {  doc, getDoc, collectionGroup, query, where, getDocs, updateDoc, arrayR
 export default function EditEscola({navigation}) {
     const [cidades, setCidades]=useState([]);
     const [gatilho, setGatilho] = useState(true)
+    const [gatilho2, setGatilho2] = useState(true)
     const [cidade, setCidade] = useState('')
     useEffect(()=>{
         onAuthStateChanged(auth, async (user) => {
@@ -18,11 +19,9 @@ export default function EditEscola({navigation}) {
               const snapshot = await getDoc(docRef)
   
               setCidades(snapshot.data().cidade)
-              
             }
-             
           });
-    },[gatilho])
+    },[gatilho, gatilho2])
 
     const excluir=(item)=>{
         setGatilho(current=>!current)
@@ -32,23 +31,26 @@ export default function EditEscola({navigation}) {
                 updateDoc(docRef, {cidade: arrayRemove(item)})
             }
         });
-        
+        setGatilho(current=>!current)
     }
     const adicionar=()=>{
         setGatilho(current=>!current)
+        setCidade('')
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const docRef = doc(db, 'motorista', user.uid)
                 updateDoc(docRef, {cidade: arrayUnion(cidade)})
             }
         });
+        setGatilho(current=>!current)
+        setGatilho2(current=>!current)
     }
 
   return (
     <View style={styles.container}>
       <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-      <View style={{ marginTop:'13%', justifyContent:'center', marginLeft:'4%'}}>
-        <TouchableOpacity onPress={()=>navigation.navigate('Cidades')} style={{flex:1,position:'absolute'}}>
+      <View style={{ marginTop:'13%', justifyContent:'center'}}>
+        <TouchableOpacity onPress={()=>navigation.navigate('Cidades')} style={{flex:1,position:'absolute', marginLeft:'4%'}}>
           <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
         </TouchableOpacity>
         <View style={{ justifyContent:'center', alignItems:'center'}}>

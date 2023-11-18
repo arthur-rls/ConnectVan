@@ -103,6 +103,7 @@ export default function RHome ({route, navigation}) {
                     const snapshot2 = await getDoc(docRef2)
                     const dado2 = snapshot2.data()
                     setMotorista(dado2)
+                    console.log(motorista)
                     const docRef3 = doc(db, 'motorista', moto, 'responsavel', rec.nome)
                     await getDoc(docRef3).then((snapshot3)=>{
                         setDia(snapshot3.data().faltar)
@@ -136,15 +137,16 @@ export default function RHome ({route, navigation}) {
         <View style={styles.container}>
             <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
             <View style={styles.viewInput}>
-                <View style={{position:'absolute', width:'100%', zIndex:10, marginLeft:'17%'}}>
+                <View style={{position:'absolute', width:'100%', zIndex:10, marginLeft:15}}>
                     <TouchableOpacity onPress={()=>navigation.openDrawer()}>
                         <Entypo name="menu" size={28} color="black"/>
                     </TouchableOpacity>
                 </View>
-                <TextInput style={styles.input} onFocus={()=>navigation.navigate('Pesquisar')}/>
-                <TouchableOpacity onPress={()=>navigation.navigate('Pesquisar')} style={{position:'absolute', width:'100%', alignItems:'flex-end', marginRight:'18%'}}>
-                    <FontAwesome name="search" size={21} color="black" />
-                </TouchableOpacity>
+                    <View style={{ justifyContent:'center', alignItems:'center'}}>
+                        <Text style={{fontSize:19, fontFamily:'AileronH'}}>Home</Text>
+                    </View>
+                
+                {/* avisos, fazer verificiação de add sem mensalidade */}
             </View>
 
             <View style={styles.fundoTab}>
@@ -198,29 +200,29 @@ export default function RHome ({route, navigation}) {
                         <View style={{width:'100%', paddingTop:20, paddingLeft:7}}>
                         <View style={{flexDirection:'row', alignItems:'center'}}>
                             <Text
-                                style={{ fontSize: 21, fontWeight: 'bold', fontFamily:'AileronH', marginBottom:-15}}>
+                                style={{ fontSize: 21, fontWeight: 'bold', fontFamily:'AileronH', marginBottom:10}}>
                                 AVISOS
                             </Text>
                         </View>
                         {motorista.avisando?(
                             <View style={{width:'100%', paddingRight:'5%', paddingTop:'3%'}}>
-                                <Text style={{fontFamily:'AileronR', fontSize:17, marginBottom:'6%'}}>{motorista.aviso}</Text>
+                                <Text style={{fontFamily:'AileronR', fontSize:17, marginBottom:'6%', marginTop:'5%'}}>{motorista.aviso}</Text>
                                 <View style={{width:'100%', flexDirection:'row', justifyContent:'flex-end', marginBottom:'6%'}}>
                                     <Text style={{fontFamily:'AileronR', fontSize:14}}>{motorista.data}</Text>
                                 </View>
                             </View>
                             
                         ):(
-                            <Text style={{fontFamily:'AileronR', marginBottom:'10%'}}>Nenhum aviso.</Text>
+                            <Text style={{fontFamily:'AileronR', marginBottom:'10%'}}>Nenhum aviso foi publicado até o momento.</Text>
                         )}
                     </View>
                 </View>
                 
                 <View style={styles.viewBotao}>
-                    <TouchableOpacity onPress={() => teste()} style={styles.botaoMaps}>
+                    <TouchableOpacity onPress={() => teste()} style={[styles.botaoAdd2, {flexDirection:'row'}]}>
                         <Image source={require('../../../../assets/gradient.png')} style={[styles.gradientCalendario, {position:'absolute'}]}/>
                         <Feather name="calendar" size={24} color="black" />
-                        <Text style={{fontSize:17, fontWeight:'bold', marginLeft:'5%'}}>Calendário</Text>
+                        <Text style={{fontSize:18, fontWeight:'bold', marginLeft:'5%'}}>Calendário</Text>
                     </TouchableOpacity>
                 </View> 
 
@@ -238,25 +240,23 @@ export default function RHome ({route, navigation}) {
 
             ):(
 
-            <View style={styles.fundoTab}>
-                <View style={styles.fundoTab}>
-                    <View style={{height:'10%', width:'50%'}}>
+            <View style={[styles.fundoTab, {paddingTop:'40%'}]}>
+                <View style={{height:'14%', width:'50%'}}>
                     <Image
                         source={require('../../../../assets/avan.png')}
                         style={{width:'100%', height:'100%'}}
                     />
                     </View>
                     <View style={{marginTop:'3%'}}>
-                    <Text style={{fontSize:18, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>Oops! Ainda não há</Text>
-                    <Text style={{fontSize:18, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>nenhum motorista</Text>
-                    <Text style={{fontSize:18, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>contratado.</Text>
+                        <Text style={{fontSize:18, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>Oops! Ainda não há</Text>
+                        <Text style={{fontSize:18, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>nenhum motorista</Text>
+                        <Text style={{fontSize:18, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>contratado.</Text>
                     </View>
                     <View style={styles.viewBotao}>
-                    <TouchableOpacity style={styles.botao} onPress={()=>navigation.navigate('Pesquisar')}>
-                        <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
-                        <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Contratar</Text>
-                    </TouchableOpacity>
-                    </View>
+                        <TouchableOpacity style={styles.botao} onPress={()=>navigation.navigate('Pesquisar')}>
+                            <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
+                            <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Contratar</Text>
+                        </TouchableOpacity> 
                 </View>      
             </View>
             
@@ -275,7 +275,7 @@ export default function RHome ({route, navigation}) {
                         markedDates={marked}
                         hideDayNames={true}
                         />
-                        <View style={styles.viewBotao}>
+                        <View style={styles.viewBotaoCalendario}>
                             <TouchableOpacity style={[styles.botaoAdd, {backgroundColor:'gray'}]} onPress={()=>clean()}>
                                 <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient} />
                                 <Text style={{fontSize:16, position:'absolute', fontFamily:'AileronH'}}>Limpar</Text>

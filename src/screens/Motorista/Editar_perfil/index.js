@@ -1,10 +1,10 @@
 import { Entypo, FontAwesome, AntDesign, FontAwesome5, Ionicons, EvilIcons, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useEffect, useState, useRef } from 'react'
 import styles from './style'
-import { onAuthStateChanged, signOut } from 'firebase/auth';
-import {db, auth} from '../../../firebase/config';
-import {View, Text,Image,  TouchableOpacity, TextInput, Modal, ScrollView, Keyboard} from 'react-native'
-import { doc, getDoc, onSnapshot, getDocs, collection, collectionGroup, query, where, updateDoc} from 'firebase/firestore';
+import { onAuthStateChanged, signOut, deleteUser } from 'firebase/auth';
+import {db, auth, } from '../../../firebase/config';
+import {View, Text,Image,  TouchableOpacity, TextInput, Modal, ScrollView, Keyboard, Linking} from 'react-native'
+import { doc, getDoc, onSnapshot, getDocs, collection, collectionGroup, query, where, updateDoc, deleteDoc} from 'firebase/firestore';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import { TextInputMask } from 'react-native-masked-text';
 import MaskInput from 'react-native-mask-input';
@@ -19,6 +19,8 @@ export default function EditarPerfil({navigation}) {
     const [telefoneM, setTelefoneM] = useState('')
     const [placaM, setPlacaM] = useState('')
     const [modalVisible, setModalVisible] = useState(false)
+  
+    const [modalVisible2, setModalVisible2] = useState(false)
     const logout=()=>{
       signOut(auth).then(()=>{
         navigation.navigate('login')
@@ -35,6 +37,25 @@ export default function EditarPerfil({navigation}) {
             setPlaca(snapshot.data().placa)
         })
     },[])
+
+    const excluir=()=>{
+      onAuthStateChanged(auth, async(user)=>{
+      deleteUser(user).then(async()=>{
+        const data = await getDocs(collection(db, 'motorista', user.uid, 'responsavel'))
+        data.forEach(async (item)=>{
+          await deleteDoc(doc(db, "motorista", user.uid, 'responsavel', item.id));
+        })
+        const data2 = await getDocs(collection(db, 'motorista', user.uid, 'passageiros'))
+        data2.forEach(async (item)=>{
+          await deleteDoc(doc(db, "motorista", user.uid, 'responsavel', item.id));
+        })
+        
+        await deleteDoc(doc(db, "motorista", user.uid));
+        navigation.navigate('login')
+      })
+      
+      })
+    }
 
     const salvar=()=>{
         onAuthStateChanged(auth, async (user)=>{
@@ -80,7 +101,32 @@ export default function EditarPerfil({navigation}) {
                       </View>
                       
                   </View>
-              </View>
+              </View> 
+          </Modal>
+          <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible2}
+          onRequestClose={() => {
+          setModalVisible(!modalVisible2);
+          }}>
+              <View style={styles.centeredView}>
+                  <View style={styles.modalView}>
+                      <Text style={{ fontSize:19, textAlign:'justify'}}>Tem certeza que deseja excluir? Esta ação não poderá ser desfeita.</Text>
+                      
+                      <View style={styles.viewBotao}>
+                        <TouchableOpacity style={[styles.botaoAdd, {backgroundColor:'gray'}]} onPress={() => setModalVisible2(!modalVisible2)}>
+                          <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient} />
+                          <Text style={{fontSize:16, position:'absolute', fontFamily:'AileronH'}}>Cancelar</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.botaoAdd} onPress={() => excluir()}>
+                          <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
+                          <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Sim, excluir</Text>
+                        </TouchableOpacity>
+                      </View>
+                      
+                  </View>
+              </View> 
           </Modal>
 
           <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
@@ -149,11 +195,23 @@ export default function EditarPerfil({navigation}) {
                 <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Finalizar</Text>
               </TouchableOpacity>
             </View>
-            
+
+            <View style={{gap:30}}>
             <TouchableOpacity style={styles.botaoSair} onPress={()=>setModalVisible(true)}>
               <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
               <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Sair da conta</Text>
             </TouchableOpacity>
+
+            <TouchableOpacity style={styles.botaoSair} onPress={()=>setModalVisible2(true)}>
+              <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient}/>
+              <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Excluir perfil</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.botaoSair} onPress={()=>Linking.openURL('mailto:connectvan4@gmail.com')}>
+              <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient}/>
+              <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Entrar em contato</Text>
+            </TouchableOpacity>
+            </View>
 
           </View>
         </View>

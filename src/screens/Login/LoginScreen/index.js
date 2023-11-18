@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {View, Text, Image, TouchableOpacity, TextInput, Modal, Alert} from 'react-native'
 import styles from './style'
 import { MaterialIcons, Feather, Entypo, FontAwesome5  } from '@expo/vector-icons';
@@ -6,7 +6,6 @@ import { auth, db } from '../../../firebase/config';
 import { signInWithEmailAndPassword, sendPasswordResetEmail, onAuthStateChanged } from 'firebase/auth';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import { doc, getDoc  } from 'firebase/firestore';
-
 
 export default function Login ({navigation}) {
     
@@ -16,7 +15,6 @@ export default function Login ({navigation}) {
     const [modalVisible, setModalVisible] = useState(false)
     const [moto, setMoto] = useState(true)
     const [ver, setVer] = useState(false)
-
 
     async function onLoginPress () {
         
@@ -52,6 +50,11 @@ export default function Login ({navigation}) {
           })
       }
     
+
+    useEffect(()=>{
+        setPassword('')
+        setEmail('')
+    },[])
     return(
         <KeyboardAwareScrollView style={{backgroundColor:'white'}}>
                 <View style={styles.inner}>
@@ -66,10 +69,10 @@ export default function Login ({navigation}) {
                         <FontAwesome5 name="user-alt" size={16} color="#4D4D4D" style={[showElement ? styles.iconErro : styles.icon, {marginLeft:12}]}/> 
                         <TextInput style={showElement ? styles.inputErro : styles.input} placeholder="Email"onChangeText={(text) => setEmail(text)} value={email} autoCapitalize='none' autoComplete='email' keyboardType='email-address'/>
                     </View>
-                    <View style={styles.viewInput}>
+                    <View style={styles.viewInput}> 
                         <MaterialIcons name="lock" size={20} color="#4D4D4D" style={showElement ? styles.iconErro : styles.icon}/>
                         <TextInput style={showElement ? styles.inputErro : styles.input} placeholder="Senha" onChangeText={(text) => setPassword(text)} value={password} autoCapitalize='none' secureTextEntry={ver? false : true}/>
-                        <TouchableOpacity onPress={()=>setVer(current=>!current)}><Entypo name={ver? "eye-with-line":"eye"} size={20} color="#4D4D4D" style={styles.icon}/></TouchableOpacity>
+                        <Entypo onPress={()=>setVer(current=>!current)} name={ver? "eye-with-line":"eye"} size={20} color="#4D4D4D" style={showElement ? styles.iconErro : styles.iconEye}/> 
                     </View>
 
                     <View style={[styles.viewButton, {paddingTop:20}]}>
@@ -78,6 +81,7 @@ export default function Login ({navigation}) {
                             <Text style={styles.textButton}>Entrar</Text>
                         </TouchableOpacity>
                     </View>
+                    
                     <View style={styles.tela}>
                         <Text style={{ fontSize:14, textDecorationLine: 'underline', fontFamily: 'AileronR', marginTop:-8}} onPress={()=>setModalVisible(true)}>Esqueceu a senha?</Text>
                     </View>
@@ -107,14 +111,13 @@ export default function Login ({navigation}) {
                     }}>
                         <View style={styles.centeredView}>
                             <View style={styles.modalView}>
-                                <View style={{position:'absolute', padding:10}}>
-                                    <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                                        <Feather name="x" size={24} color="black" />
-                                    </TouchableOpacity>
-                                </View>
                                 <Text style={{ fontSize:19, textAlign:'justify', paddingBottom:15}}>Preencha com o e-mail que você usou para se cadastrar. Você receberá um e-mail com instruções sobre como redefinir sua senha.</Text>
                                 <TextInput style={styles.input2} placeholder="Email"onChangeText={(text) => setEmail(text)} value={email}/>
-                                <View style={[styles.viewButton, {marginTop:'6%', alignSelf:'center'}]}>
+                                <View style={[styles.viewButton, {marginTop:'6%', flexDirection:'row'}]}>
+                                    <TouchableOpacity style={styles.botaoCadastrar} onPress={() => setModalVisible(!modalVisible)}>
+                                        <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient} />
+                                        <Text style={styles.textButton}>Cancelar</Text>
+                                    </TouchableOpacity>
                                     <TouchableOpacity style={styles.botaoCadastrar} onPress={() => navigation.navigate('preRegistro')}>
                                         <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
                                         <Text style={styles.textButton}>Enviar email</Text>

@@ -23,8 +23,8 @@ export default function EscolasMotorista ({route, navigation}) {
     <View style={styles.container}>
       
       <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-      <View style={{ marginTop:'13%', justifyContent:'center', marginLeft:'4%'}}>
-        <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
+      <View style={{ marginTop:'13%', justifyContent:'center'}}>
+        <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute', marginLeft:'4%'}}>
           <Entypo name="menu" size={29} color="black" style={styles.iconMenu}/>
         </TouchableOpacity>
         <View style={{ justifyContent:'center', alignItems:'center'}}>

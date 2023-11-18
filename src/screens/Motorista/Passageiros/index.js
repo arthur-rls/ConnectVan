@@ -48,7 +48,7 @@ export default function Passageiros({navigation, route}) {
                 const idA = item.nome;
                 const resp = item.responsavel
                 return(
-                <TouchableOpacity style={styles.botaoEscola} onPress={()=>navigation.navigate('InfoAluno', {idA, resp})}>
+                <TouchableOpacity style={styles.botaoEscola} onPress={()=>navigation.navigate('InfoAluno3', {idA, resp})}>
                   <View style={styles.fundoEscola}>
                     <View style={{padding:18, flexDirection:'row', alignItems:'center'}}>
                       <Image

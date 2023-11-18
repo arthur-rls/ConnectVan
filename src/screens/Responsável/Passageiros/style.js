@@ -1,7 +1,5 @@
 import {StyleSheet} from 'react-native'
 
-
-
 export default StyleSheet.create({
     container: {
       flex: 1,
@@ -14,6 +12,7 @@ export default StyleSheet.create({
       width:'100%',
       marginTop:'5%',
       borderRadius: 40,
+      paddingVertical:20,
       borderBottomEndRadius:0,
       borderBottomStartRadius:0,
       alignItems:'center',
@@ -33,7 +32,6 @@ export default StyleSheet.create({
     viewBotao:{
       textAlignVertical:'center',
       justifyContent:'center',
-      marginVertical:'10%'
     },
     botaoAdd:{
       backgroundColor:'#FFBF00',
@@ -50,7 +48,12 @@ export default StyleSheet.create({
       marginTop:'5%',
     },
     iconMenu:{
-      padding:20,
+      marginLeft:15,
+    },
+    viewMae:{
+      width:2, 
+      backgroundColor:'black', 
+      borderRadius:50,
     },
     fundoEscola:{
       borderRadius: 20,

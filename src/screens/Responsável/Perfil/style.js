@@ -27,7 +27,7 @@ export default StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 20,
         borderColor: 'black',
-        borderWidth: 2,
+        borderWidth: 1.3,
         padding: 35,
     
         shadowColor: '#000',
@@ -58,14 +58,23 @@ export default StyleSheet.create({
         alignItems:'center',
         justifyContent:'center'
       },
+      botaoSair:{
+        backgroundColor:'#FFBF00',
+        borderRadius:25,
+        width:'50%',
+        height:45,
+        alignItems:'center',
+        justifyContent:'center',
+        flexDirection:'row'
+      },
       input:{
         height: 45,
-        width:260,
+        width:290,
         marginTop:'3%',
         borderWidth: 1,
         borderColor:'#black',
         padding: 10,
-        borderRadius:5,
+        borderRadius:8,
         color:'gray'
       }
     });

@@ -11,14 +11,16 @@ export default function Passageiros({navigation}) {
     const [aluno, setAluno] = useState([])
     const [gatilho, setGatilho] = useState(true)
     useEffect(()=>{
+      navigation.addListener('focus', () => {
         onAuthStateChanged(auth, async (user) => {
                 const docRef = doc(db, 'responsavel', user.uid)
                 await getDoc(docRef).then((snapshot)=>{
                   setRec(snapshot.data())
                   setAluno(snapshot.data().nomeAluno)
-                  console.log(aluno)
+                  console.log(rec.motorista)
                 })
         });
+      })
     }, [gatilho])
 
     if(!rec || !aluno){
@@ -37,15 +39,13 @@ export default function Passageiros({navigation}) {
     </View>
 
       <View style={styles.fundoTab}>
-        <Text style={{fontSize:18,fontFamily:'AileronH', marginTop:'5%'}}>
+        <Text style={{fontSize:18,fontFamily:'AileronH'}}>
           TODOS ({rec.nomeAluno.length})
         </Text>
 
-        {aluno.map((item, index)=>{
-          const key = index
+        {aluno.map((item)=>{
             return(
-
-            <TouchableOpacity style={styles.botaoEscola} onPress={()=>navigation.navigate('TelaAluno', {key})}>
+            <TouchableOpacity style={styles.botaoEscola} onPress={()=>navigation.navigate('TelaAluno', {item})}>
               <View style={styles.fundoEscola}>
                 <View style={{padding:18, flexDirection:'row', alignItems:'center'}}>
                   <Image
@@ -63,7 +63,7 @@ export default function Passageiros({navigation}) {
             <TouchableOpacity onPress={() => navigation.navigate('AddPassageiro')} style={styles.botaoAdd}>
                 <Image source={require('../../../../assets/gradient.png')} style={[styles.gradient, {position:'absolute'}]}/>
                 <Text style={{fontSize:16, fontFamily:'AileronH'}}>Adicionar passageiro</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> 
           </View>
         ):null}
       </View>
