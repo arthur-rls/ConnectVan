@@ -54,17 +54,23 @@ export default StyleSheet.create({
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     alignItems:'center',
+    paddingVertical:20
   },
   fundoEscola:{
     borderRadius: 20,
     borderWidth:0.5,
     flexDirection:'row',
   },
-  viewBotao:{
-    justifyContent:'center',
-    marginTop:'95%',
-    flexDirection:'row', 
-    gap:12,
+  botaoAdd2: {
+    backgroundColor: '#FFBF00',
+    borderRadius: 80,
+    width: 298,
+    height: 50,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+    marginTop:'90%'
   },
   viewBotaoCalendario:{
     justifyContent:'center',
@@ -79,17 +85,6 @@ export default StyleSheet.create({
     height:45,
     alignItems:'center',
     justifyContent:'center',
-  },
-  botaoAdd2: {
-    backgroundColor: '#FFBF00',
-    borderRadius: 80,
-    width: 298,
-    height: 50,
-    alignSelf: 'center',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 20,
-    marginTop:'15%'
   },
   botao:{
     backgroundColor:'#FFBF00', 

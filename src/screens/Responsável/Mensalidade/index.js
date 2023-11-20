@@ -26,8 +26,7 @@ export default function Mensalidade({navigation}) {
         if(dado.motorista != '' && dado.motorista != undefined && dado.motorista != null){
             setContrato(true)
         }
-        console.log(contrato)
-        console.log(dado.motorista)
+        console.log('a')
         
     })
   })
@@ -98,7 +97,7 @@ export default function Mensalidade({navigation}) {
       </View>
       <View style={styles.fundoTab}>
         <View style={{paddingVertical:'10%'}}>
-          <View style={{flexDirection:'row', alignItems:'center'}}>
+          <View style={{flexDirection:'row', alignItems:'center', paddingBottom: dado.pago? '10%':0}}>
             <View style={{height:55, width:2, backgroundColor:'black', borderRadius:50}}/>
               <View style={{flexDirection:'column', marginLeft:'5%'}}>
                 <Text style={{fontSize:18, fontWeight:'bold'}}>R${dado.mensalidade}</Text>
@@ -110,14 +109,14 @@ export default function Mensalidade({navigation}) {
                 
               </View>
           </View>
-
-          <View style={styles.viewBotao}>
+          {dado.pago? null:(
+            <View style={styles.viewBotao}>
             <TouchableOpacity style={styles.botaoDefPago} onPress={()=>pago()}>
               <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
               <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Definir como pago</Text>
             </TouchableOpacity>
           </View>
-
+          )}
           <View style={{flexDirection:'row', alignItems:'center'}}>
             <View style={{height:55, width:2, backgroundColor:'black', borderRadius:50}}/>
             <View style={{flexDirection:'column', marginLeft:'5%'}}>

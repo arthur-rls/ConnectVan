@@ -52,7 +52,7 @@ export default function Motorista ({route, navigation}) {
         })
         
     }
-    if(!rec || !escolas || !cidades){
+    if(!rec){
         pegarDados()
         return(
             <View style={styles.container}>
@@ -112,26 +112,30 @@ export default function Motorista ({route, navigation}) {
                     </View>
                 </View>
                 <List.Section style={{width:'100%', justifyContent:'center', paddingHorizontal:'5%'}}>
-                    <List.Accordion
-                    theme={{colors: {background: 'white', primary:'black'}}}
-                    style={styles.accordion}
-                    title="Escolas"
-                    left={(props) => <List.Icon {...props} icon="school" />}>
-                        <FlatList
-                            data={escolas}
-                            renderItem={renderItem}
-                        />
-                    </List.Accordion>
-                    <List.Accordion
-                    theme={{colors: {background: 'white', primary:'black'}}}
-                    style={styles.accordion}
-                    title="Cidades"
-                    left={(props) => <List.Icon {...props} icon="school" />}>
-                        <FlatList
-                            data={cidades}
-                            renderItem={renderItem}
-                        />
-                    </List.Accordion>
+                {escolas?(
+                        <List.Accordion
+                        theme={{colors: {background: 'white', primary:'black'}}}
+                        style={styles.accordion}
+                        title="Escolas"
+                        left={(props) => <List.Icon {...props} icon="school" />}>
+                            <FlatList
+                                data={escolas}
+                                renderItem={renderItem}
+                            />
+                        </List.Accordion>
+                    ):null}
+                    {cidades? (
+                        <List.Accordion
+                        theme={{colors: {background: 'white', primary:'black'}}}
+                        style={styles.accordion}
+                        title="Cidades"
+                        left={(props) => <List.Icon {...props} icon="city" />}>
+                            <FlatList
+                                data={cidades}
+                                renderItem={renderItem}
+                            />
+                        </List.Accordion>
+                    ):null}
                 </List.Section>
                 
             </View>

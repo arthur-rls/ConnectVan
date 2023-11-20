@@ -43,23 +43,46 @@ export default StyleSheet.create({
   },
   viewBotao:{
     justifyContent:'center',
-    marginTop:'15%',
+    marginTop:'2%',
     flexDirection:'row', 
     marginBottom:'8%',
-    gap:12
+    gap:12, 
+  },
+  viewBotaoModal:{
+    justifyContent:'center', 
+    flexDirection:'row', 
+    gap:12, 
   },
   botaoAdd:{
     backgroundColor:'#FFBF00',
     borderRadius:25,
-    width:105,
+    width:135,
     height:45,
+    alignItems:'center',
+    justifyContent:'center'
+  },
+  botaoModal:{
+    backgroundColor:'#FFBF00',
+    borderRadius:25,
+    width:138,
+    height:45,
+    marginTop:'5%',
     alignItems:'center',
     justifyContent:'center'
   },
   botaoSair:{
     backgroundColor:'#FFBF00',
     borderRadius:25,
-    width:'50%',
+    width:'35%',
+    height:45,
+    alignItems:'center',
+    justifyContent:'center',
+    flexDirection:'row'
+  },
+  botaoContato:{
+    backgroundColor:'#FFBF00',
+    borderRadius:25,
+    width:'72%',
     height:45,
     alignItems:'center',
     justifyContent:'center',

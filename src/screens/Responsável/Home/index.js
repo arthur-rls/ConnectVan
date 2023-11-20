@@ -150,7 +150,7 @@ export default function RHome ({route, navigation}) {
             </View>
 
             <View style={styles.fundoTab}>
-                <Text style={{ fontSize: 20, margin:'6%', fontFamily:'AileronH' }}>
+                <Text style={{ fontSize: 20, marginBottom:'6%', marginTop:'2%', fontFamily:'AileronH' }}>
                     {currentDate}
                 </Text>
                 {rec.motorista?(
@@ -205,8 +205,8 @@ export default function RHome ({route, navigation}) {
                             </Text>
                         </View>
                         {motorista.avisando?(
-                            <View style={{width:'100%', paddingRight:'5%', paddingTop:'3%'}}>
-                                <Text style={{fontFamily:'AileronR', fontSize:17, marginBottom:'6%', marginTop:'5%'}}>{motorista.aviso}</Text>
+                            <View style={{width:'100%', paddingRight:'5%'}}>
+                                <Text style={{fontFamily:'AileronR', fontSize:17, marginBottom:'6%'}}>{motorista.aviso}</Text>
                                 <View style={{width:'100%', flexDirection:'row', justifyContent:'flex-end', marginBottom:'6%'}}>
                                     <Text style={{fontFamily:'AileronR', fontSize:14}}>{motorista.data}</Text>
                                 </View>
@@ -225,7 +225,6 @@ export default function RHome ({route, navigation}) {
                         <Text style={{fontSize:18, fontWeight:'bold', marginLeft:'5%'}}>Calendário</Text>
                     </TouchableOpacity>
                 </View> 
-
 
                 {motorista.viajando?(
                 <View style={styles.viewBotao}>

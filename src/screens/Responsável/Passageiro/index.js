@@ -28,7 +28,7 @@ export default function Passageiro({route, navigation}) {
                 <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
               </TouchableOpacity>
               <View style={{ justifyContent:'center', alignItems:'center'}}>
-              <Text style={{fontSize:18, fontFamily:'AileronH'}}>{rec.nomeAluno[key]}</Text>
+              <Text style={{fontSize:18, fontFamily:'AileronH'}}>{rec.nome}</Text>
             </View>
           </View>
     

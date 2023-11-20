@@ -12,6 +12,8 @@ export default function MHome ({route, navigation}) {
     const [date, setDate] = useState('')
     const monthNames = ["JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO",
     "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "NOVEMBRO", "DEZEMBRO"];
+    const monthMinNames = ["JANEIRO", "FEVEREIRO", "MARÇO", "ABRIL", "MAIO", "JUNHO",
+    "JULHO", "AGOSTO", "SETEMBRO", "OUTUBRO", "Novembro", "Dezembro"];
     const [avisoA, setAvisoA] = useState('')
     const [avisoM, setAvisoM] = useState('')
     const [rec, setRec] = useState('')
@@ -42,7 +44,7 @@ export default function MHome ({route, navigation}) {
             date + ' DE ' + monthNames[month] + ' DE 2023'
         );
         setDate(
-            'Postado em: ' + date + ' de ' + monthNames[month] + ' de 2023'
+            'Postado em: ' + date + ' de ' + monthMinNames[month] + ' de 2023'
         )
         onAuthStateChanged(auth, async (user) => {
             if (user) {
@@ -166,7 +168,7 @@ export default function MHome ({route, navigation}) {
                       </View>
                       <Text style={{ fontSize: 18, marginBottom: 5, marginTop:'3%', fontFamily:'AileronR' }}>Saldo mensal</Text>
                       
-                      <View style={{width:'147%', height:'32%', flexDirection:'row',}}>
+                      <View style={{width:'147%', height:'32%', flexDirection:'row', justifyContent:'space-between'}}>
                         {ver?(
                           <Text
                         style={{
@@ -189,10 +191,10 @@ export default function MHome ({route, navigation}) {
                         </Text>
                         )}
                         
-                        <View style={{width:'22%', justifyContent:'center', height:'95%'}}>
+                        <View style={{width:'22%', justifyContent:'center', height:'95%', marginRight:'50%'}}>
                             <Image source={require('../../../../assets/gradient.png')} style={[styles.gradient, {position:'absolute'}]} /> 
                             <View style={{justifyContent:'flex-end'}}>
-                              <TouchableOpacity onPress={()=>{verSaldo()}} style={{}}>
+                              <TouchableOpacity onPress={()=>{verSaldo()}} style={{}}> 
                               
                               {ver?(
                               <Text

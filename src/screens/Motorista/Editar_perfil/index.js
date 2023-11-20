@@ -89,12 +89,12 @@ export default function EditarPerfil({navigation}) {
                   <View style={styles.modalView}>
                       <Text style={{ fontSize:19, textAlign:'justify', paddingBottom:5}}>Tem certeza que deseja sair da conta? Esta ação não poderá ser desfeita.</Text>
                       
-                      <View style={styles.viewBotao}>
-                        <TouchableOpacity style={[styles.botaoAdd, {backgroundColor:'gray'}]} onPress={() => setModalVisible(!modalVisible)}>
+                      <View style={styles.viewBotaoModal}>
+                        <TouchableOpacity style={[styles.botaoModal, {backgroundColor:'gray'}]} onPress={() => setModalVisible(!modalVisible)}>
                           <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient} />
                           <Text style={{fontSize:16, position:'absolute', fontFamily:'AileronH'}}>Cancelar</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.botaoAdd} onPress={() => logout()}>
+                        <TouchableOpacity style={styles.botaoModal} onPress={() => logout()}>
                           <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
                           <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Sim, sair</Text>
                         </TouchableOpacity>
@@ -112,14 +112,14 @@ export default function EditarPerfil({navigation}) {
           }}>
               <View style={styles.centeredView}>
                   <View style={styles.modalView}>
-                      <Text style={{ fontSize:19, textAlign:'justify'}}>Tem certeza que deseja excluir? Esta ação não poderá ser desfeita.</Text>
+                      <Text style={{ fontSize:19, textAlign:'justify', paddingBottom:5}}>Tem certeza que deseja excluir sua conta? Esta ação não poderá ser desfeita.</Text>
                       
-                      <View style={styles.viewBotao}>
-                        <TouchableOpacity style={[styles.botaoAdd, {backgroundColor:'gray'}]} onPress={() => setModalVisible2(!modalVisible2)}>
+                      <View style={styles.viewBotaoModal}>
+                        <TouchableOpacity style={[styles.botaoModal, {backgroundColor:'gray'}]} onPress={() => setModalVisible2(!modalVisible2)}>
                           <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient} />
                           <Text style={{fontSize:16, position:'absolute', fontFamily:'AileronH'}}>Cancelar</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.botaoAdd} onPress={() => excluir()}>
+                        <TouchableOpacity style={styles.botaoModal} onPress={() => excluir()}>
                           <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
                           <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Sim, excluir</Text>
                         </TouchableOpacity>
@@ -138,7 +138,6 @@ export default function EditarPerfil({navigation}) {
               <Text style={{fontSize:18, fontFamily:'AileronH'}}>Editar perfil</Text>
             </View>
           </View>
-
     
           <View style={styles.fundoTab}>
     
@@ -196,21 +195,28 @@ export default function EditarPerfil({navigation}) {
               </TouchableOpacity>
             </View>
 
-            <View style={{gap:30}}>
-            <TouchableOpacity style={styles.botaoSair} onPress={()=>setModalVisible(true)}>
-              <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
-              <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Sair da conta</Text>
-            </TouchableOpacity>
+            <View style={{height:1.5, width:'100%', backgroundColor:'#D3D3D3', marginBottom:'5%'}}/>
 
-            <TouchableOpacity style={styles.botaoSair} onPress={()=>setModalVisible2(true)}>
-              <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient}/>
-              <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Excluir perfil</Text>
-            </TouchableOpacity>
+            <View style={{height:'15%', width:'100%', marginLeft:'28%'}}>
+              <Text style={{fontSize:17, fontStyle:'AileronH', fontWeight:'bold', marginBottom:'5%'}}>Outras opções:</Text>
 
-            <TouchableOpacity style={styles.botaoSair} onPress={()=>Linking.openURL('mailto:connectvan4@gmail.com')}>
-              <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient}/>
-              <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Entrar em contato</Text>
-            </TouchableOpacity>
+              <View style={{gap:15}}>
+                <View style={{flexDirection:'row', gap:7}}>
+                  <TouchableOpacity style={styles.botaoSair} onPress={()=>setModalVisible(true)}>
+                    <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient}/>
+                    <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Sair da conta</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.botaoSair} onPress={()=>setModalVisible2(true)}>
+                    <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient}/>
+                    <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Excluir perfil</Text>
+                  </TouchableOpacity>
+                </View>
+
+                <TouchableOpacity style={styles.botaoContato} onPress={()=>Linking.openURL('mailto:connectvan4@gmail.com')}>
+                  <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
+                  <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Entrar em contato</Text>
+                </TouchableOpacity>
+              </View>
             </View>
 
           </View>

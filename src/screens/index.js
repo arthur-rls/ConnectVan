@@ -32,7 +32,6 @@ import TelaAluno from './Responsável/Passageiro/index'
 import Pesquisa from './Responsável/Pesquisar/index'
 import PerfilMoto from './Responsável/Perfil_Motorista/index'
 import EditarPerfilR from './Responsável/Perfil/index'
-import Acompanhar from './Responsável/Acompanhar/index'
 import Motorista from './Responsável/Motorista/index'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
@@ -182,7 +181,6 @@ export default function Rotas({navigation}){
             <Stack.Screen name='TelaAluno' component={TelaAluno}/>
             <Stack.Screen name='Pesquisar' component={Pesquisa}/>
             <Stack.Screen name='PerfilMotorista' component={PerfilMoto}/>
-            <Stack.Screen name='Acompanhar' component={Acompanhar}/>
         </Stack.Navigator>
     )
 }
