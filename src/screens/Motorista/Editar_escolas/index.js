@@ -9,43 +9,37 @@ import {  doc, getDoc, collectionGroup, query, where, getDocs, updateDoc, arrayR
 
 export default function EditEscola({navigation}) {
     const [escolas, setEscolas]=useState([]);
-    const [gatilho, setGatilho] = useState(true)
-    const [gatilho2, setGatilho2] = useState(true)
     const [escola, setEscola] = useState('')
     useEffect(()=>{
         onAuthStateChanged(auth, async (user) => {
             if (user) {
               const docRef = doc(db, 'motorista', user.uid)
               const snapshot = await getDoc(docRef)
-  
               setEscolas(snapshot.data().escola)
-              
             }
              
           });
-    },[gatilho, gatilho2])
+    },[escolas])
 
     const excluir=(item)=>{
-      setGatilho(current=>!current)
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const docRef = doc(db, 'motorista', user.uid)
                 updateDoc(docRef, {escola: arrayRemove(item)})
+                const snapshot = await getDoc(docRef)
+                setEscolas(snapshot.data().escola)
             }
         });
-        setGatilho(current=>!current)
-        setGatilho2(current=>!current)
     }
     const adicionar=()=>{
-      setGatilho(current=>!current)
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const docRef = doc(db, 'motorista', user.uid)
                 updateDoc(docRef, {escola: arrayUnion(escola)})
+                const snapshot = await getDoc(docRef)
+                setEscolas(snapshot.data().escola)
             }
         });
-      setGatilho(current=>!current)
-      setGatilho2(current=>!current)
       setEscola('')
     }
 

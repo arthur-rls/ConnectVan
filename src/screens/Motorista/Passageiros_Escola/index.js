@@ -37,9 +37,9 @@ export default function PassageirosEscola({navigation, route}) {
           </View>
           <View style={styles.fundoTab}>
             <View style={{ height:'100%', justifyContent:'center'}}>
-              <Text style={{fontSize:22, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>Oops! Ainda não há</Text>
-              <Text style={{fontSize:22, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>passageiros na escola</Text>
-              <Text style={{fontSize:22, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>selecionada.</Text>
+              <Text style={{fontSize:18, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>Oops! Ainda não há</Text>
+              <Text style={{fontSize:18, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>passageiros na escola</Text>
+              <Text style={{fontSize:18, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>selecionada.</Text>
             </View>
           </View>     
       </View>

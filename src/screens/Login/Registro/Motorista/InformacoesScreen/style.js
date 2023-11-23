@@ -53,7 +53,6 @@ export default StyleSheet.create({
     flex: 1,
   },
   errOuIncorr:{
-    position:'absolute', 
     backgroundColor:'#f02929', 
     marginTop: 15, 
     padding:10, 

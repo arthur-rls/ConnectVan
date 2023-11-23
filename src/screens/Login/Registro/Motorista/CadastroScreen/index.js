@@ -21,6 +21,7 @@ export default function CadastroMotorista ({navigation}) {
     const [selection, setSelection] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
     const [modalVisible2, setModalVisible2] = useState(false)
+    const [ver, setVer] = useState(false)
     async function createUser(){
         if (password.length>=8 && telefoneU.length==15 && emailU!='' && selection){
             await createUserWithEmailAndPassword(auth, emailU, password)
@@ -30,7 +31,6 @@ export default function CadastroMotorista ({navigation}) {
                         const uid = user.uid;
                         setDoc(doc(db, 'motorista', uid), {email:emailU, telefone: telefoneU, nome:'', placa: '', aviso:'', avisando:false, viajando: false, rota:''})
                         navigation.navigate('infoMotorista');
-                        console.log('alo')
                     }
                 });         
             })
@@ -74,24 +74,34 @@ export default function CadastroMotorista ({navigation}) {
                     </View>
                     <View style={{flexDirection:'row', alignItems:'center', paddingVertical:5}}>
                         <MaterialIcons name="lock" size={20} color="#4D4D4D" style={showElementSenha ? [styles.iconErro, {marginLeft:10}] : [styles.icon, {marginLeft:10}]}/>
-                        <TextInput style={showElementSenha ? styles.inputErro : styles.input} placeholder="Senha" onChangeText={value => setPassword(value)} value={password} secureTextEntry autoCapitalize='none'/>
+                        <TextInput style={showElementSenha ? styles.inputErro : styles.input} placeholder="Senha" onChangeText={value => setPassword(value)} value={password} secureTextEntry={ver? false : true} autoCapitalize='none'/>
+                        <Entypo onPress={()=>setVer(current=>!current)} name={ver? "eye-with-line":"eye"} size={20} color="#4D4D4D" style={showElement ? styles.iconErroEye : styles.iconEye}/> 
                     </View>
                 </View>
-                <View style={{ width: '100%', flexDirection:'row', paddingTop:5, paddingHorizontal:13}}>
+                <View style={{flexDirection:'row'}}>
+                    {/* <View style={{flexDirection:'row', paddingHorizontal:2, backgroundColor:'pink'}}>
+                        <View style={{width:'100%', flexDirection:'row'}}>
+                        <Text style={{textAlign:'stretch', fontFamily:'AileronR', fontSize:14, paddingTop:7, marginLeft:-5}}>Aceito os </Text>
+                        <Text style={{textAlign:'stretch', fontFamily:'AileronR', fontSize:14, textDecorationLine: "underline", color:'#1877F2', paddingTop:7}} onPress={()=>setModalVisible2(true)}>Termos de Uso </Text>
+                        <Text style={{textAlign:'stretch', fontFamily:'AileronR', fontSize:14, paddingTop:7}}>e </Text>
+                        <Text style={{textAlign:'stretch', fontFamily:'AileronR', fontSize:14, textDecorationLine: "underline", color:'#1877F2', paddingTop:7}} onPress={()=>setModalVisible(true)}>Política de Privacidade</Text>
+                        </View>
+                    </View> */}
+
                     <BouncyCheckbox
-                    size={26}
+                    size={24}
                     fillColor= {showElement2? '#f02929' : "#FFBF00"} 
                     unfillColor="#FFFFFF"
-                    options={{marginLeft:20}}
+                    options={{marginLeft:20, marginTop:5}}
                     iconStyle={{ borderColor: "back"}}
                     innerIconStyle={{ borderWidth: 2 }}
                     onPress={()=>check()}
                     />
                     <View style={{flexDirection:'row'}}>
-                        <Text style={{fontFamily:'AileronR', fontSize:14, paddingTop:7, marginLeft:-5}}>Aceito os </Text>
-                        <Text style={{fontFamily:'AileronR', fontSize:14, textDecorationLine: "underline", color:'#1877F2', paddingTop:7}} onPress={()=>setModalVisible2(true)}>Termos de Uso </Text>
-                        <Text style={{fontFamily:'AileronR', fontSize:14, paddingTop:7}}>e </Text>
-                        <Text style={{fontFamily:'AileronR', fontSize:14, textDecorationLine: "underline", color:'#1877F2', paddingTop:7}} onPress={()=>setModalVisible(true)}>Política de Privacidade</Text>
+                        <Text style={{fontFamily:'AileronR', fontSize:12.5, paddingTop:7, marginLeft:-10}}>Aceito os </Text>
+                        <Text style={{fontFamily:'AileronR', fontSize:12.5, textDecorationLine: "underline", color:'#1877F2', paddingTop:7}} onPress={()=>setModalVisible2(true)}>Termos de Uso </Text>
+                        <Text style={{fontFamily:'AileronR', fontSize:12.5, paddingTop:7}}>e </Text>
+                        <Text style={{fontFamily:'AileronR', fontSize:12.5, textDecorationLine: "underline", color:'#1877F2', paddingTop:7}} onPress={()=>setModalVisible(true)}>Política de Privacidade</Text>
                     </View>
                 </View>
                 <View style={{ width:'100%', alignItems:'center', paddingVertical:10}}>
@@ -145,7 +155,7 @@ export default function CadastroMotorista ({navigation}) {
                                 <Text style={{fontFamily:'AileronH', fontSize:20, paddingVertical:10}}>
                                     Política de Privacidade
                                 </Text>
-                                <Text style={[styles.politica, {marginBottom:-18}]}>
+                                <Text style={[styles.politica, {}]}>
                                     Este aviso de privacidade tem por finalidade demonstrar o nosso compromisso com a sua privacidade, com a proteção de seus dados e com seus direitos previstos na LGPD (Lei Geral de Proteção de Dados – 13.709/2018).
                                 </Text>
                                 <Text style={styles.politica}>
@@ -244,7 +254,7 @@ export default function CadastroMotorista ({navigation}) {
                                 <Text style={styles.politica}>
                                     Como exemplo, os dados de nossos clientes ficam guardados aqui durante o tempo que as diversas leis e regulamentações demandam, como Fiscal, Tributário, Código Civil e Código de Defesa do Consumidor, dentre outras.
                                 </Text>
-                                <Text style={[styles.politica2, {marginTop:8}]}>
+                                <Text style={[styles.politica2, {}]}>
                                     Seus direitos de requerer da ConnectVan
                                 </Text>
                                 <Text style={styles.politica}>
@@ -277,7 +287,7 @@ export default function CadastroMotorista ({navigation}) {
                                 <Text style={styles.politica}>
                                     • Pedir informação sobre as entidades públicas e privadas com as quais compartilhamos seus dados;
                                 </Text>
-                                <Text style={[styles.politica2, {marginTop:8}]}>
+                                <Text style={[styles.politica2, {}]}>
                                     Uso compartlhado dos seus dados
                                 </Text>
                                 <Text style={styles.politica}>
@@ -292,7 +302,7 @@ export default function CadastroMotorista ({navigation}) {
                                 <Text style={styles.politica}>
                                     Nós prezamos pela proteção e segurança dos seus dados durante todo seu ciclo de vida, incluindo quando estiverem sendo tratados por nossos parceiros.
                                 </Text>
-                                <Text style={[styles.politica2, {marginTop:8}]}>
+                                <Text style={[styles.politica2, {}]}>
                                     Transferência Internacional de Dados
                                 </Text>
                                 <Text style={styles.politica}>
@@ -304,7 +314,7 @@ export default function CadastroMotorista ({navigation}) {
                                 <Text style={styles.politica}>
                                     Qualquer caso diferente iremos informar você e se for o caso, solicitar sua autorização.
                                 </Text>
-                                <Text style={[styles.politica2, {marginTop:8}]}>
+                                <Text style={[styles.politica2, {}]}>
                                     Contato
                                 </Text>
                                 <Text style={styles.politica}>
@@ -318,7 +328,7 @@ export default function CadastroMotorista ({navigation}) {
                                 </Text>
                                 <View style={{flexDirection:'row'}}>
                                     <Text style={{fontFamily:'AileronH', fontSize:15}}>E-mail: </Text>
-                                    <Text style={{fontFamily:'AileronR', fontSize:15}}>Definir</Text>
+                                    <Text style={{fontFamily:'AileronR', fontSize:15}}>connectvan4@gmail.com</Text>
                                 </View>
                             </ScrollView>
                         </View>
@@ -342,13 +352,13 @@ export default function CadastroMotorista ({navigation}) {
                             <Text style={{fontFamily:'AileronH', fontSize:20, paddingVertical:10}}>
                                     Termos de Uso
                                 </Text>
-                                <Text style={[styles.politica, {marginBottom:-18}]}>
+                                <Text style={[styles.politica, {}]}>
                                     1. Este Termos refere-se ao ConnectVan. Ao usar este aplicativo e usar os serviços que são fornecidos, você afirma que leu, compreendeu e concorda com nossos Termos e Condições. Estes Termos abrangem todos os aplicativos ou sites relacionados. Caso você não concorde ou não tenha ficado claro algum ponto, sugere-se que você não utilize mais ele até que tenha sanado todas suas dúvidas. Você poderá retornar ao aplicativo e reler os Termos quantas vezes quiser.
                                 </Text>
                                 <Text style={styles.politica}>
                                     2. Os Termos e Condições do ConnectVan regem o uso deste aplicativo e todo seu conteúdo. Estes Termos descrevem as regras e regulamentos que orientam o uso do aplicativo. Todos os materiais/informações/documentos/serviços ou todas as outras entidades (coletivamente referidas como "conteúdo") que aparecem no aplicativo serão administrados de acordo com estes Termos e Condições.
                                 </Text>
-                                <Text style={[styles.politica, {marginTop:-18}]}>
+                                <Text style={[styles.politica, {}]}>
                                     3. O aplicativo é destinado a usuários com 18 (dezoito) anos de idade ou mais. Se você tem menos de 18 (dezoito) anos, não poderá usar ou registrar-se para usar este aplicativo ou seus serviços sem a permissão ou consentimento dos pais. Ao concordar com estes Termos e Condições, você tem a capacidade legal necessária para cumprir e ficar vinculado por estes Termos e Condições.
                                 </Text>
                                 <Text style={styles.politica}>
@@ -369,7 +379,7 @@ export default function CadastroMotorista ({navigation}) {
                                 <Text style={styles.politica}>
                                     • Usar este aplicativo contrário às regras, leis e regulamentos relevantes do seu país de residência, ou de maneira que cause, ou possa causar, danos ao site ou a qualquer pessoa ou entidade comercial;                               
                                 </Text>
-                                <Text style={[styles.politica, {marginTop:-18}]}>
+                                <Text style={[styles.politica, {}]}>
                                     • Realizar mineração de dados ou qualquer outra atividade semelhante relacionada a este aplicativo;                               
                                 </Text>
                                 <Text style={styles.politica}>
@@ -378,7 +388,7 @@ export default function CadastroMotorista ({navigation}) {
                                 <Text style={styles.politica}>
                                     6. O Conteúdo do Usuário deve ser seu e não deve infringir os direitos de terceiros. a equipe ConnectVan reserva-se o direito de remover qualquer parte do seu conteúdo deste aplicativo a qualquer momento, sem aviso prévio.
                                 </Text>
-                                <Text style={[styles.politica2, {marginTop:8}]}>
+                                <Text style={[styles.politica2, {}]}>
                                     Compromisso do Usuário                               
                                 </Text>
                                 <Text style={styles.politica}>
@@ -393,16 +403,16 @@ export default function CadastroMotorista ({navigation}) {
                                 <Text style={styles.politica}>
                                     • Não causar danos aos sistemas físicos (hardwares) e lógicos (softwares) do ConnectVan, de seus fornecedores ou terceiros, para introduzir ou disseminar vírus informáticos ou quaisquer outros sistemas de hardware ou software que sejam capazes de causar danos anteriormente mencionados.
                                 </Text>
-                                <Text style={[styles.politica2, {marginTop:8}]}>
+                                <Text style={[styles.politica2, {}]}>
                                     Disposições Gerais
                                 </Text>
                                 <Text style={styles.politica}>
                                     8. Os Termos e Condições deste aplicativo serão regidos e interpretados de acordo com as leis do país ou estado em que o aplicativo opera. Você, por meio deste, se submete incondicionalmente à jurisdição não exclusiva dos tribunais localizados no Brasil para a resolução de quaisquer disputas.
                                 </Text>
-                                <Text style={[styles.politica, {marginTop:-18}]}>
+                                <Text style={[styles.politica, {}]}>
                                     9. Este aplicativo reserva-se o direito de revisar estes Termos a qualquer momento conforme julgar adequado. Por isso é fundamental que os seus usuários estejam atentos à essas alterações.
                                 </Text>
-                                <Text style={[styles.politica, {marginTop:-18}]}>
+                                <Text style={[styles.politica, {}]}>
                                     10. Estes Termos e Condições, incluindo quaisquer avisos legais e isenções de responsabilidade neste aplicativo, constituem o acordo completo entre o aplicativo e você em relação ao uso deste aplicativo.
                                 </Text>
                                 <Text style={styles.politica}>

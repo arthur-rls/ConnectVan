@@ -27,11 +27,27 @@ export default StyleSheet.create({
       alignItems:'center',
       justifyContent:'center'
     },
+    viewMae:{
+      width:2, 
+      backgroundColor:'black', 
+      borderRadius:50,
+      marginBottom:'7.5%',
+      marginLeft:'6%'
+    },
+    viewFilha:{
+      fontSize:18, 
+      fontFamily:'AileronH',
+      marginTop:'3%'
+    },
+    infos:{
+      fontSize:15, 
+      marginTop:'5%',
+      fontFamily:'AileronR'
+    },
     viewBotao:{
       marginVertical:'9%',
     },
     botao:{
-      backgroundColor:'#FFBF00', 
       borderRadius:35, 
       marginTop:-12,
       width:145,
@@ -41,10 +57,9 @@ export default StyleSheet.create({
       justifyContent:'center',
     },
     botaoDefPago:{
-      backgroundColor:'#FFBF00', 
       borderRadius:35, 
       marginTop:-12,
-      width:190,
+      width:230,
       height:45, 
       borderRadius:35,
       alignItems:'center', 
@@ -62,7 +77,6 @@ export default StyleSheet.create({
       },
       botao2:{
         width:'100%',
-        backgroundColor:'yellow',
         alignItems: 'center',
         height:50,
         justifyContent:'center',

@@ -1,7 +1,7 @@
-import { Entypo, FontAwesome, AntDesign, FontAwesome5, Ionicons, EvilIcons, Feather } from '@expo/vector-icons';
+import { Entypo, AntDesign, MaterialIcons, Feather } from '@expo/vector-icons';
 import { useEffect, useState, useRef } from 'react'
 import styles from './style'
-import { onAuthStateChanged, signOut, deleteUser } from 'firebase/auth';
+import { onAuthStateChanged, signOut, deleteUser, updateEmail } from 'firebase/auth';
 import {db, auth} from '../../../firebase/config';
 import {View, Text,Image,  TouchableOpacity, TextInput, Modal, ScrollView, Keyboard, Linking} from 'react-native'
 import { doc, getDoc, onSnapshot, getDocs, collection, collectionGroup, query, where, updateDoc, deleteDoc } from 'firebase/firestore';
@@ -18,6 +18,7 @@ export default function EditarPerfilR({navigation}) {
     const [telefoneM, setTelefoneM] = useState('')
     const [modalVisible, setModalVisible] = useState(false)
     const [modalVisible2, setModalVisible2] = useState(false)
+    const [showElement, setShowElement] = useState(false)
 
     useEffect(()=>{
         navigation.addListener('focus', () => {
@@ -34,6 +35,10 @@ export default function EditarPerfilR({navigation}) {
     const excluir=()=>{
       onAuthStateChanged(auth, (user)=>{
       deleteUser(user).then(async()=>{
+        const data = await getDocs(collection(db, 'responsavel', user.uid, 'alunos'))
+        data.forEach(async (item)=>{
+          await deleteDoc(doc(db, 'responsavel', user.uid, 'alunos', item.id));
+        })
         await deleteDoc(doc(db, "responsavel", user.uid));
         navigation.navigate('login')
       })
@@ -44,6 +49,18 @@ export default function EditarPerfilR({navigation}) {
         navigation.navigate('login')
       })
 
+    }
+
+    const upEmail=()=>{
+      onAuthStateChanged(auth, (user)=>{
+      user.updateEmail(emailM)
+      })
+    }
+
+    const clear = () =>{
+      setNomeM('')
+      setEmailM('')
+      setTelefoneM('')
     }
 
     const salvar=()=>{
@@ -57,6 +74,7 @@ export default function EditarPerfilR({navigation}) {
             }
             if(emailM!=''){
                 updateDoc(docRef, {email:emailM})
+                upEmail();
             }
         })
     }
@@ -118,6 +136,14 @@ export default function EditarPerfilR({navigation}) {
 
         <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
         <View style={{ marginTop:'13%', justifyContent:'center'}}>
+            {showElement==true ? (
+              <View style={styles.senhaErrOuIncorr}>
+                  <TouchableOpacity onPress={()=>setShowElement(false)}>
+                      <Feather name="x" size={20} color="white" />
+                  </TouchableOpacity>
+                  <Text style={styles.textoSolici}>Alterações salvas com sucesso!</Text>
+              </View>
+            ):null} 
             <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
               <Entypo name="menu" size={29} color="black" style={{marginLeft:15}}/>
             </TouchableOpacity>
@@ -128,7 +154,7 @@ export default function EditarPerfilR({navigation}) {
 
     
           <View style={styles.fundoTab}>
-    
+          
           <View style={{flexDirection:'column', alignContent:'center', marginTop:'12%', marginBottom:'5%'}}>
               <Text style={{fontSize:15, fontFamily:'AileronH', marginBottom:-5}}>Nome</Text>
               <TextInput
@@ -136,6 +162,7 @@ export default function EditarPerfilR({navigation}) {
                 onChangeText={(value)=>setNomeM(value)}
                 value={nomeM}
                 placeholder={nome}
+                editable={false}
               />
             </View>
     
@@ -162,17 +189,23 @@ export default function EditarPerfilR({navigation}) {
             </View>
     
             <View style={styles.viewBotao}>
-              <TouchableOpacity style={[styles.botaoAdd, {backgroundColor:'gray'}]} onPress={()=>navigation.navigate('HomeMotorista')}>
+              <TouchableOpacity style={[styles.botaoAdd, {backgroundColor:'gray'}]} onPress={()=>clear()}>
                 <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient} />
                 <Text style={{fontSize:16, position:'absolute', fontFamily:'AileronH'}}>Cancelar</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.botaoAdd} onPress={()=>salvar()}>
-                <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
-                <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Finalizar</Text>
-              </TouchableOpacity>
+              <View style={styles.viewBotao}>
+                <TouchableOpacity style={styles.botaoAdd} onPress={()=>{salvar(); setShowElement(true)}}>
+                  <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
+                  <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Finalizar</Text>
+                </TouchableOpacity>
+              </View>
             </View>
 
-            <View style={{height:1.5, width:'100%', backgroundColor:'#D3D3D3', marginBottom:'5%'}}/>
+            
+
+            <View style={{height:1.5, width:'100%', backgroundColor:'#D3D3D3', marginBottom:'5%'}}>
+              {/* <Image source={require('../../../../assets/gradient2.png')} /> */}
+            </View>
 
             <View style={{height:'15%', width:'100%', marginLeft:'28%'}}>
               <Text style={{fontSize:17, fontStyle:'AileronH', fontWeight:'bold', marginBottom:'5%'}}>Outras opções:</Text>
@@ -181,17 +214,32 @@ export default function EditarPerfilR({navigation}) {
                 <View style={{flexDirection:'row', gap:7}}>
                   <TouchableOpacity style={styles.botaoSair} onPress={()=>setModalVisible(true)}>
                     <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient}/>
-                    <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Sair da conta</Text>
+                    <View style={{width:'100%', position:'absolute', alignItems:'flex-end', paddingRight:'55%'}}>
+                      <MaterialIcons name="logout" size={24} color="black" />
+                    </View>
+                    <View style={{paddingRight:'5%', justifyContent:'center'}}>
+                      <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Sair</Text>
+                    </View>
                   </TouchableOpacity>
                   <TouchableOpacity style={styles.botaoSair} onPress={()=>setModalVisible2(true)}>
                     <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient}/>
-                    <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Excluir perfil</Text>
+                    <View style={{width:'100%', position:'absolute', alignItems:'flex-end', paddingRight:'62%'}}>
+                      <AntDesign name="deleteuser" size={22} color="black" />
+                    </View>
+                    <View style={{paddingLeft:'15%', justifyContent:'center'}}>
+                      <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Excluir</Text>
+                    </View>
                   </TouchableOpacity>
                 </View>
 
                 <TouchableOpacity style={styles.botaoContato} onPress={()=>Linking.openURL('mailto:connectvan4@gmail.com')}>
                   <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
-                  <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Entrar em contato</Text>
+                  <View style={{width:'100%', position:'absolute', alignItems:'flex-end', paddingRight:'72%'}}>
+                    <MaterialIcons name="support-agent" size={22} color="black" />
+                  </View>
+                  <View style={{paddingLeft:'38%', justifyContent:'center'}}>
+                    <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Entrar em contato</Text>
+                  </View>
                 </TouchableOpacity>
               </View>
             </View>

@@ -34,28 +34,32 @@ export default function AddMensalidade({route, navigation}) {
 
     <View style={styles.container}>
       <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-        <View style={{ marginTop:'10%', justifyContent:'center', marginBottom:'2%'}}>
-            <View style={{ justifyContent:'center', alignItems:'center'}}>
-              <Text style={{fontSize:22, fontFamily:'AileronH'}}>Insira a mensalidade combinada</Text>
-            </View>
-        </View>
+      <View style={{ marginTop:'18%', marginBottom:'15%', justifyContent:'center', paddingHorizontal:30, marginRight:'10%'}}>
+          <View style={{ justifyContent:'center', alignItems:'center'}}>
+            <Text style={{fontSize:38, fontFamily:'AileronH'}}>Insira a mensalidade combinada</Text>
+          </View>
+      </View>
 
       <View style={styles.fundoTab}>
         <View style={{width:'100%', alignItems:'center'}}>
-          <View style={{flexDirection:'column', alignContent:'center', marginTop:'5%', width:'60%'}}>
-            <Text style={{fontSize:18, fontFamily:'AileronH', marginTop:'3%'}}>Valor</Text>
+          <View style={{flexDirection:'column', alignContent:'center', marginBottom:'5%', marginTop:'10%'}}>
+            <Text style={{fontSize:15, fontFamily:'AileronH', marginBottom:-5}}>Valor</Text>
             <TextInputMask
               type={'money'}
               placeholder="R$180,00"
               style={styles.input}
               onChangeText={(value)=>setMensalidadeM(value)}
               value={mensalidadeM}
-              />
+            />
           </View>
 
-          <View style={{flexDirection:'column', alignContent:'center', marginTop:'5%'}}>
-            <Text style={{fontSize:18, fontFamily:'AileronH'}}>Data do pagamento</Text>
-            <Text style={{fontFamily:'AileronR', fontSize:14}} onPress={()=>setModalVisible(true)}>{data}</Text>
+          <View style={{flexDirection:'column', alignContent:'center', marginBottom:'5%'}}>
+            <Text style={{fontSize:15, fontFamily:'AileronH', marginBottom:-5}}>Data do pagamento</Text>
+            <TextInput
+              placeholder={data}
+              style={styles.input}
+              onFocus={()=>setModalVisible(true)}
+            />
           </View>
         </View>
 

@@ -10,7 +10,7 @@ export default StyleSheet.create({
       flex:1,
       backgroundColor: '#fff',
       width:'100%',
-      marginTop:'5%',
+      marginTop:10,
       borderRadius: 40,
       borderBottomEndRadius:0,
       borderBottomStartRadius:0,
@@ -28,7 +28,6 @@ export default StyleSheet.create({
       marginLeft:'76%',
     },
     botaoAdd:{
-      backgroundColor:'black', 
       borderRadius:25, 
       width:37,
       height:37, 

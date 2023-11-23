@@ -30,21 +30,23 @@ export default StyleSheet.create({
       alignSelf:'center'
     },
     viewBotao:{
-      textAlignVertical:'center',
-      justifyContent:'center',
+      position:'absolute',
+      width:'100%',
+      height:'100%',
+      justifyContent:'flex-end',
+      alignItems:'center',
     },
     botaoAdd:{
-      backgroundColor:'#FFBF00',
-      borderRadius:25,
-      width:200,
-      height:45,
-      alignItems:'center',
-      justifyContent:'center'
+      borderRadius: 80,
+      width: 298,
+      height:90,
+      alignSelf: 'center',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     botaoEscola:{
       width:'90%',
       height: 80,
-      backgroundColor: 'white',
       marginTop:'5%',
     },
     iconMenu:{
@@ -68,7 +70,11 @@ export default StyleSheet.create({
       alignSelf:'center'
     },
     gradient:{
-      width:'100%', height:'100%', alignSelf: 'center', borderRadius:50
+      width:'100%', 
+      height:'100%', 
+      alignSelf: 'center', 
+      borderRadius:50,
+      position:'absolute'
     },
     botaoAdd:{
       backgroundColor:'transparent', 

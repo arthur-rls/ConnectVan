@@ -89,7 +89,7 @@ export default function Mensalidade({navigation}){
         setSaldoS(0)
         setSaldo(0)
         onAuthStateChanged(auth, async (user)=>{
-        const pago = query(collection(db, 'motorista', user.uid, 'responsavel'), where('pago','==', true))
+        const pago = query(collection(db, 'motorista', user.uid, 'responsaveis'), where('pago','==', true))
 
         await getDocs(pago).then((docs)=>{
             
@@ -108,7 +108,7 @@ export default function Mensalidade({navigation}){
     const calcSaldo =async()=>{
         onAuthStateChanged(auth, async (user) => {
           if (user) {
-            const pago = query(collection(db, 'motorista', user.uid, 'responsavel'), where('pago','==', true))
+            const pago = query(collection(db, 'motorista', user.uid, 'responsaveis'), where('pago','==', true))
             await getDocs(pago).then((docs)=>{
               docs.forEach((responsavel)=>{
                   const dado = responsavel.data()
@@ -129,7 +129,7 @@ export default function Mensalidade({navigation}){
     const consultas2=async()=>{
 
         onAuthStateChanged(auth, async (user)=>{
-        const pagar = query(collection(db, 'motorista', user.uid, 'responsavel'), where('data', '>', dia), where('pago','==', false))
+        const pagar = query(collection(db, 'motorista', user.uid, 'responsaveis'), where('data', '>', dia), where('pago','==', false))
         await getDocs(pagar).then((docs)=>{
             const arr = []
 
@@ -145,7 +145,7 @@ export default function Mensalidade({navigation}){
 
     const consultas3=async()=>{
         onAuthStateChanged(auth, async(user)=>{
-            const atraso = query(collection(db, 'motorista', user.uid, 'responsavel'), where('pago','==', false), where('data', '<', dia))
+            const atraso = query(collection(db, 'motorista', user.uid, 'responsaveis'), where('pago','==', false), where('data', '<', dia))
         
         await getDocs(atraso).then((docs)=>{
             const arr = []

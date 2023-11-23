@@ -17,20 +17,21 @@ export default StyleSheet.create({
     alignItems:'center',
   },
   viewBotao:{
-    alignItems:'center',
-    justifyContent:'center',
     position:'absolute',
-    marginBottom:'5%',
+    width:'100%',
+    height:'100%',
+    justifyContent:'flex-end',
+    gap:20
   },
   botaoMaps:{
     backgroundColor: '#FFBF00',
     borderRadius: 80,
-    width: 200,
+    width: 295,
     height: 50,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 20,
+    marginBottom: 7,
     flexDirection:'row'
   },
   dropdown: {
@@ -58,6 +59,22 @@ export default StyleSheet.create({
     fontSize:13,
     fontFamily:'AileronR',
     borderRadius:8
+  },
+  botaoAdd2: {
+    backgroundColor: '#FFBF00',
+    borderRadius: 80,
+    width: 298,
+    height: 50,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
+  },
+  gradientBotao:{
+    width:'100%', 
+    height:'100%', 
+    alignSelf: 'center', 
+    borderRadius:50
   },
   text:{
     fontSize:13,
@@ -96,7 +113,7 @@ export default StyleSheet.create({
     fontFamily:'AileronR'
   },
   accordion:{
-    marginTop:'7%',
+    marginTop:'9%',
     zIndex:1
   },
   gradientBotao:{
@@ -107,7 +124,6 @@ export default StyleSheet.create({
     position:'absolute'
   },
   botaoAdd:{
-    backgroundColor:'#FFBF00',
     borderRadius:25,
     width:135,
     marginTop:5,
@@ -121,13 +137,38 @@ export default StyleSheet.create({
     flexDirection:'row', 
     gap:18
   },
+  centeredView:{
+    justifyContent:'center',
+    marginTop:'50%',
+    marginHorizontal:'30%',
+  },
+  gradient:{
+    width:'100%', height:'100%', alignSelf: 'center', borderRadius:50
+  },
   modalView: {
-    margin: 30,
+    margin:50,
     backgroundColor: 'white',
     borderRadius: 20,
     borderColor: 'black',
     borderWidth: 1,
-    padding: 22,
+    padding: 30,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalViewMaps: {
+    margin:20,
+    position:'absolute',
+    backgroundColor: 'white',
+    borderRadius: 20,
+    borderColor: 'black',
+    borderWidth: 1,
+    padding: 30,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -139,10 +180,33 @@ export default StyleSheet.create({
   },
   centeredView:{
     justifyContent:'center',
-    marginTop:'50%'
+    marginVertical:'60%'
   },
-  gradient:{
-    width:'100%', height:'100%', alignSelf: 'center', borderRadius:50
+  viewBotao:{
+    justifyContent:'center',
+    marginTop:'2%',
+    marginBottom:'8%',
+    gap:12, 
+  },
+  viewBotaoModal:{
+    justifyContent:'center', 
+    flexDirection:'row', 
+    gap:12, 
+  },
+  botaoModal:{
+    borderRadius:25,
+    width:138,
+    height:45,
+    marginTop:'5%',
+    alignItems:'center',
+    justifyContent:'center'
+  },
+  faltantesTexto:{
+    fontSize:18, 
+    textAlign:'justify', 
+    paddingBottom:8, 
+    fontFamily:'AileronH', 
+    alignSelf:'center'
   },
 });
 

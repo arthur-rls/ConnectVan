@@ -20,13 +20,26 @@ export default StyleSheet.create({
     marginLeft:10,
   },
   titulo:{
-    fontSize:18, 
+    fontSize:20, 
     fontWeight:'bold', 
+    marginTop:'3%',
+    marginBottom:-5
+  },
+  viewMae:{
+    width:2, 
+    backgroundColor:'black', 
+    borderRadius:50,
+    marginBottom:'7.5%',
+    marginLeft:'6%'
+  },
+  viewFilha:{
+    fontSize:18, 
+    fontFamily:'AileronH',
     marginTop:'3%'
   },
   infos:{
     fontSize:15, 
-    marginTop:'2%',
+    marginTop:'5%',
     fontFamily:'AileronR'
   },
   viewBotao:{
@@ -36,7 +49,6 @@ export default StyleSheet.create({
     gap:12, 
   },
   botaoAdd:{
-    backgroundColor:'#FFBF00',
     borderRadius:25,
     width:105,
     height:45,
@@ -46,18 +58,8 @@ export default StyleSheet.create({
   iconBack:{
     marginLeft:10,
   },
-  viewMae:{
-    width:2, 
-    backgroundColor:'black', 
-    borderRadius:50,
-    marginBottom:'10%'
-  },
-  viewFilha:{
-    fontSize:18, 
-    fontFamily:'AileronH',
-    marginTop:'3%'
-  },
   fundo:{
-    marginTop:'10%'
+    marginTop:'8%',
+    padding:20
   }
 });

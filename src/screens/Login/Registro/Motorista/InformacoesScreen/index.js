@@ -25,6 +25,8 @@ export default function InformacoesMotorista ({navigation}) {
 
                 updateDoc(docRef,{nome: nomeU, placa: placaU, cnh:cpfU})
                 navigation.navigate('drawerM');
+
+                
                 
             }
             });

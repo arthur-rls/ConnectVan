@@ -5,7 +5,7 @@ import { FontAwesome, MaterialIcons, Entypo, Feather, Foundation } from '@expo/v
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { auth, db } from '../../../../../firebase/config';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import {  setDoc, doc,  } from 'firebase/firestore';
+import {  setDoc, doc, arrayUnion  } from 'firebase/firestore';
 import { onAuthStateChanged } from "firebase/auth";
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import { TextInputMask } from 'react-native-masked-text';
@@ -23,6 +23,7 @@ export default function CadastroResponsavel ({navigation}) {
     const [selection, setSelection] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
     const [modalVisible2, setModalVisible2] = useState(false)
+    const [ver, setVer] = useState(false)
  
     async function createUser(){
         if (password.length>=8 && telefoneU.length==15 && emailU!=''&& nomeU!='' && selection ){
@@ -31,7 +32,7 @@ export default function CadastroResponsavel ({navigation}) {
                     onAuthStateChanged(auth, (user) => {
                         if (user) {
                             const uid = user.uid;
-                            setDoc(doc(db, 'responsavel', uid), {nome:nomeU, email: emailU, telefone:telefoneU, mensalidade:0})
+                            setDoc(doc(db, 'responsavel', uid), {nome:nomeU, email: emailU, telefone:telefoneU, mensalidade:0, faltar:arrayUnion('2020-10-10')})
                             navigation.navigate('alunoCadastro');
                         }
                     });         
@@ -66,7 +67,7 @@ export default function CadastroResponsavel ({navigation}) {
     }
     return(
         <KeyboardAwareScrollView style={{backgroundColor:'white'}}>
-            <View style={{flex:6, paddingHorizontal: 40, backgroundColor: 'white', alignItems: 'center'}}>
+            <View style={{flex:6, paddingHorizontal: 40, paddingVertical:45, alignItems: 'center'}}>
                 <View style={styles.tela}>
                     <Text style={styles.h1}>Crie sua conta!</Text>
                 </View>
@@ -85,23 +86,25 @@ export default function CadastroResponsavel ({navigation}) {
                     </View>
                     <View style={{flexDirection:'row', alignItems:'center', paddingVertical:5}}>
                         <MaterialIcons name="lock" size={20} color="#4D4D4D" style={showElementSenha ? styles.iconErro : styles.icon}/>
-                        <TextInput style={showElementSenha ? styles.inputErro : styles.input} placeholder="Senha" onChangeText={value => setPassword(value)} value={password} secureTextEntry autoCapitalize='none'/>
+                        <TextInput style={showElementSenha ? styles.inputErro : styles.input} placeholder="Senha" onChangeText={value => setPassword(value)} value={password} secureTextEntry={ver? false : true} autoCapitalize='none'/>
+                        <Entypo onPress={()=>setVer(current=>!current)} name={ver? "eye-with-line":"eye"} size={20} color="#4D4D4D" style={showElement ? styles.iconErroEye : styles.iconEye}/> 
                     </View>
                 </View>
-                <View style={{ width: '100%', flexDirection:'row', paddingTop:5, paddingHorizontal:7}}>
+                <View style={{ width: '100%', flexDirection:'row', paddingTop:5, paddingHorizontal:30, marginLeft:-65}}>
                     <BouncyCheckbox
-                    size={28}
+                    size={24}
                     fillColor= {showElement2? '#f02929' : "#FFBF00"} 
                     unfillColor="#FFFFFF"
+                    options={{marginLeft:20, marginTop:5}}
                     iconStyle={{ borderColor: "back"}}
                     innerIconStyle={{ borderWidth: 2 }}
                     onPress={()=>check()}
                     />
                     <View style={{flexDirection:'row'}}>
-                        <Text style={{fontFamily:'AileronR', fontSize:14, paddingTop:7, marginLeft:-5}}>Aceito os </Text>
-                        <Text style={{fontFamily:'AileronR', fontSize:14, textDecorationLine: "underline", color:'#1877F2', paddingTop:7}} onPress={()=>setModalVisible2(true)}>Termos de Uso </Text>
-                        <Text style={{fontFamily:'AileronR', fontSize:14, paddingTop:7}}>e </Text>
-                        <Text style={{fontFamily:'AileronR', fontSize:14, textDecorationLine: "underline", color:'#1877F2', paddingTop:7}} onPress={()=>setModalVisible(true)}>Política de Privacidade</Text>
+                        <Text style={{fontFamily:'AileronR', fontSize:12.5, paddingTop:7, marginLeft:-10}}>Aceito os </Text>
+                        <Text style={{fontFamily:'AileronR', fontSize:12.5, textDecorationLine: "underline", color:'#1877F2', paddingTop:7}} onPress={()=>setModalVisible2(true)}>Termos de Uso </Text>
+                        <Text style={{fontFamily:'AileronR', fontSize:12.5, paddingTop:7}}>e </Text>
+                        <Text style={{fontFamily:'AileronR', fontSize:12.5, textDecorationLine: "underline", color:'#1877F2', paddingTop:7}} onPress={()=>setModalVisible(true)}>Política de Privacidade</Text>
                     </View>
                 </View>
                 <View style={{ width:'100%', alignItems:'center', paddingVertical:10}}>
@@ -132,7 +135,7 @@ export default function CadastroResponsavel ({navigation}) {
                             <TouchableOpacity onPress={()=>setShowElementTelefone(false)}>
                                 <Feather name="x" size={20} color="white" />
                             </TouchableOpacity>
-                            <Text style={{fontFamily:'AileronR', fontSize:16, color:'white'}}>Insira um número exitente.</Text>
+                            <Text style={{fontFamily:'AileronR', fontSize:16, color:'white'}}>Insira um número existente.</Text>
                         </View>
                     ):null}
                     {showElementNome==true ? (
@@ -162,10 +165,10 @@ export default function CadastroResponsavel ({navigation}) {
                                 <Text style={{fontFamily:'AileronH', fontSize:20, paddingVertical:10}}>
                                     Política de Privacidade
                                 </Text>
-                                <Text style={[styles.politica, {marginBottom:-18}]}>
+                                <Text style={[styles.politica, {marginTop:2}]}>
                                     Este aviso de privacidade tem por finalidade demonstrar o nosso compromisso com a sua privacidade, com a proteção de seus dados e com seus direitos previstos na LGPD (Lei Geral de Proteção de Dados – 13.709/2018).
                                 </Text>
-                                <Text style={styles.politica}>
+                                <Text style={[styles.politica, {marginTop:-20}]}>
                                     A proteção da privacidade e dos dados pessoais é parte dos nossos valores, em complemento à valorização das pessoas que participam, de alguma forma, de nossa jornada empresarial.
                                 </Text>
                                 <Text style={styles.politica}>
@@ -335,7 +338,7 @@ export default function CadastroResponsavel ({navigation}) {
                                 </Text>
                                 <View style={{flexDirection:'row'}}>
                                     <Text style={{fontFamily:'AileronH', fontSize:15}}>E-mail: </Text>
-                                    <Text style={{fontFamily:'AileronR', fontSize:15}}>Definir</Text>
+                                    <Text style={{fontFamily:'AileronR', fontSize:15}}>connectvan4@gmail.com</Text>
                                 </View>
                             </ScrollView>
                         </View>
@@ -359,13 +362,13 @@ export default function CadastroResponsavel ({navigation}) {
                             <Text style={{fontFamily:'AileronH', fontSize:20, paddingVertical:10}}>
                                     Termos de Uso
                                 </Text>
-                                <Text style={[styles.politica, {marginBottom:-18}]}>
+                                <Text style={[styles.politica, {}]}>
                                     1. Este Termos refere-se ao ConnectVan. Ao usar este aplicativo e usar os serviços que são fornecidos, você afirma que leu, compreendeu e concorda com nossos Termos e Condições. Estes Termos abrangem todos os aplicativos ou sites relacionados. Caso você não concorde ou não tenha ficado claro algum ponto, sugere-se que você não utilize mais ele até que tenha sanado todas suas dúvidas. Você poderá retornar ao aplicativo e reler os Termos quantas vezes quiser.
                                 </Text>
                                 <Text style={styles.politica}>
                                     2. Os Termos e Condições do ConnectVan regem o uso deste aplicativo e todo seu conteúdo. Estes Termos descrevem as regras e regulamentos que orientam o uso do aplicativo. Todos os materiais/informações/documentos/serviços ou todas as outras entidades (coletivamente referidas como "conteúdo") que aparecem no aplicativo serão administrados de acordo com estes Termos e Condições.
                                 </Text>
-                                <Text style={[styles.politica, {marginTop:-18}]}>
+                                <Text style={[styles.politica, {}]}>
                                     3. O aplicativo é destinado a usuários com 18 (dezoito) anos de idade ou mais. Se você tem menos de 18 (dezoito) anos, não poderá usar ou registrar-se para usar este aplicativo ou seus serviços sem a permissão ou consentimento dos pais. Ao concordar com estes Termos e Condições, você tem a capacidade legal necessária para cumprir e ficar vinculado por estes Termos e Condições.
                                 </Text>
                                 <Text style={styles.politica}>
@@ -386,7 +389,7 @@ export default function CadastroResponsavel ({navigation}) {
                                 <Text style={styles.politica}>
                                     • Usar este aplicativo contrário às regras, leis e regulamentos relevantes do seu país de residência, ou de maneira que cause, ou possa causar, danos ao site ou a qualquer pessoa ou entidade comercial;                               
                                 </Text>
-                                <Text style={[styles.politica, {marginTop:-18}]}>
+                                <Text style={[styles.politica, {}]}>
                                     • Realizar mineração de dados ou qualquer outra atividade semelhante relacionada a este aplicativo;                               
                                 </Text>
                                 <Text style={styles.politica}>
@@ -395,7 +398,7 @@ export default function CadastroResponsavel ({navigation}) {
                                 <Text style={styles.politica}>
                                     6. O Conteúdo do Usuário deve ser seu e não deve infringir os direitos de terceiros. a equipe ConnectVan reserva-se o direito de remover qualquer parte do seu conteúdo deste aplicativo a qualquer momento, sem aviso prévio.
                                 </Text>
-                                <Text style={[styles.politica2, {marginTop:8}]}>
+                                <Text style={[styles.politica2, {}]}>
                                     Compromisso do Usuário                               
                                 </Text>
                                 <Text style={styles.politica}>
@@ -410,16 +413,16 @@ export default function CadastroResponsavel ({navigation}) {
                                 <Text style={styles.politica}>
                                     • Não causar danos aos sistemas físicos (hardwares) e lógicos (softwares) do ConnectVan, de seus fornecedores ou terceiros, para introduzir ou disseminar vírus informáticos ou quaisquer outros sistemas de hardware ou software que sejam capazes de causar danos anteriormente mencionados.
                                 </Text>
-                                <Text style={[styles.politica2, {marginTop:8}]}>
+                                <Text style={[styles.politica2, {}]}>
                                     Disposições Gerais
                                 </Text>
                                 <Text style={styles.politica}>
                                     8. Os Termos e Condições deste aplicativo serão regidos e interpretados de acordo com as leis do país ou estado em que o aplicativo opera. Você, por meio deste, se submete incondicionalmente à jurisdição não exclusiva dos tribunais localizados no Brasil para a resolução de quaisquer disputas.
                                 </Text>
-                                <Text style={[styles.politica, {marginTop:-18}]}>
+                                <Text style={[styles.politica, {}]}>
                                     9. Este aplicativo reserva-se o direito de revisar estes Termos a qualquer momento conforme julgar adequado. Por isso é fundamental que os seus usuários estejam atentos à essas alterações.
                                 </Text>
-                                <Text style={[styles.politica, {marginTop:-18}]}>
+                                <Text style={[styles.politica, {}]}>
                                     10. Estes Termos e Condições, incluindo quaisquer avisos legais e isenções de responsabilidade neste aplicativo, constituem o acordo completo entre o aplicativo e você em relação ao uso deste aplicativo.
                                 </Text>
                                 <Text style={styles.politica}>

@@ -10,7 +10,7 @@ export default function Passageiros({navigation, route}) {
     const alunos = []
     const [passageiros, setPassageiros] = useState([])
     
-
+ 
     useEffect(()=>{
         pesquisa()
         
@@ -29,7 +29,6 @@ export default function Passageiros({navigation, route}) {
     }
 
     return (
-  
       <View style={styles.container}>
         <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
         <View style={{ marginTop:'13%', justifyContent:'center'}}>
@@ -40,7 +39,15 @@ export default function Passageiros({navigation, route}) {
             <Text style={{fontSize:18, fontFamily:'AileronH'}}>Passageiros</Text>
           </View>
         </View>
-        <ScrollView style={styles.fundoTab} contentContainerStyle={{alignItems:'center',}}>
+        {passageiros.length==0?(
+          <View style={styles.fundoTab}>
+            <View styles={{flex:0.5, backgroundColor:'red', addingVertical:'30%'}}>
+                <Text style={[styles.mensagem, {marginVertical:'100%'}]}>Nenhum passageiro</Text>
+                <Text style={styles.mensagem}>adicionado ainda.</Text>
+            </View>
+          </View>
+        ):(
+          <ScrollView style={styles.fundoTab} contentContainerStyle={{alignItems:'center',}}>
           <Text style={{fontSize:18, fontFamily:'AileronH', marginVertical:'5%'}}>
             TODOS ({passageiros.length})
           </Text>
@@ -69,6 +76,7 @@ export default function Passageiros({navigation, route}) {
               )
             })}
         </ScrollView>    
+        )}
       </View>
     );
   }

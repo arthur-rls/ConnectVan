@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, Image, TouchableOpacity, TextInput, Modal, Alert} from 'react-native'
+import {View, Text, Image, TouchableOpacity, TextInput, Modal, Alert, ScrollView} from 'react-native'
 import styles from './style'
 import { onAuthStateChanged } from 'firebase/auth';
 import {db, auth} from '../../../firebase/config';
@@ -115,7 +115,7 @@ export default function RegistroAluno ({route, navigation}) {
                               <Feather name="x" size={24} color="black" />
                           </TouchableOpacity>
                       </View>
-                      <View>
+                      <ScrollView>
                         <MaskInput style={cep==''&&salve?styles.inputErro:styles.input} placeholder="CEP" value={cep} onChangeText={value=>setCep(value)} inputMode='numeric' mask={[ /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/]}/>
                         <TextInput style={municipio==''&&salve?styles.inputErro:styles.input} placeholder="Cidade" value={municipio} onChangeText={value=>setMunicipio(value)}/>
                         <View style={{flexDirection:'row', gap:9}}>
@@ -129,14 +129,14 @@ export default function RegistroAluno ({route, navigation}) {
                         <View style={{flexDirection:'row', gap:9, marginTop:10}}>
                           <TouchableOpacity style={styles.botao} onPress={() => limpar()}>
                             <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient}/>
-                            <Text style={{fontFamily:'AileronR', fontSize:20, position:'absolute'}}>Limpar</Text>
+                            <Text style={{fontFamily:'AileronR', fontSize:17, position:'absolute', fontWeight:'bold'}}>Limpar</Text>
                           </TouchableOpacity>
                           <TouchableOpacity style={styles.botao} onPress={() => salveEndereco()}>
                             <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
-                            <Text style={{fontFamily:'AileronR', fontSize:20, position:'absolute'}}>Salvar</Text>
+                            <Text style={{fontFamily:'AileronR', fontSize:17, position:'absolute', fontWeight:'bold'}}>Salvar</Text>
                           </TouchableOpacity>
                         </View>
-                      </View>
+                      </ScrollView>
                   </View>
               </View>
           </Modal>
@@ -152,7 +152,7 @@ export default function RegistroAluno ({route, navigation}) {
             
 
             <View style={{flexDirection:'row', paddingVertical:5, gap:10}}>
-              <TextInput style={showElementSerie?styles.input2Erro:styles.input2} placeholder="Série" value={serieA} onChangeText={value=>setSerieA(value)}/>
+              <TextInput style={showElementSerie?styles.input2Erro:styles.input2} placeholder="Série" value={serieA} onChangeText={value=>setSerieA(value)} maxLength={1}/>
               <TextInput style={showElementSala?styles.input2Erro:styles.input2} placeholder="Sala" value={salaA} onChangeText={value=>setSalaA(value)}/>
               {/* <TextInput style={[styles.input2, { flex: 1}]} placeholder="Período" value={periodoA} onChangeText={value=>setPeriodoA(value)}/> */}
               <DropDownPicker
@@ -177,11 +177,14 @@ export default function RegistroAluno ({route, navigation}) {
             </View>
 
             <View style={{flexDirection:'row', paddingVertical:10, width:'100%', gap:10}}>
+              <TouchableOpacity style={styles.botao} onPress={() => navigation.navigate('Passageiros')}>
+                <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient}/>
+                <Text style={{fontFamily:'AileronR', fontSize:17, position:'absolute', fontWeight:'bold'}}>Voltar</Text>
+              </TouchableOpacity>
               <TouchableOpacity style={styles.botao} onPress={() => salvar()}>
                 <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
-                <Text style={{fontFamily:'AileronR', fontSize:20, position:'absolute'}}>Salvar</Text>
+                <Text style={{fontFamily:'AileronR', fontSize:17, position:'absolute', fontWeight:'bold'}}>Salvar</Text>
               </TouchableOpacity>
-
             </View>
             <View style={{position:'absolute', marginTop:40, width:'110%'}}>
                   {showElementNome==true ? (

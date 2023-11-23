@@ -1,4 +1,4 @@
-import { Text, SafeAreaView, StyleSheet, View, TextInput, TouchableOpacity, Image, FlatList } from 'react-native';
+import { Text, SafeAreaView, StyleSheet, View, TextInput, TouchableOpacity, Image, FlatList, Linking } from 'react-native';
 import { Entypo, FontAwesome, AntDesign, FontAwesome5 } from '@expo/vector-icons';
 import styles from './style'
 import {useEffect, useState} from 'react'
@@ -15,7 +15,7 @@ export default function Motorista ({route, navigation}) {
     const [cidades, setCidades] = useState([])
     const Item = ({item}) => (
         <View>
-            <List.Item title={item} />
+            <List.Item title={item} titleStyle={{fontFamily:'AileronR', fontSize:16, marginBottom:-10, marginLeft:-18}}/>
         </View>
       );
 
@@ -29,7 +29,9 @@ export default function Motorista ({route, navigation}) {
       }
 
     useEffect(()=>{
+        navigation.addListener('focus', () => {
         pegarDados()
+        })
     }, [])
 
 
@@ -102,22 +104,25 @@ export default function Motorista ({route, navigation}) {
             </View>
             <View style={styles.fundoTab}>
                 <View style={styles.fundoTel}>
-                    <View style={{paddingHorizontal:15, paddingRight:135}}>
-                        <Text style={{fontSize:17, marginBottom:2, fontWeight:'bold'}}>{rec.telefone}</Text>
+                    <View style={{paddingHorizontal:15, flex: 1}}>
+                        <Text style={{fontSize:17, fontWeight:'bold'}}>{rec.telefone}</Text>
                     </View>
-                    <View style={{position:'absolute', paddingLeft:235}}>
-                        <TouchableOpacity onPress={()=>Linking.openURL('whatsapp://send?phone=' + rec.telefone)}>
-                            <FontAwesome name="whatsapp" size={28} color="black" />
-                        </TouchableOpacity>
+                    <View style={{flex: 1, justifyContent:'flex-end', flexDirection:'row'}}>
+                        <View style={{justifyContent:'center', marginRight:'10%'}}>
+                            <TouchableOpacity onPress={()=>Linking.openURL('whatsapp://send?phone=' + '+55' + rec.telefone)}>
+                                <FontAwesome name="whatsapp" size={26} color="black" />
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
-                <List.Section style={{width:'100%', justifyContent:'center', paddingHorizontal:'5%'}}>
-                {escolas?(
+                <List.Section style={{width:'100%', justifyContent:'center', paddingHorizontal:'5%', gap:15}}>
+                    {escolas?(
                         <List.Accordion
                         theme={{colors: {background: 'white', primary:'black'}}}
                         style={styles.accordion}
                         title="Escolas"
-                        left={(props) => <List.Icon {...props} icon="school" />}>
+                        titleStyle={styles.titulo}
+                        left={(props) => <List.Icon {...props}/>}>
                             <FlatList
                                 data={escolas}
                                 renderItem={renderItem}
@@ -129,7 +134,8 @@ export default function Motorista ({route, navigation}) {
                         theme={{colors: {background: 'white', primary:'black'}}}
                         style={styles.accordion}
                         title="Cidades"
-                        left={(props) => <List.Icon {...props} icon="city" />}>
+                        titleStyle={styles.titulo}
+                        left={(props) => <List.Icon {...props}/>}>
                             <FlatList
                                 data={cidades}
                                 renderItem={renderItem}

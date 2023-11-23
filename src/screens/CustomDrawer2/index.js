@@ -7,9 +7,10 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 import {db, auth} from '../../firebase/config';
 import { doc, getDoc, onSnapshot, getDocs, collection, collectionGroup, query, where, updateDoc} from 'firebase/firestore';
 
-export default function CustomDrawer(props){
+export default function CustomDrawer({props, navigation}){
     const [rec, setRec] = useState('')
     useEffect(()=>{
+        navigation.addListener('focus', () => {
         onAuthStateChanged(auth, async(user)=>{
             if(user){
                     const docRef = doc(db, 'resposanvel', user.uid)
@@ -17,6 +18,7 @@ export default function CustomDrawer(props){
                     setRec(snapshot.data());
             }
         })
+    })
     },[])
     if(!rec){
         return null

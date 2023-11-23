@@ -72,13 +72,28 @@ export default function MHome ({route, navigation}) {
     },[aviso, gatilho, gatilho2, via])
 
     if (!rec){
-        return null
+      return(
+        <View style={styles.container}>
+            <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
+            <View style={{ marginTop:'13%', justifyContent:'center'}}>
+                <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
+                    <Entypo name="menu" size={29} color="black" style={{marginLeft:15}}/>
+                </TouchableOpacity>
+                <View style={{ justifyContent:'center', alignItems:'center'}}>
+                    <Text style={{fontSize:18, fontFamily:'AileronH'}}>Carregando</Text>
+                </View>
+            </View>
+            <View style={styles.fundoTab}>
+            <Image source={require('../../../../assets/loading.gif')} style={{width:'100%', height:'100%', resizeMode: 'center',}}/>
+            </View>
+        </View>
+    )
     }
 
     const calcSaldo =async()=>{
       onAuthStateChanged(auth, async (user) => {
         if (user) {
-          const pago = query(collection(db, 'motorista', user.uid, 'responsavel'), where('pago','==', true))
+          const pago = query(collection(db, 'motorista', user.uid, 'responsaveis'), where('pago','==', true))
           await getDocs(pago).then((docs)=>{
             docs.forEach((responsavel)=>{
                 const dado = responsavel.data()
@@ -146,7 +161,7 @@ export default function MHome ({route, navigation}) {
                   <Entypo name="menu" size={29} color="black" style={styles.iconMenu}/>
                 </TouchableOpacity>
                 <View style={{ justifyContent:'center', alignItems:'center'}}>
-                <Text style={{fontSize:20, fontFamily:'AileronH'}}>Home</Text>
+                <Text style={{fontSize:19, fontFamily:'AileronH'}}>Home</Text>
               </View>
             </View>
 
@@ -158,17 +173,17 @@ export default function MHome ({route, navigation}) {
             <View style={styles.avisosSaldo}>
                 <View style={styles.fundoSaldo}>
                   <View style={styles.linhaAmarela}/>
-                  <View style={{width:'100%', padding:21}}>
-                    <View style={{flexDirection:'row', alignItems:'center'}}>
+                  <View style={{width:'100%', height:'100%', padding:21, paddingBottom:7, paddingTop:23}}>
+                    <View style={{flexDirection:'row', alignItems:'center', paddingRight:30}}>
                       <Image source={require('../../../../assets/logo.png')} style={styles.logo}/>
                           <Text
                               style={{ fontSize: 19, fontFamily:'AileronH'}}>
                               {rec.nome}
                           </Text>
                       </View>
-                      <Text style={{ fontSize: 18, marginBottom: 5, marginTop:'3%', fontFamily:'AileronR' }}>Saldo mensal</Text>
+                      <Text style={{ fontSize: 17, marginBottom: 5, marginTop:'3%', fontFamily:'AileronR' }}>Saldo mensal</Text>
                       
-                      <View style={{width:'147%', height:'32%', flexDirection:'row', justifyContent:'space-between'}}>
+                      <View style={{width:'100%', height:'32%', flexDirection:'row', justifyContent:'space-between'}}>
                         {ver?(
                           <Text
                         style={{
@@ -190,17 +205,15 @@ export default function MHome ({route, navigation}) {
                         R$----
                         </Text>
                         )}
-                        
-                        <View style={{width:'22%', justifyContent:'center', height:'95%', marginRight:'50%'}}>
+
+                        <View style={{width:'32%', justifyContent:'center', height:'95%'}}>
                             <Image source={require('../../../../assets/gradient.png')} style={[styles.gradient, {position:'absolute'}]} /> 
-                            <View style={{justifyContent:'flex-end'}}>
-                              <TouchableOpacity onPress={()=>{verSaldo()}} style={{}}> 
-                              
+                            <TouchableOpacity onPress={()=>{verSaldo()}} style={{}}>
                               {ver?(
                               <Text
                                   style={{
                                   fontSize: 16,
-                                  fontWeight: 'bold',
+                                  fontFamily:'AileronH',
                                   textAlign: 'center',
                                   }}>
                                   Ocultar
@@ -209,17 +222,17 @@ export default function MHome ({route, navigation}) {
                               <Text
                                   style={{
                                   fontSize: 16,
-                                  fontWeight: 'bold',
+                                  fontFamily:'AileronH',
                                   textAlign: 'center',
                                   
                                   }}>
                                   Ver
                               </Text>
                               )}
-                              </TouchableOpacity>
-                            </View>
-                        </View>          
+                            </TouchableOpacity>
+                        </View>
                       </View>
+
                   </View>
                 </View>
             </View> 
@@ -230,7 +243,7 @@ export default function MHome ({route, navigation}) {
             <View style={{width:'100%', padding:21}}>
               <View style={{flexDirection:'row', alignItems:'center'}}>
                   <Text
-                      style={{ fontSize: 21, fontWeight: 'bold', fontFamily:'AileronH', marginBottom:-15}}>
+                      style={{ fontSize: 21, fontFamily:'AileronH'}}>
                       AVISOS
                   </Text>
               </View>
@@ -257,7 +270,7 @@ export default function MHome ({route, navigation}) {
                 )}
                 
               </View>
-              <Text>{avisoD}</Text>
+              <Text style={{ fontSize: 11, fontFamily:'AileronR'}}>{avisoD}</Text>
             </View>
           </View>
         </View> 
@@ -265,16 +278,16 @@ export default function MHome ({route, navigation}) {
         <View style={styles.viewBotao}>
             <TouchableOpacity style={styles.botaoAdd2} onPress={()=>navigation.navigate('Pedidos')}>
               <Image source={require('../../../../assets/gradient.png')} style={styles.gradientBotao}/>
-              <Text style={{ fontSize: 18, fontFamily:'AileronH', position:'absolute' }}>
+              <Text style={{ fontSize: 17, fontFamily:'AileronH', position:'absolute' }}>
                 Pedidos de contratação
               </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> 
             {via?(
                 <TouchableOpacity
                   style={styles.botaoAdd2} onPress={()=>parar()}>
                   <Image source={require('../../../../assets/gradient2.png')} style={styles.gradientBotao} />
                   <View style={{ flexDirection: 'row', position:'absolute' }}>
-                  <Text style={{ fontSize: 18, marginLeft: 10, fontFamily:'AileronH'}}>
+                  <Text style={{ fontSize: 17, marginLeft: 10, fontFamily:'AileronH'}}>
                     Parar rota 
                   </Text>
                 </View>
@@ -283,9 +296,9 @@ export default function MHome ({route, navigation}) {
                 <TouchableOpacity
                   style={styles.botaoAdd2} onPress={()=>navigation.navigate('HomeRotaMotorista')}>
                   <Image source={require('../../../../assets/gradient.png')} style={styles.gradientBotao} />
-                  <View style={{ flexDirection: 'row', position:'absolute' }}>
+                  <View style={{ flexDirection: 'row', position:'absolute', justifyContent:'center' }}>
                   <FontAwesome5 name="map-marker-alt" size={23} color="black" />
-                    <Text style={{ fontSize: 18, marginLeft:10, fontFamily:'AileronH'}}>
+                    <Text style={{ fontSize: 17, marginLeft:10, fontFamily:'AileronH', alignSelf:'center'}}>
                       Iniciar Rota
                     </Text>
                   </View>
@@ -293,14 +306,6 @@ export default function MHome ({route, navigation}) {
             )}
             
         </View>
-        {showElement==true ? (
-            <View style={{position:'absolute', backgroundColor:'green', marginTop: 50, padding:10, flexDirection:'row'}}>
-                <TouchableOpacity onPress={()=>setShowElement(false)}>
-                    <Feather name="x" size={20} color="white" />
-                </TouchableOpacity>
-                <Text style={{fontFamily:'AileronR', fontSize:21, color:'white'}}>Link de rota enviado com sucesso.</Text>
-            </View>
-        ):null}
         </View>
         </View>
     )

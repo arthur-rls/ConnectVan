@@ -49,7 +49,6 @@ export default StyleSheet.create({
       padding:20,
       height: 60,
       width:'100%',
-      marginTop:'1%',
       borderColor:'black',
       fontStyle:'italic',
       color:'gray',

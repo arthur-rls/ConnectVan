@@ -13,13 +13,13 @@ export default StyleSheet.create({
   },
   input:{
     width:'100%',
-    height: 52,
+    height: 50,
     borderRadius: 8,
     backgroundColor: '#ECECEC',
     color: '#6F6F6F',
     paddingHorizontal: 40,
     fontSize:13,
-    fontFamily:'AileronR'
+    fontFamily: 'AileronR'
   },
   inputErro:{
     width:'100%',
@@ -32,6 +32,16 @@ export default StyleSheet.create({
     paddingHorizontal: 40,
     fontSize:13,
     fontFamily: 'AileronR'
+  },
+  iconEye:{
+    position:'absolute',
+    zIndex:10,
+    marginLeft:'90%'
+  },
+  iconErroEye:{
+    position:'absolute',
+    zIndex:10,
+    marginLeft:'90%'
   },
   iconErro:{
     position:'absolute',
@@ -61,7 +71,7 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     borderColor: 'black',
-    borderWidth: 2,
+    borderWidth: 1,
     padding: 35,
     height:'80%',
 
@@ -91,9 +101,8 @@ export default StyleSheet.create({
     textAlign:'justify'
   },
   errOuIncorr:{
-    position:'absolute', 
     backgroundColor:'#f02929', 
-    marginTop: 20, 
+    marginTop: 15, 
     padding:10, 
     flexDirection:'row', 
     borderRadius:13,

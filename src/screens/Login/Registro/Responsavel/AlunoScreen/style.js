@@ -116,6 +116,7 @@ export default StyleSheet.create({
   },
   box:{
     width: 100,
+    marginBottom:-40,
     backgroundColor: '#ECECEC',
     color: '#6F6F6F',
     fontSize:13,
@@ -128,7 +129,7 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     borderColor: 'black',
-    borderWidth: 2,
+    borderWidth: 1,
     padding: 35,
 
     shadowColor: '#000',
@@ -154,4 +155,3 @@ export default StyleSheet.create({
     alignSelf:'center',
   },
 })
-

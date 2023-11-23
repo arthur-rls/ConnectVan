@@ -23,12 +23,19 @@ container: {
     justifyContent:'flex-end',
   },
   botaoAdd:{
-    backgroundColor:'black', 
+    backgroundColor:'black',
     borderRadius:25, 
     width:44,
     height:44, 
     alignItems:'center', 
     justifyContent:'center',
+  },
+  mensagem:{
+    fontSize:18, 
+    fontFamily:'AileronH', 
+    color:'gray', 
+    textAlign:'center', 
+    marginBottom:2
   },
   botaoEscola:{
     width:'90%',

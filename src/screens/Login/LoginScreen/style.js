@@ -78,6 +78,12 @@ export default StyleSheet.create({
     zIndex:10,
     marginLeft:'85%'
   },
+  iconErroEye:{
+    position:'absolute',
+    zIndex:10,
+    marginLeft:'90%',
+    color:'#f02929'
+  },
   iconErro:{
     position:'absolute',
     zIndex:2,
@@ -96,7 +102,7 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 20,
     borderColor: 'black',
-    borderWidth: 1.3,
+    borderWidth: 1,
     padding: 35,
 
     shadowColor: '#000',
@@ -147,7 +153,7 @@ export default StyleSheet.create({
     height:40,
     justifyContent:'center',
     borderRadius:50,
-    marginBottom:'5%',
+    marginBottom:'15%',
   },
 })
 

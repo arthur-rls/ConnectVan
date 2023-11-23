@@ -112,13 +112,15 @@ export default StyleSheet.create({
   },
   inputi: {
     height: 70,
-    marginBottom:-13,
     width:'90%',
+    height:'100%',
     fontSize: 17,
     borderColor: '#DDDDDD',
     borderRadius: 4,
     fontStyle:'italic',
     fontFamily:'AileronR',
+    textAlign:'left',
+    marginVertical:'1%'
   },
   viewBotao: {
     justifyContent: 'center',

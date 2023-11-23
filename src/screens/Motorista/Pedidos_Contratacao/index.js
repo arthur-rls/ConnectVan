@@ -47,20 +47,26 @@ export default function Pedidos ({navigation}) {
         return(
           <View style={styles.container}>
             <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-            <View style={{ marginTop:'13%', justifyContent:'center'}}>
-                <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={{flex:1,position:'absolute'}}>
-                  <Entypo name="chevron-left" size={29} color="black" style={{marginLeft:13}}/>
-                </TouchableOpacity>
-                <View style={{ justifyContent:'center', alignItems:'center'}}>
+            <View style={{ marginTop:'13%', justifyContent:'center', marginBottom:'2%', flexDirection:'column'}}>
+              <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={{flex:1,position:'absolute'}}>
+                <Entypo name="chevron-left" size={26} color="black" style={styles.iconMenu}/>
+              </TouchableOpacity>
+              <View style={{ justifyContent:'center', alignItems:'center'}}>
                 <Text style={{fontSize:18, fontFamily:'AileronH'}}>Pedidos de Contratação</Text>
               </View>
             </View>
-          <View style={styles.fundoTab}>
-            <View style={{ height:'100%', justifyContent:'center'}}>
-              <Text style={{fontSize:22, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>Oops! Não há</Text>
-              <Text style={{fontSize:22, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>pedidos de contratação</Text>
-              <Text style={{fontSize:22, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>até o momento.</Text>
-            </View>
+            <View style={[styles.fundoTab, {paddingTop:'65%'}]}>
+              <View style={{height:'14%', width:'45%'}}>
+                <Image
+                    source={require('../../../../assets/avan.png')}
+                    style={{width:'100%', height:'100%'}}
+                />
+                </View>
+              <View style={{marginTop:'3%'}}>
+                <Text style={{fontSize:20, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>Oops! Não há</Text>
+                <Text style={{fontSize:20, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>pedidos de contratação</Text>
+                <Text style={{fontSize:20, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>até o momento.</Text>
+              </View>
           </View>      
         </View> 
         )
@@ -68,16 +74,16 @@ export default function Pedidos ({navigation}) {
       return (
         <View style={styles.container}>
           <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
-          <View style={{ marginTop:'12%', justifyContent:'center', marginBottom:'2%', flexDirection:'column'}}>
+          <View style={{ marginTop:'13%', justifyContent:'center', marginBottom:'2%', flexDirection:'column'}}>
             <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={{flex:1,position:'absolute'}}>
-              <Entypo name="chevron-left" size={29} color="black" style={styles.iconMenu}/>
+              <Entypo name="chevron-left" size={26} color="black" style={styles.iconMenu}/>
             </TouchableOpacity>
             <View style={{ justifyContent:'center', alignItems:'center'}}>
               <Text style={{fontSize:18, fontFamily:'AileronH'}}>Pedidos de Contratação</Text>
             </View>
           </View>
           <View style={styles.fundoTab}>
-            <Text style={{fontSize:18, fontFamily:'AileronH', marginTop:'5%'}}>
+            <Text style={{fontSize:18, fontFamily:'AileronH', marginTop:'5%', marginBottom:7}}>
               TODOS ({arr.length})
             </Text>
             {arr.map((item) => {
@@ -94,7 +100,7 @@ export default function Pedidos ({navigation}) {
                             </View>  
                               <View style={{flex: 1, justifyContent:'flex-end', flexDirection:'row'}}>
                                 <View style={{justifyContent:'center', marginRight:'10%'}}>
-                                  <TouchableOpacity onPress={()=>Linking.openURL('whatsapp://send?text='+ mensagem +'&phone=' + item.telefone)}>
+                                  <TouchableOpacity onPress={()=>Linking.openURL('whatsapp://send?text='+ mensagem +'&phone=' + '+55' + item.telefone)}>
                                     <FontAwesome name="whatsapp" size={24} color="black" />
                                   </TouchableOpacity>
                                 </View>
@@ -113,7 +119,7 @@ export default function Pedidos ({navigation}) {
                             </View>  
                               <View style={{flex: 1, justifyContent:'flex-end', flexDirection:'row'}}>
                                 <View style={{justifyContent:'center', marginRight:'10%'}}>
-                                  <TouchableOpacity onPress={()=>Linking.openURL('whatsapp://send?text='+ mensagem +'&phone=' + item.telefone)}>
+                                  <TouchableOpacity onPress={()=>Linking.openURL('whatsapp://send?text='+ mensagem +'&phone=' + '+55' + item.telefone)}>
                                     <FontAwesome name="whatsapp" size={24} color="black" />
                                   </TouchableOpacity>
                                 </View>

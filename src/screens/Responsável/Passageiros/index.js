@@ -24,7 +24,25 @@ export default function Passageiros({navigation}) {
     }, [gatilho])
 
     if(!rec || !aluno){
-        return null
+      return(
+        <View style={styles.container}>
+            <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
+            <View style={{ marginTop:'13%', justifyContent:'center'}}>
+                <TouchableOpacity onPress={()=>navigation.openDrawer()} style={{flex:1,position:'absolute'}}>
+                    <Entypo name="menu" size={29} color="black" style={{marginLeft:15}}/>
+                </TouchableOpacity>
+                <View style={{ justifyContent:'center', alignItems:'center'}}>
+                    <Text style={{fontSize:18, fontFamily:'AileronH'}}>Carregando</Text>
+                </View>
+            </View>
+            <View style={styles.fundoTab}>
+            <Image source={require('../../../../assets/loading.gif')} style={{width:'100%', height:'100%', resizeMode: 'center',}}/>
+            </View>
+        </View>
+    )
+    }
+    else{
+      
     }
   return (
     <View style={styles.container}>
@@ -39,6 +57,14 @@ export default function Passageiros({navigation}) {
     </View>
 
       <View style={styles.fundoTab}>
+        <View style={styles.viewBotao}>
+          {!rec.motorista ? (
+              <TouchableOpacity onPress={() => navigation.navigate('AddPassageiro')} style={styles.botaoAdd}>
+                <Image source={require('../../../../assets/gradient.png')} style={[styles.gradient, {position:'absolute'}]}/>
+                    <Text style={{fontSize:16, fontFamily:'AileronH'}}>Adicionar passageiro</Text>
+                </TouchableOpacity> 
+          ):null}
+        </View>
         <Text style={{fontSize:18,fontFamily:'AileronH'}}>
           TODOS ({rec.nomeAluno.length})
         </Text>
@@ -58,14 +84,6 @@ export default function Passageiros({navigation}) {
             </TouchableOpacity>
           )
         })}
-        {!rec.motorista ? (
-          <View style={styles.viewBotao}>
-            <TouchableOpacity onPress={() => navigation.navigate('AddPassageiro')} style={styles.botaoAdd}>
-                <Image source={require('../../../../assets/gradient.png')} style={[styles.gradient, {position:'absolute'}]}/>
-                <Text style={{fontSize:16, fontFamily:'AileronH'}}>Adicionar passageiro</Text>
-            </TouchableOpacity> 
-          </View>
-        ):null}
       </View>
     
     </View>

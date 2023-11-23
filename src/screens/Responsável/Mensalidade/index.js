@@ -11,6 +11,8 @@ export default function Mensalidade({navigation}) {
     const [contrato, setContrato] = useState(false)
     const [dia, setDia] = useState('')
     const [mes, setMes] = useState('')
+    const [pag, setPag] = useState(false)
+    const [gatilho, setGatilho] = useState(false)
     const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
     "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
   useEffect(()=>{
@@ -21,22 +23,32 @@ export default function Mensalidade({navigation}) {
     setMes(monthNames[month+1])
     onAuthStateChanged(auth, async(user)=>{
         const docRef = doc(db, 'responsavel', user.uid)
-        const snapshot = await getDoc(docRef)
-        setDado(snapshot.data())
+        await getDoc(docRef).then((snapshot)=>{
+          setDado(snapshot.data())
+        setPag(snapshot.data().pago)
         if(dado.motorista != '' && dado.motorista != undefined && dado.motorista != null){
             setContrato(true)
         }
+        })
+        
         console.log('a')
         
     })
   })
-  },[])
+  },[gatilho, pag])
 
-  const pago=async()=>{
-        const docRef = doc(db, 'motorista', dado.motorista, 'responsavel', dado.nome)
+  const pago=()=>{
+      onAuthStateChanged(auth, async (user)=>{
+        const docRef = doc(db, 'motorista', dado.motorista, 'responsaveis', dado.nome)
         updateDoc(docRef, {pago:true})
         const docRef2 = doc(db,'responsavel', user.uid)
         updateDoc(docRef2, {pago:true})
+        await getDoc(docRef2).then((snapshot)=>{
+          setPag(snapshot.data().pago)
+        setGatilho(current=>!current)
+        })
+        
+      })
   }
 
   const reset=()=>{
@@ -45,6 +57,10 @@ export default function Mensalidade({navigation}) {
     }
     console.log(contrato)
         console.log(dado.motorista)
+  }
+
+  if(!dado){
+    return null
   }
   
   if(contrato==false){
@@ -96,20 +112,34 @@ export default function Mensalidade({navigation}) {
           </View>
       </View>
       <View style={styles.fundoTab}>
-        <View style={{paddingVertical:'10%'}}>
-          <View style={{flexDirection:'row', alignItems:'center', paddingBottom: dado.pago? '10%':0}}>
-            <View style={{height:55, width:2, backgroundColor:'black', borderRadius:50}}/>
+
+        {/* <View style={{flexDirection:'row', paddingLeft:-10, paddingTop:30, paddingBottom: dado.pago? '10%':0}}>
+          <View style={[styles.viewMae, {height:45}]}/>
+          <View style={{flexDirection:'column', marginLeft:'5%'}}>
+              <Text style={styles.viewFilha}>R${dado.mensalidade}</Text>
+              {dado.data>=dia?(
+                  <Text style={styles.infos}>Vence dia {dado.data}</Text>
+              ):(
+                  <Text style={styles.infos}>Venceu dia {dado.data}</Text>
+              )}
+            </View>
+        </View> */}
+
+        <View style={{paddingVertical:'13%'}}>
+          <View style={{flexDirection:'row', alignItems:'center', paddingBottom: pag? '10%':0}}>
+            <View style={{height:78, width:2, backgroundColor:'black', borderRadius:50}}/>
               <View style={{flexDirection:'column', marginLeft:'5%'}}>
-                <Text style={{fontSize:18, fontWeight:'bold'}}>R${dado.mensalidade}</Text>
+                <Text style={styles.viewFilha}>Valor da mensalidade</Text>
+                <Text style={styles.infos}>R${dado.mensalidade}</Text>
                 {dado.data>=dia?(
                     <Text style={styles.infos}>Vence dia {dado.data}</Text>
                 ):(
                     <Text style={styles.infos}>Venceu dia {dado.data}</Text>
                 )}
-                
               </View>
           </View>
-          {dado.pago? null:(
+          
+          {pag? null:(
             <View style={styles.viewBotao}>
             <TouchableOpacity style={styles.botaoDefPago} onPress={()=>pago()}>
               <Image source={require('../../../../assets/gradient.png')} style={styles.gradient}/>
@@ -120,8 +150,8 @@ export default function Mensalidade({navigation}) {
           <View style={{flexDirection:'row', alignItems:'center'}}>
             <View style={{height:55, width:2, backgroundColor:'black', borderRadius:50}}/>
             <View style={{flexDirection:'column', marginLeft:'5%'}}>
-              <Text style={{fontSize:18, fontWeight:'bold'}}>Próximo pagamento</Text>
-              <Text style={styles.infos}>Dia {dado.data} de {mes}</Text>
+              <Text style={styles.viewFilha}>Data do próximo pagamento</Text>
+              <Text style={styles.infos}>{dado.data} de {mes}</Text>
             </View>
           </View>
         </View>

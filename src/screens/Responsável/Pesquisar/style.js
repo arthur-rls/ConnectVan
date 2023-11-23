@@ -1,7 +1,5 @@
 import {StyleSheet} from 'react-native'
 
-
-
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -24,19 +22,27 @@ export default StyleSheet.create({
     fontFamily:'AileronR'
   },
   lupa:{
-    marginRight:10
+    marginRight:'35%'
   },
   todos:{
     fontSize:18,
     marginTop:'5%',
     marginBottom:'3%',
-    fontFamily:'AileronH'
+    fontFamily:'AileronH',
+    alignSelf:'center'
+  },
+  mensagem:{
+    fontSize:18, 
+    fontFamily:'AileronH', 
+    color:'gray', 
+    textAlign:'center', 
+    marginBottom:2
   },
   fundoTab:{
     flex:1,
     backgroundColor: '#fff',
     width:'100%',
-    marginTop:'10%',
+    marginTop:'8%',
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
   },

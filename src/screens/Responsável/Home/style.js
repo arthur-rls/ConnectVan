@@ -69,8 +69,6 @@ export default StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 20,
-    marginTop:'90%'
   },
   viewBotaoCalendario:{
     justifyContent:'center',
@@ -78,9 +76,22 @@ export default StyleSheet.create({
     flexDirection:'row', 
     gap:12,
   },
+  viewBotaoContratar:{
+    justifyContent:'center',
+    marginTop:'5%',
+    flexDirection:'row', 
+    gap:12,
+  },
+  viewBotao:{
+    position:'absolute',
+    width:'100%',
+    height:'100%',
+    justifyContent:'flex-end',
+    gap:20
+  },
   botaoAdd:{
     backgroundColor:'#FFBF00',
-    borderRadius:25,
+    borderRadius:35,
     width:123,
     height:45,
     alignItems:'center',
@@ -93,6 +104,14 @@ export default StyleSheet.create({
     width:145,
     height:45, 
     borderRadius:35,
+    alignItems:'center', 
+    justifyContent:'center',
+  },
+  botaoContratar:{
+    backgroundColor:'#FFBF00', 
+    borderRadius:30, 
+    width:145,
+    height:45, 
     alignItems:'center', 
     justifyContent:'center',
   },
@@ -159,11 +178,23 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems:'center',
   },
+  gradientPagNPag:{
+    width:'100%', 
+    height:'100%', 
+    alignSelf: 'center', 
+    borderRadius:12
+  },
   gradient:{
     width:'100%', 
     height:'100%', 
     alignSelf: 'center', 
     borderRadius:35
+  },
+  gradientContratar:{
+    width:'100%', 
+    height:'100%', 
+    alignSelf: 'center', 
+    borderRadius:30
   },
   gradientCalendario:{
     width:'100%', 
@@ -177,6 +208,5 @@ export default StyleSheet.create({
     resizeMode: 'stretch', 
     borderRadius:100, 
     marginRight:10,
-    marginTop:-5
   },
 });

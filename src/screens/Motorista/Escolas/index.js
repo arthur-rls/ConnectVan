@@ -33,7 +33,7 @@ export default function EscolasMotorista ({route, navigation}) {
       </View>
 
       <View style={styles.fundoTab}>
-        {escolas?(
+        {escolas.length != 0 && escolas?(
           <View style={{width:'100%', alignItems:'center'}}>
             <Text style={{fontSize:18, fontFamily:'AileronH', marginVertical:'5%'}}>
               TODAS ({escolas.length})
@@ -51,9 +51,12 @@ export default function EscolasMotorista ({route, navigation}) {
             })}
           </View>
         ):(
-          <Text style={{fontSize:18, fontFamily:'AileronH', marginVertical:'5%'}}>
-              TODAS (0)
-            </Text>
+          <View style={{justifyContent:'center', alignItems:'center',}}>
+            
+              <Text style={[styles.mensagem, {marginVertical:'80%'}]}>Nenhuma escola foi</Text>
+              <Text style={styles.mensagem}>adicionada até o momento.</Text>
+              <Text style={styles.mensagem}>Adicione agora!</Text>
+          </View>
         )}
         
         <View style={styles.viewBotao}>

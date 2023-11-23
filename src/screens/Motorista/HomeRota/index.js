@@ -21,6 +21,7 @@ export default function MHomeRota ({navigation}) {
     const [longi, setLongi] = useState('')
     const [escola, setEscola] = useState([])
     const [faltantes, setFaltantes] = useState([])
+    const [modalVisible2, setModalVisible2] = useState(false)
     const arr = []
     const arr2 = []
     const arr3 = []
@@ -45,11 +46,17 @@ export default function MHomeRota ({navigation}) {
     },[periodoValue])
 
     const f =async()=>{
-      const qu = query(collectionGroup(db, 'responsavel'), where('faltar','array-contains', data))
+      const qu = query(collectionGroup(db, 'responsaveis'), where('faltar','array-contains', data))
       const queryy = await getDocs(qu)
+      const a = []
       queryy.forEach((aluno) => {
-        setFaltantes(aluno.data().filho)
+        const f = aluno.data().filho
+        f.forEach((doc)=>{
+          a.push(doc)
+        })
       })
+      setFaltantes(a)
+      
     }
     async function peri(){
         setArray()
@@ -58,7 +65,7 @@ export default function MHomeRota ({navigation}) {
             if(aluno){
               const dado = aluno.data()
               onAuthStateChanged(auth, async(user)=>{
-                await getDoc(doc(db, 'motorista', user.uid, 'responsavel', dado.responsavel)).then((item)=>{
+                await getDoc(doc(db, 'motorista', user.uid, 'responsaveis', dado.responsavel)).then((item)=>{
                   const dado2 = item.data()
                   if(!dado2.faltar){
                     arr.push(dado)
@@ -101,7 +108,6 @@ export default function MHomeRota ({navigation}) {
               })
               }
               else{
-                console.log('não tem')
               }
         })
     }
@@ -164,27 +170,24 @@ export default function MHomeRota ({navigation}) {
         }
 
         const Item2 = ({item}) => (
-          <View style={{flexDirection:'row', marginTop: '8%', paddingHorizontal:30}}>
+          <View style={{flexDirection:'row', marginTop: '8%', paddingHorizontal:10, justifyContent:'center'}}>
               <View style={styles.viewMae}/>
               <View style={{alignItems:'center'}}>
                 <View style={{flexDirection:'column', marginLeft:'5%'}}>
-                    <Text style={styles.viewFilha}>{item}</Text>
+                  <Text style={styles.viewFilha}>{item}</Text>
                 </View>
               </View>
           </View> 
         );
         
-        
-          const renderItem2 = ({item}) => {
-        
-            return (
-              <Item2
-                item={item}
-              />
-            );
-          }
-
-
+        const renderItem2 = ({item}) => {
+      
+          return (
+            <Item2
+              item={item}
+            />
+          );
+        }
 
     return (
         <View style={styles.container}>
@@ -195,28 +198,57 @@ export default function MHomeRota ({navigation}) {
             onRequestClose={() => {
             setModalVisible(!modalVisible);
             }}>
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <View style={{position:'absolute', padding:10}}>
-                            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                                <Feather name="x" size={24} color="black" />
-                            </TouchableOpacity>
-                        </View>
-                        <Text style={{fontFamily:'AileronR', fontSize: 16, marginVertical:'5%'}}>Após iniciar a rota, copie e cole abaixo o compartilhamento de trajeto e envie ao responsável.</Text>
-                        <TextInput value={rota} onChangeText={(value)=>setRota(value)} style={styles.input}/>
-                        <View style={styles.viewBotao2}>
-                          <TouchableOpacity style={[styles.botaoAdd, {backgroundColor:'gray'}]} onPress={()=>iniciar()}>
-                            <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient} />
-                            <Text style={{fontSize:16, position:'absolute', fontFamily:'AileronH'}}>Abrir maps</Text>
-                          </TouchableOpacity>
-                          <TouchableOpacity style={styles.botaoAdd} onPress={()=>enviar()}>
-                            <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
-                            <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Enviar rota</Text>
-                          </TouchableOpacity>
-                        </View>
-                    </View>
+
+            <View style={styles.centeredView}>
+              <View style={styles.modalViewMaps}>
+                <View style={{position:'absolute', padding:5}}>
+                    <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                        <Feather name="x" size={24} color="black" />
+                    </TouchableOpacity>
                 </View>
+                <Text style={{fontFamily:'AileronR', fontSize: 16, marginVertical:'5%'}}>Após iniciar a rota, copie e cole abaixo o compartilhamento de trajeto e envie ao responsável.</Text>
+                <TextInput value={rota} onChangeText={(value)=>setRota(value)} style={styles.input}/>
+                <View style={styles.viewBotao2}>
+                  <TouchableOpacity style={[styles.botaoAdd, {backgroundColor:'gray'}]} onPress={()=>iniciar()}>
+                    <Image source={require('../../../../assets/gradient2.png')} style={styles.gradient} />
+                    <Text style={{fontSize:16, position:'absolute', fontFamily:'AileronH'}}>Abrir maps</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.botaoAdd} onPress={()=>enviar()}>
+                    <Image source={require('../../../../assets/gradient.png')} style={styles.gradient} />
+                    <Text style={{fontSize:16, fontFamily:'AileronH', position:'absolute'}}>Enviar rota</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
+          </Modal>
+
+            <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible2}
+            onRequestClose={() => {
+            setModalVisible(!modalVisible2);
+            }}>
+              <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                  <View style={{position:'absolute', padding:10}}>
+                    <TouchableOpacity onPress={() => setModalVisible2(false)}>
+                        <Feather name="x" size={24} color="black" />
+                    </TouchableOpacity>
+                  </View>
+                  {faltantes?(
+                    <View style={{zIndex:1}}>
+                      <Text style={styles.faltantesTexto}>Faltantes do dia</Text>
+                      <FlatList
+                        data={faltantes}
+                        renderItem={renderItem2}
+                      />
+                    </View>
+                  ):null}
+                </View>
+              </View> 
             </Modal>
+
             <Image source={require('../../../../assets/gradient.png')} style={{width:'100%', height:'100%', position:'absolute'}}/>
             <View style={{ marginTop:'13%', justifyContent:'center'}}>
                 <TouchableOpacity onPress={()=>navigation.navigate('Home')} style={{flex:1,position:'absolute'}}>
@@ -230,6 +262,7 @@ export default function MHomeRota ({navigation}) {
           <View style={styles.fundoTab}>
             
             <View style={styles.accordion}>
+                <Text style={{fontSize:16, fontFamily:'AileronR', marginBottom:5, marginLeft:3}}>Selecione um período!</Text>
                 <DropDownPicker
                 style={styles.dropdown}
                 containerStyle={styles.containerStyle}
@@ -250,43 +283,33 @@ export default function MHomeRota ({navigation}) {
                 data={array}
                 renderItem={renderItem}
             />
-            {faltantes.length!=0?(
-              <View style={{borderWidth:0.5, borderRadius:20, padding:20}}>
-                <Text style={{fontSize:20}}>Faltantes do dia</Text>
-              <FlatList
-                data={faltantes}
-                renderItem={renderItem2}
-              />
-            </View>
-            ):null}
-            
 
-            
-              
-            
-              {/* {escola.map((item)=>{
-                <View style={{flexDirection:'row'}}>
-                  <View style={styles.viewMae}/>
-                  <FontAwesome name="user-circle-o" size={24} color="black" />
-                  <View style={{flexDirection:'column'}}>
-                      <Text style={styles.viewFilha}>{item.escola}</Text>
-                  </View>
-                </View>
-              })} */}
-
-              
-            </ScrollView>
-            {array?(
-              <View style={{justifyContent:'flex-end', alignItems:'center',}}>
-              <View style={styles.viewBotao}>
-                <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.botaoMaps}>
-                  <Image source={require('../../../../assets/gradient.png')} style={styles.gradientBotao} />
-                      <Ionicons name="ios-location-sharp" size={24} color="black" />
-                      <Text style={{fontSize:17, fontWeight:'bold', marginLeft:'5%'}}>Abrir no Maps</Text>
-                  </TouchableOpacity>
+            {!array? (
+              <View style={{alignItems:'center', justifyContent:'center', paddingVertical:'40%'}}>
+                <Text style={{fontSize:18, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>Oops! Não há</Text>
+                <Text style={{fontSize:18, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>alunos no período</Text>
+                <Text style={{fontSize:18, fontFamily:'AileronH', color:'gray', textAlign:'center'}}>selecionado.</Text>
               </View>
-            </View>
             ):null}
+            </ScrollView>
+            <View style={styles.viewBotao}>
+              
+            {array?(
+              <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.botaoMaps}>
+                <Image source={require('../../../../assets/gradient.png')} style={styles.gradientBotao} />
+                    <Ionicons name="ios-location-sharp" size={24} color="black" />
+                    <Text style={{fontSize:17, fontWeight:'bold', marginLeft:'5%'}}>Abrir no Maps</Text>
+                </TouchableOpacity>
+            ):null}
+
+            
+            <TouchableOpacity style={styles.botaoAdd2} onPress={()=>setModalVisible2(true)}>
+                <Image source={require('../../../../assets/gradient.png')} style={styles.gradientBotao}/>
+                <Text style={{ fontSize: 17, fontFamily:'AileronH', position:'absolute' }}>
+                  Faltantes do dia
+                </Text>
+              </TouchableOpacity> 
+            </View>
     
           </View>
         </View>

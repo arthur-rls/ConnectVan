@@ -9,8 +9,6 @@ import {  doc, getDoc, collectionGroup, query, where, getDocs, updateDoc, arrayR
 
 export default function EditEscola({navigation}) {
     const [cidades, setCidades]=useState([]);
-    const [gatilho, setGatilho] = useState(true)
-    const [gatilho2, setGatilho2] = useState(true)
     const [cidade, setCidade] = useState('')
     useEffect(()=>{
         onAuthStateChanged(auth, async (user) => {
@@ -21,29 +19,28 @@ export default function EditEscola({navigation}) {
               setCidades(snapshot.data().cidade)
             }
           });
-    },[gatilho, gatilho2])
+    },[cidades])
 
     const excluir=(item)=>{
-        setGatilho(current=>!current)
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const docRef = doc(db, 'motorista', user.uid)
                 updateDoc(docRef, {cidade: arrayRemove(item)})
+                const snapshot = await getDoc(docRef)
+                setCidades(snapshot.data().cidade)
             }
         });
-        setGatilho(current=>!current)
     }
     const adicionar=()=>{
-        setGatilho(current=>!current)
         setCidade('')
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 const docRef = doc(db, 'motorista', user.uid)
                 updateDoc(docRef, {cidade: arrayUnion(cidade)})
+                const snapshot = await getDoc(docRef)
+                setCidades(snapshot.data().cidade)
             }
         });
-        setGatilho(current=>!current)
-        setGatilho2(current=>!current)
     }
 
   return (

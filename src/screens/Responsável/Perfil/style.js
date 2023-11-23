@@ -1,7 +1,5 @@
 import {StyleSheet} from 'react-native'
 
-
-
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -10,7 +8,8 @@ export default StyleSheet.create({
     width:'100%'
   },
   gradient:{
-    width:'100%', height:'100%', alignSelf: 'center', borderRadius:50
+    width:'100%', height:'100%', alignSelf: 'center', borderRadius:50,
+    position:'absolute'
   },
   fundoTab:{
     flex:1,
@@ -45,9 +44,8 @@ export default StyleSheet.create({
   },
   viewBotao:{
     justifyContent:'center',
-    marginTop:'2%',
     flexDirection:'row', 
-    marginBottom:'8%',
+    marginBottom:'4%',
     gap:12, 
   },
   viewBotaoModal:{
@@ -56,7 +54,6 @@ export default StyleSheet.create({
     gap:12, 
   },
   botaoAdd:{
-    backgroundColor:'#FFBF00',
     borderRadius:25,
     width:135,
     height:45,
@@ -64,7 +61,6 @@ export default StyleSheet.create({
     justifyContent:'center'
   },
   botaoModal:{
-    backgroundColor:'#FFBF00',
     borderRadius:25,
     width:138,
     height:45,
@@ -73,7 +69,6 @@ export default StyleSheet.create({
     justifyContent:'center'
   },
   botaoSair:{
-    backgroundColor:'#FFBF00',
     borderRadius:25,
     width:'35%',
     height:45,
@@ -81,8 +76,25 @@ export default StyleSheet.create({
     justifyContent:'center',
     flexDirection:'row'
   },
+  senhaErrOuIncorr:{
+    position:'absolute', 
+    backgroundColor:'green', 
+    padding:10,
+    marginHorizontal:'15%', 
+    flexDirection:'row', 
+    borderRadius:13,
+    alignItems:'center',
+    justifyContent:'center',
+    marginVertical:'5%',
+    zIndex:2
+  },
+  textoSolici:{
+    fontFamily:'AileronR', 
+    fontSize:16, 
+    color:'white', 
+    marginLeft:5
+  },
   botaoContato:{
-    backgroundColor:'#FFBF00',
     borderRadius:25,
     width:'72%',
     height:45,

@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     flexDirection:'row', 
     justifyContent:'space-between', 
     padding:25,
-    marginBottom:'10%'
+    marginBottom:-20
   },
   nome:{ 
     marginRight:'5%', 
