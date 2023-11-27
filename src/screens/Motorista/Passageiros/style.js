@@ -11,6 +11,7 @@ container: {
     backgroundColor: '#fff',
     width:'100%',
     marginTop:'5%',
+    height:'100%',
     borderRadius: 40,
     borderBottomEndRadius:0,
     borderBottomStartRadius:0,
