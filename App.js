@@ -2,7 +2,6 @@ import {NavigationContainer} from '@react-navigation/native'
 import Stack from './src/screens/index'
 import { useFonts } from 'expo-font';
 import 'react-native-gesture-handler';
-import { View, Text } from 'react-native';
 import {useEffect, useRef, useState} from 'react';
 import { View, StyleSheet, Button } from 'react-native';
 import { Video, ResizeMode } from 'expo-av';
