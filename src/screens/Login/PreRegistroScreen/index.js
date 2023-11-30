@@ -3,8 +3,6 @@ import {View, Text, Image, TouchableOpacity,} from 'react-native'
 import styles from './style'
 
 
-// CUUU PINTO BUCETA
-
 export default function PreReg ({navigation}) {
   return(
     <View style={{flex:1, backgroundColor: 'white'}}>
